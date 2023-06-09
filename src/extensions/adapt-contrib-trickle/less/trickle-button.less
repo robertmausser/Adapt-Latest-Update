@@ -8,6 +8,7 @@
   }
 
   &__btn {
+    position: relative;
     display: block;
     margin: auto;
   }
@@ -29,12 +30,19 @@
     right: 0;
   }
 
-  // If full width config is enabled, button is fixed to the bottm of the screen
+  // If full width config is enabled, button is fixed to the bottom of the screen
   // --------------------------------------------------
   &.is-full-width &__inner {
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
+
+    html.is-nav-top & {
+      bottom: 0;
+    }
+
+    html.is-nav-bottom & {
+      bottom: var(--adapt-navigation-height);
+    }
   }
 }

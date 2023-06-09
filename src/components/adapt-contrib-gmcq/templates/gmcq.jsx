@@ -1,6 +1,8 @@
 import Adapt from 'core/js/adapt';
+import a11y from 'core/js/a11y';
+import device from 'core/js/device';
 import React from 'react';
-import { templates, classes, html, compile } from 'core/js/reactHelpers';
+import { templates, classes, compile } from 'core/js/reactHelpers';
 
 export default function Gmcq(props) {
   const ariaLabels = Adapt.course.get('_globals')._accessibility._ariaLabels;
@@ -11,21 +13,20 @@ export default function Gmcq(props) {
     _isInteractionComplete,
     _isCorrect,
     _isCorrectAnswerShown,
-    _canShowMarking,
+    _shouldShowMarking,
     _isRadio,
     _columns,
     displayTitle,
     body,
     instruction,
+    ariaQuestion,
     onKeyPress,
     onItemSelect,
     onItemFocus,
-    onItemBlur,
-    isInteractive
+    onItemBlur
   } = props;
 
-  const screenSize = Adapt.device.screenSize;
-  const shouldShowMarking = !isInteractive() && _canShowMarking;
+  const hasColumnLayout = device.isScreenSizeMin('medium');
 
   return (
     <div className='component__inner gmcq__inner'>
@@ -39,10 +40,11 @@ export default function Gmcq(props) {
           !_isEnabled && 'is-disabled',
           _isInteractionComplete && 'is-complete is-submitted show-user-answer',
           _isCorrect && 'is-correct',
-          _columns && screenSize === 'large' && 'has-column-layout'
+          _columns && hasColumnLayout && 'has-column-layout'
         ])}
         role={_isRadio ? 'radiogroup' : 'group'}
-        aria-labelledby={(displayTitle || body || instruction) && `${_id}-header`}
+        aria-labelledby={ariaQuestion ? null : (displayTitle || body || instruction) && `${_id}-header`}
+        aria-label={ariaQuestion || null}
       >
 
         {props._items.map(({ text, _index, _isActive, _shouldBeSelected, _graphic }, index) =>
@@ -50,11 +52,10 @@ export default function Gmcq(props) {
           <div
             className={classes([
               `gmcq-item item-${index}`,
-              `item-${index}-audio`,
-              (shouldShowMarking && _shouldBeSelected) ? 'is-correct' : null,
-              (shouldShowMarking && !_shouldBeSelected) ? 'is-incorrect' : null
+              (_shouldShowMarking && _shouldBeSelected) ? 'is-correct' : null,
+              (_shouldShowMarking && !_shouldBeSelected) ? 'is-incorrect' : null
             ])}
-            style={(_columns && screenSize === 'large') ?
+            style={(_columns && hasColumnLayout) ?
               { width: `${100 / _columns}%` } :
               null}
             key={_index}
@@ -67,12 +68,12 @@ export default function Gmcq(props) {
               type={_isRadio ? 'radio' : 'checkbox'}
               disabled={!_isEnabled}
               checked={_isActive}
-              aria-label={!shouldShowMarking ?
-                `${Adapt.a11y.normalize(text)} ${_graphic?.alt || ''}` :
-                `${_shouldBeSelected ? ariaLabels.correct : ariaLabels.incorrect}, ${_isActive ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${Adapt.a11y.normalize(text)} ${_graphic?.alt || ''}`}
+              aria-label={!_shouldShowMarking ?
+                `${a11y.normalize(text)} ${_graphic?.alt || ''}` :
+                `${_shouldBeSelected ? ariaLabels.correct : ariaLabels.incorrect}, ${_isActive ? ariaLabels.selectedAnswer : ariaLabels.unselectedAnswer}. ${a11y.normalize(text)} ${_graphic?.alt || ''}`}
               data-adapt-index={_index}
               onKeyPress={onKeyPress}
-              onClick={onItemSelect}
+              onChange={onItemSelect}
               onFocus={onItemFocus}
               onBlur={onItemBlur}
             />
@@ -81,23 +82,24 @@ export default function Gmcq(props) {
               className={classes([
                 'gmcq-item__label',
                 'js-item-label',
+                'u-no-select',
                 !_isEnabled && 'is-disabled',
                 (_isCorrectAnswerShown ? _shouldBeSelected : _isActive) && 'is-selected'
               ])}
               aria-hidden={true}
               htmlFor={`${_id}-${index}-input`}
-              data-adapt-index={_index} 
+              data-adapt-index={_index}
             >
-            <div className={classes(["item-audio-container",`${_id}-${_index}`])} data-audio-id={`${_id}-${_index}`}></div>
+
               <templates.image {..._graphic}
                 classNamePrefixes={['gmcq-item']}
-                attributionClassNamePrefixes={['component', 'gmcq']}                
+                attributionClassNamePrefixes={['component', 'gmcq']}
               />
 
-              <div className='gmcq-item__option'>
+              <span className='gmcq-item__option'>
 
-                <div className='gmcq-item__state'>
-                  <div
+                <span className='gmcq-item__state'>
+                  <span
                     className={classes([
                       'gmcq-item__icon',
                       'gmcq-item__answer-icon',
@@ -105,28 +107,27 @@ export default function Gmcq(props) {
                     ])}
                   >
 
-                    <div className='icon'></div>
+                    <span className='icon'></span>
 
-                  </div>
+                  </span>
 
-                  <div className='gmcq-item__icon gmcq-item__correct-icon'>
-                    <div className='icon'></div>
-                  </div>
+                  <span className='gmcq-item__icon gmcq-item__correct-icon'>
+                    <span className='icon'></span>
+                  </span>
 
-                  <div className='gmcq-item__icon gmcq-item__incorrect-icon'>
-                    <div className='icon'></div>
-                  </div>
-                </div>
+                  <span className='gmcq-item__icon gmcq-item__incorrect-icon'>
+                    <span className='icon'></span>
+                  </span>
+                </span>
 
                 {text &&
-                <div className='gmcq-item__text'>
-                  <div className='gmcq-item__text-inner'>
-                    {html(compile(text))}
-                  </div>
-                </div>
+                <span className='gmcq-item__text'>
+                  <span className='gmcq-item__text-inner' dangerouslySetInnerHTML={{ __html: compile(text) }}>
+                  </span>
+                </span>
                 }
 
-              </div>
+              </span>
 
             </label>
 

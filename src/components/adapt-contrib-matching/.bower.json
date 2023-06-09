@@ -1,7 +1,7 @@
 {
   "name": "adapt-contrib-matching",
-  "version": "6.0.1",
-  "framework": ">=5.18.0",
+  "version": "7.3.1",
+  "framework": ">=5.19.1",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-matching",
   "bugs": "https://github.com/adaptlearning/adapt-contrib-matching/issues",
   "component": "matching",
@@ -14,14 +14,54 @@
     "adapt-component"
   ],
   "license": "GPL-3.0",
-  "_release": "6.0.1",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "conventional-changelog-eslint": "^3.0.9",
+    "semantic-release": "^21.0.1"
+  },
+  "scripts": {
+    "postversion": "cp package.json bower.json"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "eslint"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "eslint"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "bower.json"
+          ],
+          "message": "Chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "_release": "7.3.1",
   "_resolution": {
     "type": "version",
-    "tag": "v6.0.1",
-    "commit": "620db5e2e2837c96522225ffea5116023a47dae3"
+    "tag": "v7.3.1",
+    "commit": "28c92d6ba726490da4e319db8ba7ad88e1d7d990"
   },
   "_source": "https://github.com/adaptlearning/adapt-contrib-matching.git",
-  "_target": "6.0.1",
-  "_originalSource": "adapt-contrib-matching",
-  "_direct": true
+  "_target": "7.3.1",
+  "_originalSource": "adapt-contrib-matching"
 }

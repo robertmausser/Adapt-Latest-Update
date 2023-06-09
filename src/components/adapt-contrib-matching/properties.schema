@@ -42,10 +42,19 @@
         "instruction": {
             "type": "string",
             "required": false,
-            "default": "",
+            "default": "Choose an option from each dropdown list and select Submit.",
             "inputType": "Text",
             "validators": [],
             "help": "This is the instruction text",
+            "translatable": true
+        },
+        "ariaQuestion": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "inputType": "Text",
+            "validators": [],
+            "help": "This will be read out by screen readers instead of reading the 'Display title', 'Body' & 'Instruction' fields when focusing on the options. To be clear and concise, ensure the text encompasses only the question associated.",
             "translatable": true
         },
         "_attempts": {
@@ -104,6 +113,14 @@
             "required": false,
             "default": false,
             "title": "Randomise answers",
+            "inputType": "Checkbox",
+            "validators": []
+        },
+        "_isRandomQuestionOrder": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "title": "Randomise questions",
             "inputType": "Checkbox",
             "validators": []
         },

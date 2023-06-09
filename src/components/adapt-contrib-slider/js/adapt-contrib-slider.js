@@ -1,8 +1,8 @@
-import Adapt from 'core/js/adapt';
-import SliderView from './sliderView';
-import SliderModel from './sliderModel';
+import components from 'core/js/components';
+import SliderView from './SliderView';
+import SliderModel from './SliderModel';
 
-export default Adapt.register('slider', {
+export default components.register('slider', {
   view: SliderView,
   model: SliderModel
 });

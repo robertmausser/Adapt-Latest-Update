@@ -77,8 +77,7 @@
             "isVideo": true,
             "enableKeyboard": true,
             "pauseOtherPlayers": true,
-            "tracksText": "Show caption",
-            "tracksHideText": "Hide caption",
+            "tracksText": "mejs.i18n.t('Captions/Subtitles')",
             "hideCaptionsButtonWhenEmpty": true,
             "toggleCaptionsButtonWhenOnlyOne": false,
             "slidesSelector": ""

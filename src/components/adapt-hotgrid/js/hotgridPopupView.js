@@ -1,167 +1,172 @@
-define([
-  'core/js/adapt'
-], function (Adapt) {
-  'use strict';
+import Adapt from 'core/js/adapt';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { templates, compile } from 'core/js/reactHelpers';
 
-  var HotgridPopupView = Backbone.View.extend({
+class HotgridPopupView extends Backbone.View {
 
-    className: 'hotgrid-popup',
+  className() {
+    return 'hotgrid-popup';
+  }
 
-    events: {
-      'click .js-hotgrid-popup-close': 'closePopup',
-      'click .js-hotgrid-control-click': 'onControlClick'
-    },
+  initialize() {
+    this.setupEventListeners();
+  }
 
-    initialize(options) {
-      // Debounce required as a second (bad) click event is dispatched on iOS causing a jump of two items.
-      this.onControlClick = _.debounce(this.onControlClick.bind(this), 100);
-      this.listenToOnce(Adapt, 'notify:opened', this.onOpened);
-      this.itemIndex = options.itemIndex;
-      this.listenTo(this.model.get('_children'), {
-        'change:_isActive': this.onItemsActiveChange,
-        'change:_isVisited': this.onItemsVisitedChange
-      });
-      this.listenTo(Adapt, 'componentItems:audioEnded', function (audioHTMLId) {
-        if (!this.currentActiveAudioID || this.currentActiveAudioID != audioHTMLId) return;
+  setupEventListeners() {
+    this.listenToOnce(Adapt, 'notify:opened', this.onNotifyOpened);
 
-        this.$(audioHTMLId).removeClass(Adapt.audio.iconPause);
-        this.$(audioHTMLId).addClass(Adapt.audio.iconPlay);
-        this.$(audioHTMLId).removeClass('playing');
+    this.listenTo(this.model.getChildren(), {
+      'change:_isActive': this.onItemsActiveChange
+    });
 
-        this.$(audioHTMLId).attr('aria-label', $.a11y_normalize(Adapt.audio.playAriaLabel));
-      })
-      this.render();
-    },
+    this.model.set('onCloseClick', this.onCloseClick.bind(this));
 
-    onOpened: function () {
-      var $popupView = this.$('.hotgrid-popup__item');
-      this.applyNavigationClasses(this.model.getActiveItem().get('_index'));
-      this.updatePageCount();
-      this.handleTabs();
-    },
+    // Debounce required as a second (bad) click event is dispatched on iOS causing a jump of two items.
+    // this.onControlClick = _.debounce(this.onControlClick.bind(this), 100);
+    this.model.set('onControlClick', this.onControlClick.bind(this));
+  }
 
-    applyNavigationClasses: function (index) {
-      var itemCount = this.model.get('_items').length;
-      var canCycleThroughPagination = this.model.get('_canCycleThroughPagination');
+  onNotifyOpened() {
+    this.setupNavigation();
+    this.render();
+  }
 
-      var shouldEnableBack = index > 0 || canCycleThroughPagination;
-      var shouldEnableNext = index < itemCount - 1 || canCycleThroughPagination;
-      var $controls = this.$('.hotgrid-popup__controls');
+  setupNavigation() {
+    this.manageBackNextStates();
+    this.updatePageCount();
+    this.setupBackNextLabels();
+  }
 
-      this.$('hotgrid-popup__nav')
-        .toggleClass('first', !shouldEnableBack)
-        .toggleClass('last', !shouldEnableNext);
+  /**
+   * Controls whether the back and next buttons should be enabled
+   *
+   * @param {Number} [index] Item's index value. Defaults to the currently active item.
+   */
+  manageBackNextStates(index = this.model.getActiveItem().get('_index')) {
+    const totalItems = this.model.getChildren().length;
+    const canCycleThroughPagination = this.model.get('_canCycleThroughPagination');
 
-      Adapt.a11y.toggleAccessibleEnabled($controls.filter('.back'), shouldEnableBack);
-      Adapt.a11y.toggleAccessibleEnabled($controls.filter('.next'), shouldEnableNext);
-    },
+    const shouldEnableBack = index > 0 || canCycleThroughPagination;
+    const shouldEnableNext = index < totalItems - 1 || canCycleThroughPagination;
 
-    updatePageCount: function () {
-      var template = Adapt.course.get('_globals')._components._hotgrid.popupPagination || '{{itemNumber}} / {{totalItems}}';
-      var labelText = Handlebars.compile(template || '')({
-        itemNumber: this.model.getActiveItem().get('_index') + 1,
-        totalItems: this.model.get('_items').length
-      });
-      this.$('.hotgrid-popup__count').html(labelText);
-    },
+    this.model.set('shouldEnableBack', shouldEnableBack);
+    this.model.set('shouldEnableNext', shouldEnableNext);
+  }
 
-    handleTabs: function () {
-      Adapt.a11y.toggleHidden(this.$('.hotgrid-popup__item:not(.is-active)'), true);
-      Adapt.a11y.toggleHidden(this.$('.hotgrid-popup__item.is-active'), false);
-    },
+  /**
+   * Construct back and next aria labels
+   *
+   * @param {Number} [index] Item's index value.
+   */
+  setupBackNextLabels(index = this.model.getActiveItem().get('_index')) {
+    const totalItems = this.model.getChildren().length;
+    const canCycleThroughPagination = this.model.get('_canCycleThroughPagination');
 
-    onItemsActiveChange: function (item, _isActive) {
-      if (!_isActive) return;
+    const isAtStart = index === 0;
+    const isAtEnd = index === totalItems - 1;
 
-      var index = item.get('_index');
-      this.updatePageCount();
-      this.applyItemClasses(index);
-      this.handleTabs();
-      this.handleFocus(index);
-    },
+    const globals = Adapt.course.get('_globals');
+    const hotgridGlobals = globals._components._hotgrid;
 
-    applyItemClasses: function (index) {
-      this.$('.hotgrid-popup__item[data-index="' + index + '"]').addClass('is-active').removeAttr('aria-hidden');
-      this.$('.hotgrid-popup__item[data-index="' + index + '"] .hotgrid-popup__item-title').attr("id", "notify-heading");
-      this.$('.hotgrid-popup__item:not([data-index="' + index + '"])').removeClass('is-active').attr('aria-hidden', 'true');
-      this.$('.hotgrid-popup__item:not([data-index="' + index + '"]) .hotgrid-popup__item-title').removeAttr("id");
-    },
+    let prevTitle = isAtStart ? '' : this.model.getItem(index - 1).get('title');
+    let nextTitle = isAtEnd ? '' : this.model.getItem(index + 1).get('title');
 
-    handleFocus: function (index) {
-      Adapt.a11y.focusFirst(this.$('.hotgrid-popup__inner .is-active'));
-      this.applyNavigationClasses(index);
-    },
+    let backItem = isAtStart ? null : index;
+    let nextItem = isAtEnd ? null : index + 2;
 
-    onItemsVisitedChange: function (item, _isVisited) {
-      if (!_isVisited) return;
-
-      this.$('.hotgrid-popup__item')
-        .filter('[data-index="' + item.get('_index') + '"]')
-        .addClass('is-visited');
-    },
-
-    render: function () {
-      var data = this.model.toJSON();
-      data.view = this;
-      var template = Handlebars.templates['hotgridPopup'];
-      this.$el.html(template(data));
-      _.defer(function () {
-        this.showAudioButton(this.itemIndex);
-      }.bind(this));
-    },
-
-    closePopup: function (event) {
-      Adapt.trigger('notify:close');
-    },
-
-    onControlClick: function (event) {
-      this.$('.item-audio-container').remove();
-      var direction = $(event.currentTarget).hasClass('back') ? 'back' : 'next';
-      var index = this.getNextIndex(direction);
-
-      if (index !== -1) {
-        this.setItemState(index);
+    if (canCycleThroughPagination) {
+      if (isAtStart) {
+        prevTitle = this.model.getItem(totalItems - 1).get('title');
+        backItem = totalItems;
       }
-    },
-
-    getNextIndex: function (direction) {
-      var index = this.model.getActiveItem().get('_index');
-      var lastIndex = this.model.get('_items').length - 1;
-
-      switch (direction) {
-        case 'back':
-          if (index > 0) return --index;
-          if (this.model.get('_canCycleThroughPagination')) return lastIndex;
-          break;
-        case 'next':
-          if (index < lastIndex) return ++index;
-          if (this.model.get('_canCycleThroughPagination')) return 0;
-      }
-      return -1;
-    },
-
-    setItemState: function (index) {
-      this.showAudioButton(index);
-      this.model.getActiveItem().toggleActive();
-
-      var nextItem = this.model.getItem(index);
-      nextItem.toggleActive();
-      nextItem.toggleVisited(true);
-    },
-
-    showAudioButton(audioIndex) {
-      this.currentActiveAudioID = `#${this.model.get('_id')}-${audioIndex}`
-      var hotGridItem = $(_.find(this.$('.hotgrid-popup__item'), function (item) { return $(item).data('index') === audioIndex; }));
-      if (hotGridItem.find('.item-audio-container')) {
-        let clonedAudioItem = $(`.item-audio-container.${this.model.get('_id')}-${audioIndex}`).removeAttr('id').clone(true).data('audio-id', `${this.model.get('_id')}-${audioIndex}`);
-        hotGridItem.append(clonedAudioItem);
-      }
-      if(Adapt.audio.autoPlayGlobal){
-      _.delay(function () { hotGridItem.find(`.audio-toggle`).trigger('click'); }, 1000) ;
+      if (isAtEnd) {
+        nextTitle = this.model.getItem(0).get('title');
+        nextItem = 1;
       }
     }
-  });
 
-  return HotgridPopupView;
+    const backLabel = compile(hotgridGlobals.previous, {
+      _globals: globals,
+      title: prevTitle,
+      itemNumber: backItem,
+      totalItems
+    });
 
-});
+    const nextLabel = compile(hotgridGlobals.next, {
+      _globals: globals,
+      title: nextTitle,
+      itemNumber: nextItem,
+      totalItems
+    });
+
+    this.model.set('backLabel', backLabel);
+    this.model.set('nextLabel', nextLabel);
+  }
+
+  updatePageCount() {
+    const globals = Adapt.course.get('_globals');
+    const pagingTemplate = globals._components._hotgrid.popupPagination;
+    const template = pagingTemplate || '{{itemNumber}} / {{totalItems}}';
+    const itemNumber = this.model.getActiveItem().get('_index') + 1;
+    const totalItems = this.model.getChildren().length;
+    const itemCount = compile(template, { itemNumber, totalItems });
+
+    this.model.set('itemCount', itemCount);
+  }
+
+  onItemsActiveChange(item, _isActive) {
+    if (!_isActive) return;
+
+    const index = item.get('_index');
+
+    this.manageBackNextStates(index);
+    this.updatePageCount();
+    this.render();
+  }
+
+  onCloseClick() {
+    Adapt.trigger('notify:close');
+  }
+
+  onControlClick(e) {
+    const direction = $(e.currentTarget).data('direction');
+    const index = this.getNextIndex(direction);
+
+    if (index !== -1) {
+      this.setItemState(index);
+    }
+  }
+
+  getNextIndex(direction) {
+    let index = this.model.getActiveItem().get('_index');
+    const lastIndex = this.model.getChildren().length - 1;
+
+    switch (direction) {
+      case 'back':
+        if (index > 0) return --index;
+        if (this.model.get('_canCycleThroughPagination')) return lastIndex;
+        break;
+      case 'next':
+        if (index < lastIndex) return ++index;
+        if (this.model.get('_canCycleThroughPagination')) return 0;
+    }
+    return -1;
+  }
+
+  setItemState(index) {
+    this.model.getActiveItem().toggleActive();
+
+    const nextItem = this.model.getItem(index);
+    this.setupBackNextLabels(index);
+    nextItem.toggleActive();
+    nextItem.toggleVisited(true);
+  }
+
+  render() {
+    ReactDOM.render(<templates.hotgridPopup {...this.model.toJSON()} />, this.el);
+  }
+
+};
+
+export default HotgridPopupView;

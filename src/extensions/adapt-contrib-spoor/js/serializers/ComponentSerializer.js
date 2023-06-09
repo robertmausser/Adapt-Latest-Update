@@ -1,5 +1,5 @@
-import Adapt from 'core/js/adapt';
-import log from 'core/js/logging';
+import logging from 'core/js/logging';
+import data from 'core/js/data';
 import SCORMSuspendData from './SCORMSuspendData';
 
 export default class ComponentSerializer extends Backbone.Controller {
@@ -11,10 +11,10 @@ export default class ComponentSerializer extends Backbone.Controller {
 
   async serialize(shouldStoreResponses, shouldStoreAttempts) {
     if (shouldStoreAttempts && !shouldStoreResponses) {
-      log.warnOnce('SPOOR configuration error, cannot use \'_shouldStoreAttempts\' without \'_shouldStoreResponses\'');
+      logging.warnOnce('SPOOR configuration error, cannot use \'_shouldStoreAttempts\' without \'_shouldStoreResponses\'');
     }
     const states = [];
-    Adapt.data.each(model => {
+    data.each(model => {
       if (model.get('_type') !== this.trackingIdType) {
         return;
       }
@@ -23,9 +23,10 @@ export default class ComponentSerializer extends Backbone.Controller {
         return;
       }
       const isContainer = model.hasManagedChildren;
-      const components = isContainer ?
+      let components = isContainer ?
         model.findDescendantModels('component') :
         [model];
+      components = components.filter(component => component.get('_isTrackable') !== false);
       components.forEach((component, index) => {
         if (component.get('_isTrackable') === false) {
           return;
@@ -97,12 +98,12 @@ export default class ComponentSerializer extends Backbone.Controller {
       });
     });
     if (this.shouldCompress) return await SCORMSuspendData.serializeAsync(states);
-    return SCORMSuspendData.serialize(states)
+    return SCORMSuspendData.serialize(states);
   }
 
   deserialize(binary) {
     // Build a table of models and their tracking ids
-    const trackingIdMap = Adapt.data.toArray().reduce((trackingIdMap, model) => {
+    const trackingIdMap = data.toArray().reduce((trackingIdMap, model) => {
       const trackingId = model.get('_trackingId');
       if (typeof trackingId === 'undefined') return trackingIdMap;
       trackingIdMap[trackingId] = model;
@@ -121,12 +122,13 @@ export default class ComponentSerializer extends Backbone.Controller {
         return;
       }
       const isContainer = model.hasManagedChildren;
-      const components = isContainer ?
+      let components = isContainer ?
         model.findDescendantModels('component') :
         [model];
+      components = components.filter(component => component.get('_isTrackable') !== false);
       const component = components[index];
       if (!component) {
-        log.warn(`SPOOR could not restore tracking id: ${trackingId}, index: ${index}`);
+        logging.warn(`SPOOR could not restore tracking id: ${trackingId}, index: ${index}`);
         return;
       }
       if (!shouldStoreResponses) {

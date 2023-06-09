@@ -1,7 +1,7 @@
 {
   "name": "adapt-homeButton",
-  "version": "1.0.2",
-  "framework": ">=5",
+  "version": "1.0.7",
+  "framework": ">=5.19.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/cgkineo/adapt-homeButton.git"
@@ -16,15 +16,56 @@
     "adapt-plugin",
     "adapt-extension"
   ],
-  "license": "GPL-3.0",
   "targetAttribute": "_homeButton",
-  "_release": "1.0.2",
+  "license": "GPL-3.0",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "conventional-changelog-eslint": "^3.0.9",
+    "semantic-release": "^19.0.3"
+  },
+  "scripts": {
+    "postversion": "cp package.json bower.json"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "eslint"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "eslint"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "bower.json"
+          ],
+          "message": "Chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "_release": "1.0.7",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.2",
-    "commit": "2a2fd7b104c17850f15d86cc049c6e731999d92f"
+    "tag": "v1.0.7",
+    "commit": "b3a100c863535e0b0684075381a3fd951654df06"
   },
   "_source": "https://github.com/cgkineo/adapt-homeButton.git",
-  "_target": "1.0.2",
+  "_target": "1.0.7",
   "_originalSource": "adapt-homeButton"
 }

@@ -1,6 +1,10 @@
+@slider-handle-width: 2rem;
+@slider-handle-height: 2rem;
+
+@slider-track-height: .375rem;
+
 .slider {
   // Labels
-  // --------------------------------------------------
   &__label-container {
     display: flex;
     flex-wrap: nowrap;
@@ -8,12 +12,12 @@
   }
 
   // Numbers
-  // --------------------------------------------------
   &__number-container {
     position: relative;
-    min-height: 1rem;
+    min-height: 1.5rem;
     // Indent half the width of the range slider handle either side
-    margin: 0 1rem;
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
 
     .dir-rtl & {
       .transform(rotateY(180deg));
@@ -33,14 +37,14 @@
   }
 
   // Scale
-  // --------------------------------------------------
   &__scale-container {
     position: relative;
     height: 1px;
-    width: calc(~'100% - 2rem');
+    margin-top: @item-margin * 2;
     // Indent half the width of the range slider handle either side
-    margin: 0.5rem 1rem 1.5rem;
-    background-color: blue;
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
+    background-color: @background;
   }
 
   &__scale-notch {
@@ -49,7 +53,7 @@
     height: 10px;
     width: 1px;
     .transform(translateX(-50%));
-    background-color: red;
+    background-color: @background;
   }
 
   &__scale-notch-start {
@@ -61,71 +65,102 @@
   }
 
   // Slider bar
-  // --------------------------------------------------
   &__item {
     position: relative;
+    // Add margin to ensure slider handle does not overlap above / below
+    margin-top: @slider-handle-height * .75;
+    margin-bottom: @slider-handle-height * .75;
   }
 
-  // Class to show whether the users selection is in/correct
-  // --------------------------------------------------
-  &__widget.show-user-answer.is-correct &__number-selection {
-    background-color: @validation-success;
-    color: @validation-success-inverted;
+  &__item-input-track,
+  &__item-input-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: @slider-track-height;
   }
 
-  &__widget.show-user-answer.is-correct .rangeslider__fill {
-    background-color: @validation-success;
+  &__item-input-track {
+    // Reduce width of track by half of slider width either side
+    width: calc(~'100% - @{slider-handle-width}');
+    // Indent half the width of the range slider handle either side
+    margin-left: @slider-handle-width / 2;
+    margin-right: @slider-handle-width / 2;
+    background-color: darken(@background-inverted, 20%);
+
+    .dir-rtl & {
+      .transform(rotateY(180deg));
+    }
   }
 
-  &__widget.show-user-answer.is-incorrect &__number-selection {
-    background-color: @validation-error;
-    color: @validation-error-inverted;
+  &__item-input-fill {
+    background-color: @background;
   }
 
-  &__widget.show-user-answer.is-incorrect .rangeslider__fill {
-    background-color: @validation-error;
+  // Slider bar input
+  &__item input {
+    position: relative;
+    display: block;
+    height: @slider-track-height;
+    width: 100%;
+    appearance: none;
+    background-color: transparent;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+  }
+
+  // Slider input thumb mixin
+  .slider-thumb() {
+    height: @slider-handle-height;
+    width: @slider-handle-width;
+    background-color: @white;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+
+    .is-disabled & {
+      box-shadow: none;
+      background-color: transparent;
+      cursor: default;
+    }
+  }
+
+  // Slider input track mixin
+  .slider-track() {
+    height: @slider-track-height;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  // Handle styling
+  &__item input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    .slider-thumb();
+    appearance: none;
+  }
+
+  &__item input[type=range]::-moz-range-thumb {
+    .slider-thumb();
+  }
+
+  // Track styling
+  &__item input[type=range]::-webkit-slider-runnable-track {
+    .slider-track();
+    appearance: none;
+  }
+
+  &__item input[type=range]::-moz-range-track {
+    .slider-track();
   }
 
   // Class to show the correct answers
-  // --------------------------------------------------
   &__widget.show-correct-answer &__number-selection {
-    .u-display-none;
-  }
-
-  &__widget.show-correct-answer.is-correct &__number-model-answer,
-  &__widget.show-correct-answer.is-incorrect &__number-model-answer {
-    background-color: @validation-success;
-    color: @validation-success-inverted;
-  }
-
-  &__widget.show-correct-answer.is-correct .rangeslider__fill,
-  &__widget.show-correct-answer.is-incorrect .rangeslider__fill {
-    background-color: @validation-success;
-  }
-}
-
-// Rangeslider overrides
-// --------------------------------------------------
-.rangeslider {
-  &--horizontal {
-    height: 0.375rem;
-  }
-
-  &--horizontal &__handle {
-    top: -0.875rem;
-  }
-
-  &__handle {
-    height: 2rem;
-    width: 2rem;
-  }
-
-  &__handle:after {
-    height: 1rem;
-    width: 1rem;
-  }
-
-  .slider__widget.is-disabled &__handle {
-    cursor: default;
+    opacity: 0;
   }
 }

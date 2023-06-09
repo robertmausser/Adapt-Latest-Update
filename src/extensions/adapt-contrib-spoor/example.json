@@ -26,8 +26,17 @@
             "_commitRetryDelay": 2000,
             "_commitOnVisibilityChangeHidden": true,
             "_exitStateIfIncomplete": "auto",
-            "_exitStateIfComplete": "auto"
-        }
+            "_exitStateIfComplete": "auto",
+            "_setCompletedWhenFailed": true,
+            "_connectionTest": {
+              "_isEnabled": true,
+              "_testOnSetValue": true,
+              "_silentRetryLimit": 0,
+              "_silentRetryDelay": 2000
+            }
+        },
+        "_showCookieLmsResetButton": false,
+        "_shouldPersistCookieLMSData": true
     }
 
     // to be added to course/en/course.json (note: you only need to add the ones you want to change/translate)

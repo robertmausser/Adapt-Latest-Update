@@ -75,7 +75,7 @@ class TrickleButtonView extends ComponentView {
       'popup:closed': this.onPopupClosed
     });
     const parentModel = this.model.getParent();
-    const completionAttribute = getCompletionAttribute();
+    const completionAttribute = getCompletionAttribute(parentModel);
     this.listenTo(parentModel, {
       'change:_requireCompletionOf': this.onStepUnlocked,
       [`bubble:change:${completionAttribute}`]: this.onStepUnlocked,
@@ -119,7 +119,7 @@ class TrickleButtonView extends ComponentView {
     const isButtonDisabled = this.model.get('_isButtonDisabled');
     const $button = this.$('.js-trickle-btn');
     const $ariaLabel = this.$('.aria-label');
-    Adapt.a11y.toggleEnabled($button, !isButtonDisabled);
+    a11y.toggleEnabled($button, !isButtonDisabled);
     if (!isButtonDisabled) {
       // move focus forward if it's on the aria-label
       if (document.activeElement instanceof HTMLElement && document.activeElement.isSameNode($ariaLabel[0])) {
@@ -153,36 +153,18 @@ class TrickleButtonView extends ComponentView {
     this.model.setCompletionStatus();
     this.wasButtonClicked = true;
     const isStepLockingCompletionRequired = this.model.isStepLockingCompletionRequired();
-    this.onTrickleResize();
     if (isStepLockingCompletionRequired && !wasComplete) return;
     // Assuming step locking completion is NOT required, continue and scroll
     await this.continue();
   }
 
-    onTrickleResize() {
-      if (!this.model.isStepLockingCompletionRequired()) return;
-      const { top } = this.$el.offset();
-      const height = this.$el.height();
-      const $wrapper = $("#wrapper");
-      const topPadding = parseInt($wrapper.css("padding-top") || "0");
-      const windowHeight = $(window).height();
-      let bottom = 0;
-      if (height >= windowHeight) {
-        bottom = (top - topPadding) + height;
-
-      } else {
-        bottom = (top - topPadding) + windowHeight;
-      }
-      $wrapper.css("height", bottom - topPadding * 2);
-  }
-  
   /**
    * Fires when all children in the button parent are complete, including the button
    */
   async onParentComplete(model, value) {
     if (!value) return;
     const parentModel = this.model.getParent();
-    const completionAttribute = getCompletionAttribute();
+    const completionAttribute = getCompletionAttribute(parentModel);
     this.stopListening(parentModel, {
       [`bubble:change:${completionAttribute}`]: this.onStepUnlocked,
       [`change:${completionAttribute}`]: this.onParentComplete

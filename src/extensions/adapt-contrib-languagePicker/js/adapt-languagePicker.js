@@ -1,4 +1,5 @@
 import Adapt from 'core/js/adapt';
+import offlineStorage from 'core/js/offlineStorage';
 import LanguagePickerView from './languagePickerView';
 import LanguagePickerNavView from './languagePickerNavView';
 import LanguagePickerModel from './languagePickerModel';
@@ -31,7 +32,7 @@ class LanguagePicker extends Backbone.Controller {
 
     Adapt.config.set('_canLoadData', false);
 
-    if (Adapt.offlineStorage.ready) { // on the offchance that it may already be ready...
+    if (offlineStorage.ready) { // on the offchance that it may already be ready...
       this.onOfflineStorageReady();
       return;
     }
@@ -43,16 +44,17 @@ class LanguagePicker extends Backbone.Controller {
    * Once offline storage is ready, check to see if a language was previously selected by the user
    * If it was, load it. If it wasn't, show the language picker
    */
-  onOfflineStorageReady() {
-    const storedLanguage = Adapt.offlineStorage.get('lang');
+  async onOfflineStorageReady() {
+    await Adapt.wait.queue();
+    const storedLanguage = offlineStorage.get('lang');
 
     if (storedLanguage) {
-      this.languagePickerModel.setLanguage(storedLanguage);
+      this.languagePickerModel.setLanguage(storedLanguage, { canReset: false });
       return;
     }
 
     if (this.languagePickerModel.get('_showOnCourseLoad') === false) {
-      this.languagePickerModel.setLanguage(Adapt.config.get('_defaultLanguage'));
+      this.languagePickerModel.setLanguage(Adapt.config.get('_defaultLanguage'), { canReset: false });
       return;
     }
 

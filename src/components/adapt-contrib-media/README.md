@@ -1,5 +1,5 @@
 # adapt-contrib-media
-
+ 
 <img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/media02.gif" alt="image of media component" align="right">
 
 **Media** is a *presentation component* bundled with the [Adapt framework](https://github.com/adaptlearning/adapt_framework).
@@ -210,8 +210,7 @@ Although [Adobe Flash Player has now reached End of Life](https://www.adobe.com/
 **Please note**: if you wish to use this method of playback it is entirely at your own risk and not supported by the Adapt Core Team.
 
 ----------------------------
-**Version number:**  5.6.0  <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a></br>
-**Framework versions:** 5.17.2+</br>
+<a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a></br>
 **Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-media/graphs/contributors)</br>
 **Accessibility support:** WAI AA</br>
 **RTL support:** Yes</br>

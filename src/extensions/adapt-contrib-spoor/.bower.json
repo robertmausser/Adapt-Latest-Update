@@ -1,7 +1,7 @@
 {
   "name": "adapt-contrib-spoor",
-  "version": "4.2.0",
-  "framework": ">=5.17.8",
+  "version": "5.6.2",
+  "framework": ">=5.28.1",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-spoor",
   "bugs": "https://github.com/adaptlearning/adapt-contrib-spoor/issues",
   "extension": "spoor",
@@ -14,13 +14,55 @@
   ],
   "license": "GPL-3.0",
   "targetAttribute": "_spoor",
-  "_release": "4.2.0",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "conventional-changelog-eslint": "^3.0.9",
+    "semantic-release": "^19.0.3"
+  },
+  "scripts": {
+    "postversion": "cp package.json bower.json",
+    "adaptpostcopy": "/scripts/postcopy.js"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "eslint"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "eslint"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "bower.json"
+          ],
+          "message": "Chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "_release": "5.6.2",
   "_resolution": {
     "type": "version",
-    "tag": "v4.2.0",
-    "commit": "234310e07e535b1781f182b4bac9122319bc5be0"
+    "tag": "v5.6.2",
+    "commit": "367027af6f667e972df0d1a377f47e2ab6efc1bc"
   },
   "_source": "https://github.com/adaptlearning/adapt-contrib-spoor.git",
-  "_target": "4.2.0",
+  "_target": "5.6.2",
   "_originalSource": "adapt-contrib-spoor"
 }

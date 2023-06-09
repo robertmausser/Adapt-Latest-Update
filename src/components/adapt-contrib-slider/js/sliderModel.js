@@ -3,6 +3,15 @@ import QuestionModel from 'core/js/models/questionModel';
 
 export default class SliderModel extends QuestionModel {
 
+  defaults() {
+    return QuestionModel.resultExtend('defaults', {
+      _showScale: true,
+      _showScaleNumbers: true,
+      _showScaleIndicator: true,
+      _showNumber: true
+    });
+  }
+
   init() {
     QuestionModel.prototype.init.call(this);
 
@@ -57,6 +66,9 @@ export default class SliderModel extends QuestionModel {
         // we therefore need to convert it to Number when checking the answer (see https://github.com/adaptlearning/adapt_framework/issues/2259)
         correct: answer ? i === Number(answer) : (i >= range._bottom && i <= range._top)
       });
+
+      const index = items.length - 1;
+      items[index].index = index;
     }
 
     this.set({

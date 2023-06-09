@@ -16,12 +16,29 @@
     background-color: transparent;
   }
 
+  &__item-btn-inner {
+    display: block;
+  }
+
   &__item-btn.is-round &__item-image {
     border-radius: 50%;
   }
 
+  &__item-image-container {
+    position: relative;
+    display: block;
+  }
+
+  &__item-title {
+    display: block;
+  }
+
   &__item-icon .icon {
     .icon-plus;
+  }
+
+  &__item-btn.is-visited &__item-icon .icon {
+    .icon-tick;
   }
 
   // Application of item image states
@@ -83,10 +100,11 @@
 
   &__item-icon {
     position: absolute;
-    bottom: 1rem;
+    bottom: 0.5rem;
     left: 50%;
     .transform(translateX(-50%));
     border-radius: 50%;
+    padding: @item-padding / 2;
   }
 
   // Hotgrid item theme
@@ -98,7 +116,7 @@
   }
 
   .no-touch &__item-btn:hover &__item-title,
-  .no-touch &__item-btn:hover &__item-icon {
+  .no-touch &__item-btn:not(.is-disabled):not(.is-locked):hover &__item-icon {
     background-color: @item-color-hover;
     color: @item-color-inverted-hover;
     .transition(background-color @duration ease-in, color @duration ease-in;);
@@ -112,21 +130,16 @@
 
   // Hotgrid CSS border states
   // --------------------------------------------------
-  &__item-btn.is-css &__item-image {
+  &__item-btn.has-css-states &__item-image {
     border: 3px solid @item-color;
   }
 
-  .no-touch &__item-btn.is-css:hover &__item-image {
+  .no-touch &__item-btn.has-css-states:hover &__item-image {
     border-color: @item-color-hover;
     .transition(border-color @duration ease-in);
   }
 
-  &__item-btn.is-visited.is-css &__item-image {
+  &__item-btn.is-visited.has-css-states &__item-image {
     border-color: @visited;
   }
-}
-.hotgrid__item-title-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

@@ -1,5 +1,14 @@
 .narrative {
-  &:not(.items-are-full-width) &__content {
+  &__instruction.has-error {
+    display: flex;
+    color: @validation-error;
+
+    .icon {
+      .icon-exclamation;
+    }
+  }
+
+  &__inner:not(.items-are-full-width) &__content {
     display: none;
 
     @media (min-width: @device-width-medium) {
@@ -13,6 +22,11 @@
         margin-right: 2%;
       }
     }
+  }
+
+  &__content-item:not(.is-active) {
+    .u-display-none;
+    .u-visibility-hidden;
   }
 
   // Strapline
@@ -38,20 +52,12 @@
     outline-offset: -5px;
   }
 
-  .ie &__strapline-btn:focus .focus-rect {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    top: 5px;
-    left: 5px;
-    outline-color: highlight;
-    outline-style: solid;
-    outline-width: 3px;
-  }
-
   &__strapline-title {
+    display: block;
     margin-right: @icon-size + (@item-padding * 2);
     padding: @item-padding;
+    overflow: hidden;
+    text-overflow: ellipsis;
     // Override button line height to match icon size
     line-height: @icon-size;
 
@@ -100,11 +106,6 @@
 
   &__slider-image {
     .u-no-select;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
   }
 
   // Button controls
@@ -163,7 +164,6 @@
     height: @icon-size / 2;
     width: @icon-size / 2;
     margin: 0.25rem;
-    cursor: pointer;
     background-color: @background;
   }
 
@@ -177,7 +177,9 @@
   html:not(.disable-animation) & {
     &__slider,
     &__strapline-header-inner {
-      .transition(transform 400ms ease-in-out);
+      @media (prefers-reduced-motion: no-preference) {
+        .transition(transform 400ms ease-in-out);
+      }
     }
   }
 
@@ -251,10 +253,10 @@
     margin-bottom: @item-margin;
   }
 
-  // No Strapline 
+  // No Strapline
   // Settings for mobile when clickable elements are set in text area only
   // --------------------------------------------------
-  .mode-small &__text-controls &__slide-container &__controls, 
+  .mode-small &__text-controls &__slide-container &__controls,
   .mode-small &__text-controls &__slide-indicators {
     .u-display-none;
   }

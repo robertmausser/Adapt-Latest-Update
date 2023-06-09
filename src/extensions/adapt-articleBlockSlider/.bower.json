@@ -4,8 +4,8 @@
     "type": "git",
     "url": "git://github.com/cgkineo/adapt-articleBlockSlider.git"
   },
-  "version": "3.1.1",
-  "framework": ">=5.10",
+  "version": "3.1.2",
+  "framework": ">=5.31.4",
   "homepage": "https://github.com/cgkineo/adapt-articleBlockSlider",
   "issues": "https://github.com/cgkineo/adapt-articleBlockSlider/issues/",
   "extension": "articleBlockSlider",
@@ -18,14 +18,13 @@
   ],
   "license": "GPLv3",
   "targetAttribute": "_articleBlockSlider",
-  "_release": "3.1.1",
+  "_release": "3.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "v3.1.1",
-    "commit": "1b8f082c8f0d55b86fe2318e016d0f5e488b152e"
+    "tag": "v3.1.2",
+    "commit": "f3c193ac80319697271f6f2fcc930175a8e193b6"
   },
-  "_source": "git://github.com/cgkineo/adapt-articleBlockSlider.git",
-  "_target": "3.1.1",
-  "_originalSource": "adapt-articleBlockSlider",
-  "_direct": true
+  "_source": "https://github.com/cgkineo/adapt-articleBlockSlider.git",
+  "_target": "3.1.2",
+  "_originalSource": "adapt-articleBlockSlider"
 }

@@ -14,6 +14,7 @@ class HomeButton extends Backbone.Controller {
     const config = Adapt.config.get('_homeButton');
     if (config?._isEnabled === false) return;
     this.$html = $('html');
+    this.stopListening();
     this.listenTo(Adapt, {
       remove: this.disable,
       'router:menu router:page': this.onRouterEvent,
@@ -24,7 +25,7 @@ class HomeButton extends Backbone.Controller {
   get currentModelConfig() {
     return location._currentModel?.get('_homeButton');
   }
-  
+
   get courseConfig() {
     return Adapt.course?.get('_homeButton');
   }
@@ -46,15 +47,14 @@ class HomeButton extends Backbone.Controller {
     this.$html.toggleClass('hide-nav-home-btn', Boolean(currentModelConfig?._hideHomeButton));
     // extend functionality to toggle back button display
     this.$html.toggleClass('hide-nav-back-btn', Boolean(currentModelConfig?._hideBackButton));
-    const altText = (courseConfig?.alt ||  '');
+    const altText = (currentModelConfig?.alt || courseConfig?.alt || '');
     const $backButton = $('button[data-event="backButton"]');
-    const $icon = $('<span>', { class: 'icon' });
+    const $icon = $('<div>', { class: 'icon', 'aria-hidden': true });
     const $homeButton = $('<button>', {
       attr: {
         'data-event': currentModelConfig?._redirectToId ? 'redirectedHomeButton' : 'homeButton'
       },
       class: 'btn-icon nav__btn nav__homebutton-btn js-nav-home-btn',
-      title: 'Home Button',
       'aria-label': altText,
       role: 'link'
     }).append($icon);

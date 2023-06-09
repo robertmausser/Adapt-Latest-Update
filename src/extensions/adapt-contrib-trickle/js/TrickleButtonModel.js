@@ -3,7 +3,8 @@ import ComponentModel from 'core/js/models/componentModel';
 import {
   getModelContainer,
   getModelConfig,
-  getCompletionAttribute
+  getCompletionAttribute,
+  applyLocks
 } from './models';
 
 export default class TrickleButtonModel extends ComponentModel {
@@ -47,9 +48,10 @@ export default class TrickleButtonModel extends ComponentModel {
    * @returns {boolean} true if all available siblings are complete, optional or not available
    */
   isStepUnlocked() {
-    const completionAttribute = getCompletionAttribute();
+    const parentModel = this.getParent();
+    const completionAttribute = getCompletionAttribute(parentModel);
     // Check if completion is blocked by another extension
-    const isCompletionBlocked = (this.getParent().get('_requireCompletionOf') === Number.POSITIVE_INFINITY);
+    const isCompletionBlocked = (parentModel.get('_requireCompletionOf') === Number.POSITIVE_INFINITY);
     if (isCompletionBlocked) return;
     return this.getSiblings().every(sibling => {
       if (sibling === this) {
@@ -65,8 +67,9 @@ export default class TrickleButtonModel extends ComponentModel {
    * @returns {boolean} true if the parent container is already complete
    */
   isStepComplete() {
-    const completionAttribute = getCompletionAttribute();
-    const isParentComplete = this.getParent().get(completionAttribute);
+    const parentModel = this.getParent();
+    const completionAttribute = getCompletionAttribute(parentModel);
+    const isParentComplete = parentModel.get(completionAttribute);
     return isParentComplete;
   }
 
@@ -94,7 +97,11 @@ export default class TrickleButtonModel extends ComponentModel {
     const contentObject = this.findAncestor('contentobject');
     const allDescendants = contentObject.getAllDescendantModels(true);
     const lastDescendant = allDescendants[allDescendants.length - 1];
-    return (this === lastDescendant);
+    const parentModel = this.getParent();
+    const trickleParent = getModelContainer(parentModel);
+    // Check if completion is blocked by another extension
+    const isParentFinished = (trickleParent.get('_requireCompletionOf') !== Number.POSITIVE_INFINITY);
+    return (isParentFinished && this === lastDescendant);
   }
 
   /**
@@ -137,11 +144,13 @@ export default class TrickleButtonModel extends ComponentModel {
    * on revisit
    */
   checkIfResetOnRevisit() {
-    if (this.isStepUnlocked() && !this.isStepLockedOnRevisit()) return;
+    if (this.isFinished() && !this.isStepLockedOnRevisit()) return;
+    if (!this.get('_isComplete') && !this.get('_isInteractionComplete')) return;
     this.set({
       _isComplete: false,
       _isInteractionComplete: false
     });
+    applyLocks();
   }
 
   /**

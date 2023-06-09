@@ -1,0 +1,6 @@
+{
+    "name": "manifest",
+    "dependencies": {
+        "adapt-homeButton": "1.0.7"
+    }
+}

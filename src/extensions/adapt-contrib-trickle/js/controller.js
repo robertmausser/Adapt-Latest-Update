@@ -1,6 +1,9 @@
 import Adapt from 'core/js/adapt';
+import wait from 'core/js/wait';
+import components from 'core/js/components';
 import data from 'core/js/data';
 import a11y from 'core/js/a11y';
+import logging from 'core/js/logging';
 import {
   checkApplyLocks,
   addButtonComponents,
@@ -9,6 +12,7 @@ import {
   getModelConfig,
   isModelArticleWithOnChildren
 } from './models';
+import router from 'core/js/router';
 
 /** @typedef {import('core/js/childEvent').default} ChildEvent  */
 
@@ -16,13 +20,33 @@ class TrickleController extends Backbone.Controller {
 
   initialize() {
     this.checkIsFinished = _.debounce(this.checkIsFinished, 1);
+
     this.listenTo(data, {
-      'ready': this.onDataReady,
+      ready: this.onDataReady
+    });
+  }
+
+  async onDataReady() {
+    const trickleConfig = Adapt.config.get('_trickle');
+    if (trickleConfig?._isEnabled === false) return;
+
+    this.setUpEventListeners();
+
+    wait.for(done => {
+      addButtonComponents();
+      applyLocks();
+      done();
+    });
+  }
+
+  setUpEventListeners() {
+    this.listenTo(data, {
       // Check that the locking is accurate after any completion, this happens asynchronously
       'change:_isInteractionComplete change:_isComplete change:_isAvailable add remove': checkApplyLocks,
       // Check whether trickle is finished after any locking changes
       'change:_isLocked': this.checkIsFinished
     });
+
     this.listenTo(Adapt, {
       // Reapply locks after assessment reset, this happens asynchronously where possible
       'assessments:reset': this.onAssessmentReset,
@@ -33,9 +57,6 @@ class TrickleController extends Backbone.Controller {
       // Temporarily remove trickle from the current content object
       'trickle:kill': this.kill
     });
-    this.listenTo(Adapt, 'router:location', () => {
-      $("#wrapper").css("height", "")
-    });
   }
 
   onAssessmentReset() {
@@ -44,14 +65,6 @@ class TrickleController extends Backbone.Controller {
     if (isMidRender) return applyLocks();
     // Otherwise apply them lazily
     debouncedApplyLocks();
-  }
-
-  async onDataReady() {
-    Adapt.wait.for(done => {
-      addButtonComponents();
-      applyLocks();
-      done();
-    });
   }
 
   /**
@@ -140,7 +153,10 @@ class TrickleController extends Backbone.Controller {
     };
 
     let scrollToId = getScrollToId();
-    if (scrollToId === '') return;
+    if (!scrollToId) {
+      logging.error(`Cannot scroll to the next id as none was found at id: "${fromModel.get('_id')}" with _scrollTo: "${trickleConfig._scrollTo}". Suggestion: Set _showEndOfPage to false.`)
+      return
+    }
 
     const isDescendant = Adapt.parentView.model.getAllDescendantModels().some(model => {
       return model.get('_id') === scrollToId;
@@ -148,12 +164,12 @@ class TrickleController extends Backbone.Controller {
     if (!isDescendant) {
       applyLocks();
       // Navigate to another content object
-      const model = Adapt.findById(scrollToId);
+      const model = data.findById(scrollToId);
       const contentObject = model.isTypeGroup('contentobject') ? model : model.findAncestor('contentobject');
-      await Adapt.navigateToElement(contentObject.get('_id'));
+      await router.navigateToElement(contentObject.get('_id'));
       // Recalculate the relative id after the page is ready as it may change
       scrollToId = getScrollToId();
-      await Adapt.navigateToElement(scrollToId);
+      await router.navigateToElement(scrollToId);
       return;
     }
 
@@ -167,7 +183,7 @@ class TrickleController extends Backbone.Controller {
     if (isAutoScrollOff) return false;
 
     const duration = trickleConfig._scrollDuration || 500;
-    Adapt.scrollTo('.' + scrollToId, { duration });
+    router.navigateToElement('.' + scrollToId, { duration });
   }
 
   /**
@@ -197,7 +213,7 @@ class TrickleController extends Backbone.Controller {
    */
   async kill() {
     // Fetch the component model from the store incase it needs overriding by another extension
-    const TrickleModel = Adapt.getModelClass('trickle-button');
+    const TrickleModel = components.getModelClass('trickle-button');
     this.isKilled = true;
     Adapt.parentView.model.getAllDescendantModels().forEach(model => {
       const isButtonModel = (model instanceof TrickleModel);

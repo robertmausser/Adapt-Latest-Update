@@ -1,7 +1,5 @@
 import ComponentView from 'core/js/views/componentView';
-import _ from 'underscore';
 
-import Adapt from 'core/js/adapt';
 class AccordionView extends ComponentView {
 
   preRender() {
@@ -18,17 +16,7 @@ class AccordionView extends ComponentView {
   }
 
   onClick(event) {
-    console.log(event.currentTarget.value);
-    var index = $(event.currentTarget).parents('.js-accordion-item').data('index');
-    console.log(index);
-    // if(!this.model.getItem(index).get("_isVisited"))   {
-      _.delay(function(){
-        Adapt.trigger("audio:itemControl",this.$(`.item-audio-container.${this.model.get("_id")}-${index}`).data("audio-id"));
-
-      }.bind(this),1000);
-    
-    // this.model.toggleItemState(index);
-    this.model.toggleItemsState(index);
+    this.model.toggleItemsState($(event.currentTarget).parents('.js-accordion-item').data('index'));
   }
 
   onItemsActiveChange(item, isActive) {

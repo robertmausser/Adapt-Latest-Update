@@ -1,4 +1,8 @@
 import Adapt from 'core/js/adapt';
+import data from 'core/js/data';
+import logging from 'core/js/logging';
+import location from 'core/js/location';
+import router from 'core/js/router';
 import QuestionBank from './adapt-assessmentQuestionBank';
 
 let givenIdCount = 0;
@@ -116,69 +120,71 @@ const AssessmentModel = {
   _onDataReady() {
     // register assessment
     Adapt.assessment.register(this);
+
+    // sanity check the data
+    const questions = this._getCurrentQuestionComponents();
+    if (this.get('_attemptInProgress') && questions.every(q => q.get('_isSubmitted')) && this.get('_requireCompletionOf') !== Number.POSITIVE_INFINITY) {
+      this.set('_attemptInProgress', false);
+      logging.warn(`Assessment ${this.get('_id')} _attemptInProgress corrected as all questions are submitted`);
+    }
   },
 
   _setupAssessmentData(force, callback) {
     const assessmentConfig = this.getConfig();
     const state = this.getState();
     const hasAttemptsLeft = (state.attemptsLeft > 0 || state.attemptsLeft === 'infinite');
-    const shouldResetOnRevisit = assessmentConfig._isResetOnRevisit && !this.get('_attemptInProgress');
+    const isFirstAttempt = (state.attemptsSpent === 0);
+    const shouldResetOnRevisit = (isFirstAttempt || assessmentConfig._isResetOnRevisit) && !this.get('_attemptInProgress');
     const shouldResetAssessment = (shouldResetOnRevisit && !state.isPass && hasAttemptsLeft) || force === true;
     const shouldResetQuestions = (shouldResetOnRevisit && (state.allowResetIfPassed || !state.isPass)) || force === true;
-
     if (shouldResetAssessment || shouldResetQuestions) {
       Adapt.trigger('assessments:preReset', this.getState(), this);
     }
-
     let quizModels;
     if (shouldResetAssessment) {
-      this.set({
-        _numberOfQuestionsAnswered: 0,
-        _isAssessmentComplete: false,
-        _assessmentCompleteInSession: false,
-        _score: 0
-      });
-      this.getChildren().models = this._originalChildModels;
+      if (isFirstAttempt || assessmentConfig?._questions?._resetType === 'hard') {
+        this.set({
+          _numberOfQuestionsAnswered: 0,
+          _isAssessmentComplete: false,
+          _assessmentCompleteInSession: false,
+          _score: 0
+        });
+      } else {
+        this.set({
+          _assessmentCompleteInSession: false
+        });
+      }
+      this.getChildren().reset(this._originalChildModels);
       if (assessmentConfig?._banks._isEnabled &&
         assessmentConfig?._banks._split.length > 1) {
-
         quizModels = this._setupBankedAssessment();
       } else if (assessmentConfig?._randomisation._isEnabled) {
-
         quizModels = this._setupRandomisedAssessment();
       }
     }
-
     if (!quizModels) {
       // leave the order as before, completed or not
       quizModels = this.getChildren().models;
     } else if (quizModels.length === 0) {
       quizModels = this.getChildren().models;
-      Adapt.log.warn('assessment: Not enough unique questions to create a fresh assessment, using last selection');
+      logging.warn('assessment: Not enough unique questions to create a fresh assessment, using last selection');
     }
-
-    this.getChildren().models = quizModels;
-
+    this.getChildren().reset(quizModels);
     this.setupCurrentQuestionComponents();
     if (shouldResetAssessment || shouldResetQuestions) {
       this._resetQuestions();
       this.set('_attemptInProgress', true);
       Adapt.trigger('assessments:reset', this.getState(), this);
     }
-
     if (!state.isComplete) {
       this.set('_attemptInProgress', true);
     }
-
     this._overrideQuestionComponentSettings();
     this._setupQuestionListeners();
     this._checkNumberOfQuestionsAnswered();
     this._updateQuestionsState();
-
     Adapt.assessment.saveState();
-
     this.trigger('reset');
-
     if (shouldResetAssessment || shouldResetQuestions) {
       Adapt.trigger('assessments:postReset', this.getState(), this);
     }
@@ -186,47 +192,43 @@ const AssessmentModel = {
 
   _setupBankedAssessment() {
     const assessmentConfig = this.getConfig();
-
     this._setupBanks();
-
-    // get random questions from banks
-    let questionModels = [];
-    this._questionBanks.forEach(questionBank => {
-      questionModels.push(...questionBank.getRandomQuestionBlocks());
-    });
-
-    // if overall question order should be randomized
+    // Get random questions from banks
+    let questionModels = this._questionBanks.flatMap(questionBank => questionBank.getRandomQuestionBlocks());
+    // If overall question order should be randomized
     if (assessmentConfig._banks._randomisation) {
       questionModels = _.shuffle(questionModels);
     }
-
     return questionModels;
   },
 
   _setupBanks() {
     const assessmentConfig = this.getConfig();
-    const banks = assessmentConfig._banks._split.split(',');
-    let bankId;
+    const bankSplits = assessmentConfig._banks._split.split(',');
 
-    this._questionBanks = [];
+    this.findDescendantModels('block')
+      .filter(block => block.get('_isAvailable') && block.findDescendantModels('question').length > 0).forEach(block => {
+        const quizBankId = block.get('_assessment')?._quizBankId;
 
-    // build fresh banks
-    for (let i = 0, l = banks.length; i < l; i++) {
-      const bank = banks[i];
-      bankId = (i + 1);
-      const questionBank = new QuestionBank(bankId, this.get('_id'), bank, true);
+        const isInvalidNumber = (isNaN(quizBankId) || quizBankId < 1);
+        const isOutOfBounds = (quizBankId > bankSplits.length);
+        if (isInvalidNumber) logging.warn(`Bank ID ${quizBankId} is not a valid number`);
+        if (isOutOfBounds) logging.warn(`Bank ID ${quizBankId} exceeds the number of available splits (${bankSplits.length})`);
+    });
 
-      this._questionBanks[bankId] = questionBank;
+    const hasBankSplitsChanged = (bankSplits.length !== this._questionBanks?.length);
+    if (hasBankSplitsChanged) {
+      // Generate new question banks if the split has changed
+      this._questionBanks = [];
     }
-
-    // add blocks to banks
-    const children = this.getChildren().models;
-    for (const blockModel of children) {
-      const blockAssessmentConfig = blockModel.get('_assessment');
-      if (!blockAssessmentConfig) continue;
-      bankId = blockAssessmentConfig._quizBankID;
-      this._questionBanks[bankId].addBlock(blockModel);
-    }
+    bankSplits.forEach((count, index) => {
+      const bankId = (index + 1);
+      const articleId = this.get('_id');
+      // Keep question bank instances to preserve unused blocks over multi asessment attempts inside a session
+      this._questionBanks[bankId] = (this._questionBanks[bankId] || new QuestionBank(bankId, articleId));
+      // Recalculate available blocks incase they have changed or the count has changed in the split
+      this._questionBanks[bankId].calculateAvailableQuestionBlocks(count);
+    });
   },
 
   _setupRandomisedAssessment() {
@@ -261,7 +263,7 @@ const AssessmentModel = {
 
   _setupQuestionListeners() {
     this._removeQuestionListeners();
-    this.listenTo(this.getChildren(), 'change:_isInteractionComplete', this._onBlockCompleted);
+    this.listenTo(this, 'bubble:change:_isInteractionComplete', this._onCompletionEvent);
   },
 
   _checkNumberOfQuestionsAnswered() {
@@ -271,7 +273,12 @@ const AssessmentModel = {
   },
 
   _removeQuestionListeners() {
-    this.stopListening(this.getChildren(), 'change:_isInteractionComplete', this._onBlockCompleted);
+    this.stopListening(this, 'bubble:change:_isInteractionComplete', this._onCompletionEvent);
+  },
+
+  _onCompletionEvent(event) {
+    if (event.target?.isTypeGroup('block')) return this._onBlockCompleted(event.target, event.value);
+    if (event.target?.isTypeGroup('question')) return this._onQuestionCompleted(event.target, event.value);
   },
 
   _onBlockCompleted(blockModel, value) {
@@ -288,8 +295,7 @@ const AssessmentModel = {
     if (value === false) return;
     if (!questionModel.get('_isInteractionComplete')) return;
 
-    let numberOfQuestionsAnswered = this.get('_numberOfQuestionsAnswered');
-    numberOfQuestionsAnswered++;
+    const numberOfQuestionsAnswered = this._getCurrentQuestionComponents().reduce((count, question) => (count += question.get('_isSubmitted') ? 1 : 0), 0);
     this.set('_numberOfQuestionsAnswered', numberOfQuestionsAnswered);
 
     this._updateQuestionsState();
@@ -310,10 +316,8 @@ const AssessmentModel = {
   _onAssessmentComplete() {
     const wasAttemptInProgess = this.get('_attemptInProgress');
     if (!wasAttemptInProgess) return;
-
     this.set('_attemptInProgress', false);
     this._spendAttempt();
-
     const _scoreAsPercent = this._getScoreAsPercent();
     const _score = this._getScore();
     const _maxScore = this._getMaxScore();
@@ -321,7 +325,6 @@ const AssessmentModel = {
     const _correctCount = this._getCorrectCount();
     const _correctAsPercent = this._getCorrectAsPercent();
     const _questionCount = this._getQuestionCount();
-
     this.set({
       _scoreAsPercent,
       _score,
@@ -334,20 +337,15 @@ const AssessmentModel = {
       _assessmentCompleteInSession: true,
       _isAssessmentComplete: true
     });
-
     this._updateQuestionsState();
-
     this._checkIsPass();
-
     this._removeQuestionListeners();
-
-    if (this._isMarkingSuppressionEnabled() && !this._isAttemptsLeft()) {
+    if (this._isMarkingSuppressionEnabled() && (!this._isAttemptsLeft() || this._isPassed())) {
       _.defer(() => {
         this._overrideMarkingSettings();
         this._refreshQuestions();
       });
     }
-
     Adapt.trigger('assessments:complete', this.getState(), this);
   },
 
@@ -414,7 +412,7 @@ const AssessmentModel = {
   },
 
   _shouldSuppressMarking() {
-    return this._isMarkingSuppressionEnabled() && this._isAttemptsLeft();
+    return this._isMarkingSuppressionEnabled() && this._isAttemptsLeft() && !this._isPassed();
   },
 
   _isMarkingSuppressionEnabled() {
@@ -423,9 +421,12 @@ const AssessmentModel = {
   },
 
   _isAttemptsLeft() {
-    if (this.get('_isAssessmentComplete') && this.get('_isPass')) return false;
     if (this.get('_attemptsLeft') === 0) return false;
     return true;
+  },
+
+  _isPassed() {
+    return this.get('_isAssessmentComplete') && this.get('_isPass');
   },
 
   _spendAttempt() {
@@ -489,7 +490,7 @@ const AssessmentModel = {
     if (!this.canResetInPage()) return false;
 
     const parentId = this.getParent().get('_id');
-    const currentLocation = Adapt.location._currentId;
+    const currentLocation = location._currentId;
 
     // check if on assessment page and should rerender page
     if (currentLocation !== parentId) return false;
@@ -503,12 +504,12 @@ const AssessmentModel = {
     this._forceResetOnRevisit = true;
     this.listenToOnce(Adapt, 'pageView:ready', async () => {
       if (assessmentConfig._scrollToOnReset) {
-        await Adapt.navigateToElement(this.get('_id'));
+        await router.navigateToElement(this.get('_id'));
       }
       callback();
     });
     _.delay(() => {
-      Backbone.history.navigate('#/id/' + Adapt.location._currentId, { replace: true, trigger: true });
+      Backbone.history.navigate('#/id/' + location._currentId, { replace: true, trigger: true });
     }, 250);
   },
 
@@ -539,7 +540,7 @@ const AssessmentModel = {
 
     const questions = this.get('_questions');
     for (const question of questions) {
-      const questionModel = Adapt.findById(question._id);
+      const questionModel = data.findById(question._id);
       if (questionModel.get('_isAvailable') && !questionModel.get('_isSubmitted')) {
         wereQuestionsRestored = false;
         break;
@@ -581,7 +582,7 @@ const AssessmentModel = {
       !assessmentConfig._isResetOnRevisit &&
       !isPageReload &&
       !force) {
-      // eslint-disable-next-line node/no-callback-literal
+      // eslint-disable-next-line n/no-callback-literal
       if (typeof callback === 'function') callback(false);
       return false;
     }
@@ -601,18 +602,18 @@ const AssessmentModel = {
     const allowResetIfPassed = this.get('_assessment')._allowResetIfPassed;
     // stop resetting if no attempts left and allowResetIfPassed is false
     if (!this._isAttemptsLeft() && !force && !allowResetIfPassed) {
-      // eslint-disable-next-line node/no-callback-literal
+      // eslint-disable-next-line n/no-callback-literal
       if (typeof callback === 'function') callback(false);
       return false;
     }
 
     if (!isPageReload) {
       this._setupAssessmentData(force);
-      // eslint-disable-next-line node/no-callback-literal
+      // eslint-disable-next-line n/no-callback-literal
       if (typeof callback === 'function') callback(true);
     } else {
       this._reloadPage(() => {
-        // eslint-disable-next-line node/no-callback-literal
+        // eslint-disable-next-line n/no-callback-literal
         if (typeof callback === 'function') callback(true);
       });
     }
@@ -631,7 +632,7 @@ const AssessmentModel = {
       // include presentation blocks in save state so that blocks without questions aren't removed
       blocks = this.findDescendantModels('block');
     } else {
-      blocks = state.questions.map(question => Adapt.findById(question._id).getParent());
+      blocks = state.questions.map(question => data.findById(question._id).getParent());
     }
     blocks = [...new Set(blocks)]
       .filter(block => block.trackingPosition);
@@ -677,14 +678,14 @@ const AssessmentModel = {
     const blocks = blockData[0].map(trackingPosition => {
       if (typeof trackingPosition === 'number') {
         // Backwards compability for courses which use _trackingId at block level
-        return Adapt.data.findWhere({ _trackingId: trackingPosition });
+        return data.findWhere({ _trackingId: trackingPosition });
       }
-      return Adapt.data.findByTrackingPosition(trackingPosition);
+      return data.findByTrackingPosition(trackingPosition);
     });
 
     if (blocks.length) {
       const nonBlockChildren = this.getChildren().models.filter(model => !model.isTypeGroup('block'));
-      this.getChildren().models = blocks.concat(nonBlockChildren);
+      this.getChildren().reset(blocks.concat(nonBlockChildren));
     }
 
     const _questions = [];

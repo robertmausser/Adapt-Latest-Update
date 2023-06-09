@@ -10,7 +10,12 @@ export default function Matching(props) {
     _shouldShowMarking,
     _isCorrectAnswerShown,
     _items,
-    _options
+    _options,
+    _globals,
+    displayTitle,
+    body,
+    instruction,
+    ariaQuestion
   } = props;
 
   const displayAsCorrect = (_isInteractionComplete && (_isCorrectAnswerShown || _isCorrect));
@@ -20,12 +25,16 @@ export default function Matching(props) {
 
       <templates.header {...props} />
 
-      <div className={classes([
-        'component__widget matching__widget',
-        !_isEnabled && 'is-disabled',
-        _isInteractionComplete && 'is-complete is-submitted show-user-answer',
-        displayAsCorrect && 'is-correct'
-      ])}>
+      <div
+        className={classes([
+          'component__widget matching__widget',
+          !_isEnabled && 'is-disabled',
+          _isInteractionComplete && 'is-complete is-submitted show-user-answer',
+          displayAsCorrect && 'is-correct'
+        ])}
+        aria-labelledby={ariaQuestion ? null : (displayTitle || body || instruction) && `${_id}-header`}
+        aria-label={ariaQuestion || null}
+      >
 
         {_items.map(({
           text,
@@ -38,14 +47,12 @@ export default function Matching(props) {
               'matching-item',
               'item',
               `item-${index}`,
-              `item-${index}-audio`,
               'js-matching-item',
               _shouldShowMarking && (displayItemAsCorrect ? 'is-correct' : 'is-incorrect')
             ])}>
 
               {text &&
               <div className="matching-item__title">
-              <div className={classes(["item-audio-container",`${_id}-${_index}`])} data-audio-id={`${_id}-${_index}`}></div> 
                 <div className="matching-item__title_inner" dangerouslySetInnerHTML={{ __html: text }}>
                 </div>
               </div>
@@ -56,11 +63,11 @@ export default function Matching(props) {
                 <templates.matchingDropDown {...props} _itemIndex={_index} />
 
                 <div className="matching-item__select-state">
-                  <div className="matching-item__select-icon matching-item__select-correct-icon">
-                    <div className="icon"></div>
+                  <div className="matching-item__select-icon matching-item__select-correct-icon" aria-label={_globals._accessibility._ariaLabels.correct}>
+                    <div className="icon" aria-hidden="true"></div>
                   </div>
-                  <div className="matching-item__select-icon matching-item__select-incorrect-icon">
-                    <div className="icon"></div>
+                  <div className="matching-item__select-icon matching-item__select-incorrect-icon" aria-label={_globals._accessibility._ariaLabels.incorrect}>
+                    <div className="icon" aria-hidden="true"></div>
                   </div>
                 </div>
 

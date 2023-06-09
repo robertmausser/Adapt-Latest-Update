@@ -71,10 +71,19 @@
     "instruction": {
       "type": "string",
       "required": false,
-      "default": "",
+      "default": "Drag the slider to make your choice and select Submit.",
       "inputType": "Text",
       "validators": [],
       "help": "This is the instruction text",
+      "translatable": true
+    },
+    "ariaQuestion": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This will be read out by screen readers instead of reading the 'Display title', 'Body' & 'Instruction' fields when focusing on the when focusing on the group or radiogroup. To be clear and concise, ensure the text encompasses only the question associated.",
       "translatable": true
     },
     "_attempts": {
@@ -183,6 +192,26 @@
       "inputType": "Number",
       "validators": ["number"],
       "help": "The amount the scale should increment by"
+    },
+    "scaleStepPrefix": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Prefix to add to each slider step",
+      "inputType": "Text",
+      "validators": [],
+      "help": "For instance, a '$' can be used as a prefix to indicate currency in dollars (ex. $100)",
+      "translatable": true
+    },
+    "scaleStepSuffix": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "title": "Suffix to add to each slider step",
+      "inputType": "Text",
+      "validators": [],
+      "help": "For instance, a 'V' can be used as a suffix to indicate voltage (ex. 4V)",
+      "translatable": true
     },
     "_correctAnswer": {
       "type": "string",

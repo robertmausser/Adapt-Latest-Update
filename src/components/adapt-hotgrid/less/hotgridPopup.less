@@ -32,10 +32,6 @@
     line-height: 1;
   }
 
-  &__controls.is-disabled {
-    visibility: hidden;
-  }
-
   // Pop up item
   // --------------------------------------------------
   &__item-image-container {
@@ -56,6 +52,11 @@
     &__item-image-container {
       width: 40%;
       margin-left: @item-padding;
+      
+      .dir-rtl & {
+        margin-left: inherit;
+        margin-right: @item-padding;
+      }
     }
   }
 
@@ -132,15 +133,15 @@
     padding-top: (@icon-size + (@icon-padding * 2)) + (@item-padding / 2);
   }
 
-  &__controls,
-  &__close {
+  .btn-icon&__controls,
+  .btn-icon&__close {
     margin: @btn-margin / 2;
     padding: @btn-padding / 2;
     background-color: @notify-icon;
     color: @notify-icon-inverted;
     border-radius: 50%;
 
-    .no-touch &:hover {
+    .no-touch &:not(.is-disabled):not(.is-locked):hover {
       background-color: @notify-icon-hover;
       color: @notify-icon-inverted-hover;
       .transition(background-color @duration ease-in, color @duration ease-in;);

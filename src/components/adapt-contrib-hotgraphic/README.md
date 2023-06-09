@@ -54,10 +54,13 @@ This optional text appears above the component. It is frequently used to
 guide the learner’s interaction with the component.
 
 ### mobileBody (string):
-This is optional text that will be substituted for `body` when `Adapt.device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`).
+This is optional text that will be substituted for `body` when `device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`).
 
 ### mobileInstruction (string):
-This is optional text that will be substituted for `instruction` when `Adapt.device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`).
+This is optional text that will be substituted for `instruction` when `device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`).
+
+### \_isMobileTextBelowImage (boolean):
+Like `mobileBody` and `mobileInstruction`, `_isMobileTextBelowImage` is only applicable when `device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`). The default is `false`. When set to `true`, the replacement Narrative will not use the default "strapline" layout. Instead both the image and text of each stage remain visible, with the text positioned below the image.
 
 ### \_setCompletionOn (string):
 Determines when Adapt will register this component as having been completed by the learner. Acceptable values are `"allItems"` and `"inview"`. `"allItems"` requires each pop-up item to be visited. `"inview"` requires the **Hot Graphic** component to enter the view port completely.
@@ -79,6 +82,14 @@ If set to `true`, the image specified by `_graphic.src` will be ignored and the 
 
 ### \_isRound (boolean):
 If set to `true`, the popup images will inherit a 50% border radius. Ideal for use with images that are square that are required to be round. The default is `false`.
+
+### \_tooltip (object):
+
+#### \_isEnabled (boolean):
+When set to `true` the tooltip will be shown on hover over the item. The default is `false`.
+
+#### text (string):
+The text to display when the user hovers over the item.
 
 ### \_graphic (object):
 The graphic object that defines the image over which the hot spots are rendered (except when the [_useGraphicsAsPins](#_usegraphicsaspins-boolean) setting is enabled). It contains the following settings:
@@ -111,11 +122,13 @@ ARIA level to assign to the popup title. If not set, it will default to using th
 This is the main text for a hot spot pop-up.
 
 #### strapline (string):
-This text is displayed when `Adapt.device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`). It is presented in a title bar above the image.
+This text is displayed when `device.screenSize` is `small` (i.e. when viewed on mobile devices, except when the [_isNarrativeOnMobile](#_isnarrativeonmobile-boolean) setting is set to `false`). It is presented in a title bar above the image.
+
+#### \_imageAlignment (string):
+Defines the horizontal alignment of the item image in the pop up. Left: Image aligned to the left of the text area. Right: Image aligned to the right of the text area. The default alignment is `right`.
 
 #### \_classes (string):
 CSS class name(s) to be applied to the popup item. Classes available by default are:
-* `"align-image-left"` (aligns the item image to the left)
 * `"hide-desktop-image"` (hides the pop up image in desktop view)
 * `"hide-popup-image"` (hides the pop up image for all screen sizes)
 
@@ -150,8 +163,7 @@ The alternative text for this image. Assign [alt text](https://github.com/adaptl
 <div float align=right><a href="#top">Back to Top</a></div>
 
 ----------------------------
-**Version number:**  5.5.2   <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
-**Framework versions:**  5.17.2+
+<a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
 **Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-hotgraphic/graphs/contributors)
 **Accessibility support:** WAI AA
 **RTL support:** Yes

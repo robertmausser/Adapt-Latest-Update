@@ -8,11 +8,13 @@
         "title": "Matching",
         "displayTitle": "Matching",
         "body": "Basically what you need to do is match the questions below with the drop down box option.",
-        "instruction": "",
+        "instruction": "Choose an option from each dropdown list and select Submit.",
+        "ariaQuestion": "Question text specifically for screen readers.",
         "_attempts": 1,
         "_shouldDisplayAttempts": false,
         "_shouldResetAllAnswers": false,
         "_isRandom": false,
+        "_isRandomQuestionOrder": false,
         "_questionWeight": 1,
         "_canShowModelAnswer": true,
         "_canShowFeedback": true,
@@ -85,6 +87,7 @@
         ],
         "_feedback": {
             "title": "Feedback",
+            "altTitle": "Alt feedback title text",
             "correct": "This feedback will appear if you answered the question correctly.",
             "_incorrect": {
                 "notFinal": "",

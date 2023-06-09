@@ -4,8 +4,8 @@
     "type": "git",
     "url": "git://github.com/cgkineo/adapt-list.git"
   },
-  "framework": ">=5.14",
-  "version": "5.2.7",
+  "framework": ">=5.31.4",
+  "version": "5.2.8",
   "homepage": "https://github.com/cgkineo/adapt-list",
   "issues": "https://github.com/cgkineo/adapt-list/issues",
   "component": "list",
@@ -59,13 +59,13 @@
       ]
     ]
   },
-  "_release": "5.2.7",
+  "_release": "5.2.8",
   "_resolution": {
     "type": "version",
-    "tag": "v5.2.7",
-    "commit": "a861c558ec8b75d1a95857ba97afc7c2244d7af0"
+    "tag": "v5.2.8",
+    "commit": "b8caf0224741f8b7731254fb1029f1a3da7b8f23"
   },
   "_source": "https://github.com/cgkineo/adapt-list.git",
-  "_target": "5.2.7",
+  "_target": "5.2.8",
   "_originalSource": "adapt-list"
 }

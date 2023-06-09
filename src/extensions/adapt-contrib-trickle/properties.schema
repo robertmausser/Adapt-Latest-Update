@@ -26,6 +26,24 @@
               "required": false,
               "legend": "Trickle",
               "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": true,
+                  "default": true,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Trickle extension is enabled or disabled."
+                },
+                "_logState": {
+                  "type": "boolean",
+                  "required": true,
+                  "default": false,
+                  "title": "Log state",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Trickle extension logs its state to the browser console."
+                },
                 "_completionAttribute": {
                   "type": "string",
                   "required": false,
@@ -93,6 +111,16 @@
                   "inputType": "Text",
                   "validators": [],
                   "help": "Set how trickle scrolls"
+                },
+                "_completionAttribute": {
+                  "type": "string",
+                  "required": false,
+                  "enum": ["_isInteractionComplete", "_isComplete"],
+                  "default": "_isComplete",
+                  "title": "Completion Attribute",
+                  "inputType": {"type": "Select", "options":["_isInteractionComplete", "_isComplete"]},
+                  "validators": [],
+                  "help": "Set which attribute is used to determine completion"
                 },
                 "_button": {
                   "type": "object",
@@ -319,6 +347,16 @@
                   "inputType": "Text",
                   "validators": [],
                   "help": "Set how trickle scrolls"
+                },
+                "_completionAttribute": {
+                  "type": "string",
+                  "required": false,
+                  "enum": ["_isInteractionComplete", "_isComplete"],
+                  "default": "_isComplete",
+                  "title": "Completion Attribute",
+                  "inputType": {"type": "Select", "options":["_isInteractionComplete", "_isComplete"]},
+                  "validators": [],
+                  "help": "Set which attribute is used to determine completion"
                 },
                 "_button": {
                   "type": "object",

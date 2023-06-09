@@ -1,10 +1,10 @@
 import Adapt from 'core/js/adapt';
+import offlineStorage from 'core/js/offlineStorage';
 import a11y from 'core/js/a11y';
+import logging from 'core/js/logging';
 import ComponentView from 'core/js/views/componentView';
 import 'libraries/mediaelement-and-player';
 import 'libraries/mediaelement-fullscreen-hook';
-import log from 'core/js/logging';
-import offlineStorage from 'core/js/offlineStorage';
 
 /*
   * Default shortcut keys trap a screen reader user inside the player once in focus. These keys are unnecessary
@@ -48,14 +48,111 @@ const purge = function (d) {
   }
 };
 
+/**
+ * Overwrite mediaelement-and-player setTrack to allow use of aria-pressed on closed captions button.
+*/
 
-// this.listenTo(Adapt, {
-//   'device:resize': this.onScreenSizeChanged,
-//   'device:changed': this.onDeviceChanged,
-//   'media:stop': this.onMediaStop,
-//   "audio:stopAllChannels menuView:preRender pageView:preRender": this.stopAllChannels
+window.mejs.MediaElementPlayer.prototype.setTrack = function (lang) {
 
-// });
+  const t = this;
+  let i;
+
+  if (lang === 'none') {
+    t.selectedTrack = null;
+    t.captionsButton.removeClass('mejs-captions-enabled');
+    t.captionsButton[0].firstChild.setAttribute('aria-pressed', false);
+  } else {
+    for (i = 0; i < t.tracks.length; i++) {
+      if (t.tracks[i].srclang === lang) {
+        if (t.selectedTrack === null) {
+          t.captionsButton.addClass('mejs-captions-enabled');
+          t.captionsButton[0].firstChild.setAttribute('aria-pressed', true);
+        }
+        t.selectedTrack = t.tracks[i];
+        t.captions.attr('lang', t.selectedTrack.srclang);
+        t.displayCaptions();
+        break;
+      }
+    }
+  }
+
+};
+
+/**
+ * Overwrite mediaelement-and-player enterFullScreen to remove Chrome <17 bug fix (Media issue #255)
+*/
+
+window.mejs.MediaElementPlayer.prototype.enterFullScreen = function () {
+  const t = this;
+
+  if (window.mejs.MediaFeatures.hasiOSFullScreen) {
+    t.media.webkitEnterFullscreen();
+    return;
+  }
+
+  // set it to not show scroll bars so 100% will work
+  $(document.documentElement).addClass('mejs-fullscreen');
+
+  // store sizing
+  t.normalHeight = t.container.height();
+  t.normalWidth = t.container.width();
+
+  // attempt to do true fullscreen
+  if (t.fullscreenMode === 'native-native' || t.fullscreenMode === 'plugin-native') {
+
+    window.mejs.MediaFeatures.requestFullScreen(t.container[0]);
+  }
+
+  // make full size
+  t.container
+    .addClass('mejs-container-fullscreen')
+    .width('100%')
+    .height('100%');
+
+  // Only needed for safari 5.1 native full screen, can cause display issues elsewhere
+  // Actually, it seems to be needed for IE8, too
+  t.containerSizeTimeout = setTimeout(function () {
+    t.container.css({ width: '100%', height: '100%' });
+    t.setControlsSize();
+  }, 500);
+
+  if (t.media.pluginType === 'native') {
+    t.$media
+      .width('100%')
+      .height('100%');
+  } else {
+    t.container.find('.mejs-shim')
+      .width('100%')
+      .height('100%');
+
+    setTimeout(function () {
+      const win = $(window);
+      const winW = win.width();
+      const winH = win.height();
+
+      t.media.setVideoSize(winW, winH);
+    }, 500);
+  }
+
+  t.layers.children('div')
+    .width('100%')
+    .height('100%');
+
+  if (t.fullscreenBtn) {
+    t.fullscreenBtn
+      .removeClass('mejs-fullscreen')
+      .addClass('mejs-unfullscreen');
+  }
+
+  t.setControlsSize();
+  t.isFullScreen = true;
+
+  t.container.find('.mejs-captions-text').css('font-size', screen.width / t.width * 1.00 * 100 + '%');
+  t.container.find('.mejs-captions-position').css('bottom', '45px');
+
+  t.container.trigger('enteredfullscreen');
+};
+
 /**
  * Force the default language so that the aria-label can be localised from Adapt
  * Note: Do not change these, their names and values are required for mapping in mejs
@@ -117,9 +214,7 @@ class MediaView extends ComponentView {
     this.listenTo(Adapt, {
       'device:resize': this.onScreenSizeChanged,
       'device:changed': this.onDeviceChanged,
-      'media:stop': this.onMediaStop,
-      'audio:stopAllChannels': this.stopAllChannels
-
+      'media:stop': this.onMediaStop
     });
 
     _.bindAll(this, 'onMediaElementPlay', 'onMediaElementPause', 'onMediaElementEnded', 'onMediaElementTimeUpdate', 'onMediaElementSeeking', 'onOverlayClick', 'onMediaElementClick', 'onWidgetInview');
@@ -210,7 +305,7 @@ class MediaView extends ComponentView {
       const _media = this.model.get('_media');
       // if no media is selected - set ready now, as success won't be called
       if (!_media.mp3 && !_media.mp4 && !_media.ogv && !_media.webm && !_media.source) {
-        log.warn('ERROR! No media is selected in components.json for component ' + this.model.get('_id'));
+        logging.warn('ERROR! No media is selected in components.json for component ' + this.model.get('_id'));
         this.setReadyStatus();
         return;
       }
@@ -249,7 +344,7 @@ class MediaView extends ComponentView {
           })
           .fail(() => {
             MediaView.froogaloopAdded = false;
-            log.error('Could not load froogaloop.js');
+            logging.error('Could not load froogaloop.js');
           });
         break;
       default:
@@ -258,8 +353,13 @@ class MediaView extends ComponentView {
   }
 
   cleanUpPlayer() {
+    const containerLabel = this.model.get('displayTitle') || this.model.get('title');
     this.$('.media__widget').children('.mejs-offscreen').remove();
     this.$('[role=application]').removeAttr('role tabindex');
+    this.$('.mejs-container').attr({
+      role: 'region',
+      'aria-label': containerLabel
+    });
     this.$('[aria-controls]').removeAttr('aria-controls');
     this.$('.mejs-overlay-play').attr('aria-hidden', 'true');
   }
@@ -349,7 +449,6 @@ class MediaView extends ComponentView {
     this.queueGlobalEvent('play');
 
     Adapt.trigger('media:stop', this);
-    Adapt.trigger("audio:stopAllChannels", this.stopAllChannels);
 
     if (this.model.get('_pauseWhenOffScreen')) {
       this.$('.mejs-container').on('inview', this.onWidgetInview);
@@ -410,7 +509,7 @@ class MediaView extends ComponentView {
     const player = this.mediaElement.player;
 
     if (!player) {
-      log.warn('MediaView.setupPlayPauseToggle: OOPS! there is no player reference.');
+      logging.warn('MediaView.setupPlayPauseToggle: OOPS! there is no player reference.');
       return;
     }
 
@@ -577,12 +676,14 @@ class MediaView extends ComponentView {
     $buttonText.html(this.model.get('_transcript').inlineTranscriptCloseButton);
 
     if (this.model.get('_transcript')._setCompletionOnView !== false) {
+      Adapt.trigger('media:transcriptComplete', this);
       this.setCompletionStatus();
     }
   }
 
   onExternalTranscriptClicked(event) {
     if (this.model.get('_transcript')._setCompletionOnView === false) return;
+    Adapt.trigger('media:transcriptComplete', this);
     this.setCompletionStatus();
   }
 

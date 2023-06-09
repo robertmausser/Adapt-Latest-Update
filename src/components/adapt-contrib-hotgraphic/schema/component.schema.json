@@ -24,7 +24,7 @@
         "instruction": {
           "type": "string",
           "title": "Instruction",
-          "default": "",
+          "default": "Select the icons to find out more.",
           "_adapt": {
             "translatable": true
           }
@@ -89,11 +89,11 @@
           "type": "string",
           "title": "Mobile instruction",
           "description": "This instruction text is displayed on mobile devices when this component turns into a Narrative",
-          "default": "",
+          "default": "Select the plus icon followed by the next arrow to find out more.",
           "_adapt": {
             "translatable": true
           },
-          "_backboneForms": "TextArea"
+          "_backboneForms": "Text"
         },
         "_hidePagination": {
           "type": "boolean",
@@ -170,6 +170,17 @@
                 "_adapt": {
                   "translatable": true
                 }
+              },
+              "_imageAlignment": {
+                "type": "string",
+                "title": "Image alignment",
+                "description": "Defines the horizontal alignment of the item image in the pop up. Left: Image aligned to the left of the text area. Right: Image aligned to the right of the text area. The default alignment is `right`",
+                "default": "right",
+                "enum": [
+                  "left",
+                  "right"
+                ],
+                "_backboneForms": "Select"
               },
               "_graphic": {
                 "type": "object",
@@ -256,6 +267,25 @@
                 "type": "number",
                 "title": "Pin vertical position (%)",
                 "default": 0
+              },
+              "_tooltip": {
+                "type": "object",
+                "title": "Tooltip",
+                "properties": {
+                  "_isEnabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "Is enabled?",
+                    "help": "If enabled, a tooltip will be displayed on hover over this item."
+                  },
+                  "text": {
+                    "type": "string",
+                    "default": "{{ariaLabel}}",
+                    "title": "Tooltip text",
+                    "help": "The tooltip text to display on hover over this item",
+                    "translatable": true
+                  }
+                }
               }
             }
           }

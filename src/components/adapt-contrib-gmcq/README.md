@@ -45,6 +45,8 @@ In addition to the attributes specifically listed below, [*question components*]
 **instruction** (string): This optional text appears above the component. It is frequently used to
 guide the learner’s interaction with the component.
 
+**ariaQuestion** (string): This will be read out by screen readers instead of reading the title, body & instruction fields when focusing on the group or radiogroup.
+
 **\_attempts** (integer): This specifies the number of times a learner is allowed to submit an answer. The default is `1`.
 
 **\_shouldDisplayAttempts** (boolean): Determines whether or not the text set in **remainingAttemptText** and **remainingAttemptsText** will be displayed. These two attributes are part of the [core buttons](https://github.com/adaptlearning/adapt_framework/wiki/Core-Buttons) attribute group. The default is `false`.
@@ -92,7 +94,9 @@ guide the learner’s interaction with the component.
 **\_feedback** (object): If the [**Tutor** extension](https://github.com/adaptlearning/adapt-contrib-tutor) is enabled, these various texts will be displayed depending on the submitted answer. **\_feedback**
 contains values for three types of answers: **correct**, **\_incorrect**, and **\_partlyCorrect**. Some attributes are optional. If they are not supplied, the default that is noted below will be used.
 
->**title** (string): If not set, the component's **displayTitle** is used as the feedback title. If **displayTitle** is not set , **title** will be used instead.
+>**title** (string): Title text for the feedback that will be displayed when the question is submitted.
+
+>**altTitle** (string): This will be read out by screen readers as an alternative heading if no visual heading is included.
 
 >**correct** (string): Text that will be displayed when the submitted answer is correct.
 
@@ -124,8 +128,7 @@ These ARIA labels are not visible elements; they are used by assistive technolog
 No known limitations.
 
 ----------------------------
-**Version number:**  6.0.5   <a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
-**Framework versions:** 5.14.0+
+<a href="https://community.adaptlearning.org/" target="_blank"><img src="https://github.com/adaptlearning/documentation/blob/master/04_wiki_assets/plug-ins/images/adapt-logo-mrgn-lft.jpg" alt="adapt learning logo" align="right"></a>
 **Author / maintainer:** Adapt Core Team with [contributors](https://github.com/adaptlearning/adapt-contrib-gmcq/graphs/contributors)
 **Accessibility support:** WAI AA
 **RTL support:** Yes

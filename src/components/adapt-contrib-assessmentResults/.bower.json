@@ -1,7 +1,7 @@
 {
   "name": "adapt-contrib-assessmentResults",
-  "version": "4.3.1",
-  "framework": ">=5.8",
+  "version": "5.1.6",
+  "framework": ">=5.19.1",
   "homepage": "https://github.com/adaptlearning/adapt-contrib-assessmentResults",
   "bugs": "https://github.com/adaptlearning/adapt-contrib-assessmentResults/issues",
   "component": "assessmentResults",
@@ -14,13 +14,54 @@
     "adapt-component"
   ],
   "license": "GPL-3.0",
-  "_release": "4.3.1",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "conventional-changelog-eslint": "^3.0.9",
+    "semantic-release": "^19.0.3"
+  },
+  "scripts": {
+    "postversion": "cp package.json bower.json"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "eslint"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "eslint"
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json",
+            "bower.json"
+          ],
+          "message": "Chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "_release": "5.1.6",
   "_resolution": {
     "type": "version",
-    "tag": "v4.3.1",
-    "commit": "61bcf4aff55817744655c76ec2230a8b0ba5a8e5"
+    "tag": "v5.1.6",
+    "commit": "f8d8aea5cfce2267730ae990f614fb6b03e4f56d"
   },
-  "_source": "git://github.com/adaptlearning/adapt-contrib-assessmentResults.git",
-  "_target": "4.3.1",
+  "_source": "https://github.com/adaptlearning/adapt-contrib-assessmentResults.git",
+  "_target": "5.1.6",
   "_originalSource": "adapt-contrib-assessmentResults"
 }

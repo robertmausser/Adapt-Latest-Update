@@ -1,13 +1,17 @@
 import Adapt from 'core/js/adapt';
+import data from 'core/js/data';
+import logging from 'core/js/logging';
 import ScormWrapper from './scorm/wrapper';
 import COMPLETION_STATE from 'core/js/enums/completionStateEnum';
 import ComponentSerializer from './serializers/ComponentSerializer';
 import SCORMSuspendData from './serializers/SCORMSuspendData';
+import offlineStorage from 'core/js/offlineStorage';
 
 export default class StatefulSession extends Backbone.Controller {
 
   initialize() {
     _.bindAll(this, 'beginSession', 'onVisibilityChange', 'endSession');
+    this.debouncedSaveSession = _.debounce(this.saveSessionState.bind(this), 1);
     this.scorm = ScormWrapper.getInstance();
     this._trackingIdType = 'block';
     this._componentSerializer = null;
@@ -47,35 +51,7 @@ export default class StatefulSession extends Backbone.Controller {
       this.scorm.initialize();
       return;
     }
-    if (settings._showDebugWindow) {
-      this.scorm.showDebugWindow();
-    }
-    this.scorm.setVersion(settings._scormVersion || '1.2');
-    if (_.isBoolean(settings._suppressErrors)) {
-      this.scorm.suppressErrors = settings._suppressErrors;
-    }
-    if (_.isBoolean(settings._commitOnStatusChange)) {
-      this.scorm.commitOnStatusChange = settings._commitOnStatusChange;
-    }
-    if (_.isBoolean(settings._commitOnAnyChange)) {
-      this.scorm.commitOnAnyChange = settings._commitOnAnyChange;
-    }
-    if (_.isFinite(settings._timedCommitFrequency)) {
-      this.scorm.timedCommitFrequency = settings._timedCommitFrequency;
-    }
-    if (_.isFinite(settings._maxCommitRetries)) {
-      this.scorm.maxCommitRetries = settings._maxCommitRetries;
-    }
-    if (_.isFinite(settings._commitRetryDelay)) {
-      this.scorm.commitRetryDelay = settings._commitRetryDelay;
-    }
-    if ('_exitStateIfIncomplete' in settings) {
-      this.scorm.exitStateIfIncomplete = settings._exitStateIfIncomplete;
-    }
-    if ('_exitStateIfComplete' in settings) {
-      this.scorm.exitStateIfComplete = settings._exitStateIfComplete;
-    }
-    this.scorm.initialize();
+    this.scorm.initialize(settings);
   }
 
   restoreSession() {
@@ -94,11 +70,11 @@ export default class StatefulSession extends Backbone.Controller {
     if (!globals._learnerInfo) {
       globals._learnerInfo = {};
     }
-    Object.assign(globals._learnerInfo, Adapt.offlineStorage.get('learnerinfo'));
+    Object.assign(globals._learnerInfo, offlineStorage.get('learnerinfo'));
   }
 
   restoreSessionState() {
-    const sessionPairs = Adapt.offlineStorage.get();
+    const sessionPairs = offlineStorage.get();
     const hasNoPairs = !Object.keys(sessionPairs).length;
     if (hasNoPairs) return;
     if (sessionPairs.c) {
@@ -113,13 +89,14 @@ export default class StatefulSession extends Backbone.Controller {
   }
 
   setupEventListeners() {
-    this.debouncedSaveSession = _.debounce(this.saveSessionState.bind(this), 1);
+    this.removeEventListeners();
     this.listenTo(Adapt.components, 'change:_isComplete', this.debouncedSaveSession);
     this.listenTo(Adapt.course, 'change:_isComplete', this.debouncedSaveSession);
     if (this._shouldStoreResponses) {
-      this.listenTo(Adapt.data, 'change:_isSubmitted change:_userAnswer', this.debouncedSaveSession);
+      this.listenTo(data, 'change:_isSubmitted change:_userAnswer', this.debouncedSaveSession);
     }
     this.listenTo(Adapt, {
+      'app:dataReady': this.restoreSession,
       'app:languageChanged': this.onLanguageChanged,
       'questionView:recordInteraction': this.onQuestionRecordInteraction,
       'tracking:complete': this.onTrackingComplete
@@ -147,7 +124,7 @@ export default class StatefulSession extends Backbone.Controller {
       c: courseState,
       q: componentStates
     };
-    Adapt.offlineStorage.set(sessionPairs);
+    offlineStorage.set(sessionPairs);
     this.printCompletionInformation(sessionPairs);
   }
 
@@ -159,16 +136,16 @@ export default class StatefulSession extends Backbone.Controller {
     const courseState = SCORMSuspendData.deserialize(suspendData.c);
     const courseComplete = courseState[0];
     const assessmentPassed = courseState[1];
-    const trackingIdModels = Adapt.data.filter(model => model.get('_type') === this._trackingIdType && model.has('_trackingId'));
+    const trackingIdModels = data.filter(model => model.get('_type') === this._trackingIdType && model.has('_trackingId'));
     const trackingIds = trackingIdModels.map(model => model.get('_trackingId'));
     if (!trackingIds.length) {
-      Adapt.log.info(`course._isComplete: ${courseComplete}, course._isAssessmentPassed: ${assessmentPassed}, ${this._trackingIdType} completion: no tracking ids found`);
+      logging.info(`course._isComplete: ${courseComplete}, course._isAssessmentPassed: ${assessmentPassed}, ${this._trackingIdType} completion: no tracking ids found`);
       return;
     }
-    const data = SCORMSuspendData.deserialize(suspendData.q);
-    const max = Math.max(...data.map(item => item[0][0]));
-    const shouldStoreResponses = (data[0].length === 3);
-    const completionString = data.reduce((markers, item) => {
+    const completionData = SCORMSuspendData.deserialize(suspendData.q);
+    const max = Math.max(...completionData.map(item => item[0][0]));
+    const shouldStoreResponses = (completionData[0].length === 3);
+    const completionString = completionData.reduce((markers, item) => {
       const trackingId = item[0][0];
       const isComplete = shouldStoreResponses ?
         item[2][1][0] :
@@ -178,25 +155,14 @@ export default class StatefulSession extends Backbone.Controller {
         mark :
         '0';
       return markers;
-    }, (new Array(max + 1).join('-').split(''))).join('');
-    Adapt.log.info(`course._isComplete: ${courseComplete}, course._isAssessmentPassed: ${assessmentPassed}, ${this._trackingIdType} completion: ${completionString}`);
+    }, new Array(max + 1).fill('-')).join('');
+    logging.info(`course._isComplete: ${courseComplete}, course._isAssessmentPassed: ${assessmentPassed}, ${this._trackingIdType} completion: ${completionString}`);
   }
 
   onLanguageChanged() {
-    // when the user switches language, we need to:
-    // - reattach the event listeners as the language change triggers a reload of
-    //   the json, which will create brand new collections
-    // - get and save a fresh copy of the session state. as the json has been reloaded,
-    //   the blocks completion data will be reset (the user is warned that this will
-    //   happen by the language picker extension)
-    // - check to see if the config requires that the lesson_status be reset to
-    //   'incomplete'
     const config = Adapt.spoor.config;
-    this.removeEventListeners();
-    this.setupEventListeners();
-    this.saveSessionState();
     if (config?._reporting?._resetStatusOnLanguageChange !== true) return;
-    Adapt.offlineStorage.set('status', 'incomplete');
+    offlineStorage.set('status', 'incomplete');
   }
 
   onVisibilityChange() {
@@ -205,15 +171,17 @@ export default class StatefulSession extends Backbone.Controller {
 
   onQuestionRecordInteraction(questionView) {
     if (!this._shouldRecordInteractions) return;
-    const responseType = questionView.getResponseType();
+    // View functions are deprecated: getResponseType, getResponse, isCorrect, getLatency
+    const questionModel = questionView.model;
+    const responseType = (questionModel.getResponseType ? questionModel.getResponseType() : questionView.getResponseType());
     // If responseType doesn't contain any data, assume that the question
     // component hasn't been set up for cmi.interaction tracking
     if (_.isEmpty(responseType)) return;
-    const id = questionView.model.get('_id');
-    const response = questionView.getResponse();
-    const result = questionView.isCorrect();
-    const latency = questionView.getLatency();
-    Adapt.offlineStorage.set('interaction', id, response, result, latency, responseType);
+    const id = `${this.scorm.getInteractionCount()}-${questionModel.get('_id')}`;
+    const response = (questionModel.getResponse ? questionModel.getResponse() : questionView.getResponse());
+    const result = (questionModel.isCorrect ? questionModel.isCorrect() : questionView.isCorrect());
+    const latency = (questionModel.getLatency ? questionModel.getLatency() : questionView.getLatency());
+    offlineStorage.set('interaction', id, response, result, latency, responseType);
   }
 
   onTrackingComplete(completionData) {
@@ -225,7 +193,7 @@ export default class StatefulSession extends Backbone.Controller {
       case COMPLETION_STATE.COMPLETED:
       case COMPLETION_STATE.PASSED: {
         if (!config?._reporting?._onTrackingCriteriaMet) {
-          Adapt.log.warn(`No value defined for '_onTrackingCriteriaMet', so defaulting to '${completionStatus}'`);
+          logging.warn(`No value defined for '_onTrackingCriteriaMet', so defaulting to '${completionStatus}'`);
         } else {
           completionStatus = config._reporting._onTrackingCriteriaMet;
         }
@@ -234,13 +202,13 @@ export default class StatefulSession extends Backbone.Controller {
       }
       case COMPLETION_STATE.FAILED: {
         if (!config?._reporting?._onAssessmentFailure) {
-          Adapt.log.warn(`No value defined for '_onAssessmentFailure', so defaulting to '${completionStatus}'`);
+          logging.warn(`No value defined for '_onAssessmentFailure', so defaulting to '${completionStatus}'`);
         } else {
           completionStatus = config._reporting._onAssessmentFailure;
         }
       }
     }
-    Adapt.offlineStorage.set('status', completionStatus);
+    offlineStorage.set('status', completionStatus);
   }
 
   endSession() {

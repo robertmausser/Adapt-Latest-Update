@@ -1,12 +1,12 @@
 # adapt-hotgrid
 
-**Hotgrid** is a *presentation component* which displays a set of images in a grid layout. 
+**Hotgrid** is a _presentation component_ which displays a set of images in a grid layout.
 
 When a learner selects an image, a pop-up is displayed that consists of text with an image.
 
 ## Settings Overview
 
-The attributes listed below are used in *components.json* to configure **Hotgrid**, and are properly formatted as JSON in [*example.json*](https://github.com/cgkineo/adapt-hotgrid/blob/master/example.json). 
+The attributes listed below are used in _components.json_ to configure **Hotgrid**, and are properly formatted as JSON in [_example.json_](https://github.com/cgkineo/adapt-hotgrid/blob/master/example.json).
 
 ## Attributes
 
@@ -36,7 +36,7 @@ When set to `true`, hides the "previous" and "next" icons and progress indicator
 ### \_columns (number):
 This value determines the number of columns within the grid. Any number of columns can be set however keep in mind the more columns there are the smaller the items will be.
 
-**Hot Grid**  has a dynamic layout system. If you have 5 items but set the columns to 3, **Hot Grid**  will put 3 items in the first row and 2 on the second. The second row then will be automatically centred. This works with any amount of items and columns - i.e. that last row will always be centred for you.
+**Hot Grid** has a dynamic layout system. If you have 5 items but set the columns to 3, **Hot Grid** will put 3 items in the first row and 2 on the second. The second row then will be automatically centred. This works with any amount of items and columns - i.e. that last row will always be centred for you.
 
 ### \_items (array):
 The items array contains the list of all the **Hot Grid** items. Each entry in the array should be an object, containing the following settings:
@@ -47,9 +47,11 @@ The title text for the popup that is shown when the item is selected by the lear
 #### body (string):
 The main text for the popup that is shown when the item is selected by the learner.
 
+#### \_imageAlignment (string):
+Defines the horizontal alignment of the item image in the pop up. Left: Image aligned to the left of the text area. Right: Image aligned to the right of the text area. The default alignment is `right`.
+
 #### \_classes (string):
 CSS class name(s) to be applied to the popup item. Classes available by default are:
-* `"align-image-left"` (aligns the item image to the left)
 * `"hide-desktop-image"` (hides the pop up image in desktop view)
 * `"hide-popup-image"` (hides the pop up image for all screen sizes)
 
@@ -62,7 +64,7 @@ The graphic object defines the image that displays for each grid item and contai
 This is optional text which is displayed under the grid item image.
 
 ##### src (string):
-File name (including path) of grid item image. Path should be relative to the `src` folder (e.g., `"course/en/images/c-15.png"`). 
+File name (including path) of grid item image. Path should be relative to the `src` folder (e.g., `"course/en/images/c-15.png"`).
 
 ##### srcHover (string):
 The 'hover' state of the grid item image. This setting is optional and does not need to be included if, say, you are handling the 'hover' state via CSS. If you do include it you also need to include a `srcVisited` setting (see below) as well.
@@ -86,16 +88,15 @@ The alternative text for the item popup image. Assign [alt text](https://github.
 Optional text to be displayed as an [attribution](https://wiki.creativecommons.org/Best_practices_for_attribution). By default it is displayed below the image. Adjust positioning by modifying CSS. Text can contain HTML tags, e.g., `Copyright © 2015 by <b>Lukasz 'Severiaan' Grela</b>`.
 
 ## Accessibility
-**Hotgrid** has a label assigned using the [aria-label](https://github.com/adaptlearning/adapt_framework/wiki/Aria-Labels) attribute: **ariaRegion**. These labels are not visible elements. They are utilized by assistive technology such as screen readers. This label is included within the *example.json* and may need to be added to the _globals in *course.json*.
+**Hotgrid** has a label assigned using the [aria-label](https://github.com/adaptlearning/adapt_framework/wiki/Aria-Labels) attribute: **ariaRegion**. These labels are not visible elements. They are utilized by assistive technology such as screen readers. This label is included within the _example.json_ and may need to be added to the \_globals in _course.json_.
 
 ## Limitations
+Hotgrid automatically switches to 2 columns in mobile mode for the best user experience. However, this can be overridden in the CSS.
 
-Hotgrid automatically switches to 2 columns in mobile mode for the best user experience however this can be overridden in the CSS. 
+---
 
-----------------------------
-**Version number:**  4.1.1  
-**Framework versions:**  5+  
-**Author / maintainer:**  Kineo  
-**Accessibility support:**  WAI AA  
-**RTL support:**  Yes  
-**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 14 for macOS/iOS/iPadOS, Opera  
+**Framework versions:** 5.22.4+<br>
+**Author / maintainer:** CGKineo<br>
+**Accessibility support:** WAI AA<br> 
+**RTL support:** Yes<br>
+**Cross-platform coverage:** Chrome, Chrome for Android, Firefox (ESR + latest version), Edge, IE11, Safari 14 for macOS/iOS/iPadOS, Opera<br> 

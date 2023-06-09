@@ -180,12 +180,12 @@ export default function MatchingDropDown(props) {
         onClick={onButtonClick}
         ref={button}>
 
-        <div className="dropdown__inner js-dropdown-inner" dangerouslySetInnerHTML={{ __html: displayActiveOption?.text }}>
-        </div>
+        <span className="dropdown__inner js-dropdown-inner" dangerouslySetInnerHTML={{ __html: displayActiveOption?.text }}>
+        </span>
 
-        <div className="dropdown__icon">
-          <div className="icon"></div>
-        </div>
+        <span className="dropdown__icon" aria-hidden="true">
+          <span className="icon"></span>
+        </span>
 
       </button>
 
@@ -225,7 +225,7 @@ export default function MatchingDropDown(props) {
             selected={_isHighlighted || null}
             onClick={onOptionClicked}
           >
-            <div className="dropdown-item__inner js-dropdown-list-item-inner" dangerouslySetInnerHTML={{ __html: displayText || text }}>
+            <div className="dropdown-item__inner js-dropdown-list-item-inner u-no-select" dangerouslySetInnerHTML={{ __html: displayText || text }}>
             </div>
           </li>;
         })}

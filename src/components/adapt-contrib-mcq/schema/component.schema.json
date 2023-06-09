@@ -28,6 +28,15 @@
         "instruction": {
           "type": "string",
           "title": "Instruction",
+          "default": "Choose {{#if _isRadio}}one option{{else}}one or more options{{/if}} then select Submit.",
+          "_adapt": {
+            "translatable": true
+          }
+        },
+        "ariaQuestion": {
+          "type": "string",
+          "title": "ARIA question",
+          "description": "This will be read out by screen readers instead of reading the 'Display title', 'Body' & 'Instruction' fields when focusing on the options. To be clear and concise, ensure the text encompasses only the question associated.",
           "default": "",
           "_adapt": {
             "translatable": true
@@ -142,7 +151,16 @@
             "title": {
               "type": "string",
               "title": "Title",
-              "description": "Leave blank to have the component's title shown instead",
+              "description": "Title text for the feedback",
+              "default": "",
+              "_adapt": {
+                "translatable": true
+              }
+            },
+            "altTitle": {
+              "type": "string",
+              "title": "Alternative Feedback Title",
+              "description": "Text read out by screen readers if no visual title is included",
               "default": "",
               "_adapt": {
                 "translatable": true

@@ -55,6 +55,7 @@ class HomeButton extends Backbone.Controller {
         'data-event': currentModelConfig?._redirectToId ? 'redirectedHomeButton' : 'homeButton'
       },
       class: 'btn-icon nav__btn nav__homebutton-btn js-nav-home-btn',
+      title: 'Home Button',
       'aria-label': altText,
       role: 'link'
     }).append($icon);

@@ -1,0 +1,17 @@
+// To go in the course.json file
+
+"_favicons": [
+  {
+    "_src": "course/en/images/icons/favicon.ico",
+    "_type": "",
+    "_rel": "shortcut icon",
+    "_sizes": ""
+  },
+  {
+    "_src": "course/en/images/icons/apple-touch-icon-144x144.png",
+    "_type": "image/png",
+    "_rel": "apple-touch-icon",
+    "_sizes": "144x144"
+  }
+]
+

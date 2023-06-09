@@ -1,0 +1,37 @@
+// globally hide inline feedback
+.inline__feedback {
+  display: none;
+}
+
+// display inline feedback for submitted questions
+.is-question .component__widget.is-submitted ~ .inline__feedback {
+  display: block;
+}
+
+.component__feedback {
+  display: none;
+  &.show-feedback {
+    display: block;
+  }
+  &-inner {
+    margin-top: 3rem;
+  }
+}
+
+.has-inline-feedback .btn__feedback {
+  display: none;
+}
+
+.has-inline-feedback .can-show-marking .btn__action, .has-inline-feedback.can-show-marking .btn__action {
+  margin-right: 4rem;
+}
+
+.has-inline-feedback .btn__action {
+  width: 100%;
+}
+
+.has-inline-feedback .btn__marking {
+  left: inherit;
+  right: 0.5rem;
+  transform: translate(0, -50%);
+}

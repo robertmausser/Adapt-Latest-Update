@@ -1,0 +1,8 @@
+// To go in Course.json
+"_menuBackground": {
+  "_menuHeader": {
+    "_link": "course/en/images/origami-menu-one.jpg",
+    "_applyToPage": true
+  },
+  "_backgroundLink": "course/en/images/origami-background.jpg"
+},

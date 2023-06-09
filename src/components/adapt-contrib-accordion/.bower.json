@@ -1,0 +1,26 @@
+{
+  "name": "adapt-contrib-accordion",
+  "version": "6.0.2",
+  "framework": ">=5.14.0",
+  "homepage": "https://github.com/adaptlearning/adapt-contrib-accordion",
+  "bugs": "https://github.com/adaptlearning/adapt-contrib-accordion/issues",
+  "component": "accordion",
+  "targetAttribute": "_accordion",
+  "displayName": "Accordion",
+  "description": "An accordion component that displays clickable titles, which reveal display text",
+  "main": "/js/adapt-contrib-accordion.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPL-3.0",
+  "_release": "6.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v6.0.2",
+    "commit": "c51b3e92b2b8eec99608cb8d7d9871d309b7a25c"
+  },
+  "_source": "https://github.com/adaptlearning/adapt-contrib-accordion.git",
+  "_target": "6.0.2",
+  "_originalSource": "adapt-contrib-accordion"
+}

@@ -1,0 +1,171 @@
+@flip-speed: 0.6s;
+
+.flipper-inner {
+
+	.flipper-container {
+		margin: 0 auto 20px;
+		perspective: 1000px;
+		-webkit-perspective: 1000px;
+		-moz-perspective: 1000px;
+		-o-perspective: 1000px;
+		-ms-perspective: 1000px;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.flipper {
+		position: relative;
+		height: 100%;
+		margin: 10px;
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		-o-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+		cursor: pointer;
+
+		&.animating {
+			.flipper-item {
+				&:not(.state-0) {
+					-webkit-transition: @flip-speed;
+					-moz-transition: @flip-speed;
+					-ms-transition: @flip-speed;
+					-o-transition: @flip-speed;
+					transition: @flip-speed;
+				}
+			}
+		}
+	}
+
+	/* hide back of pane during swap */
+	.flipper-item {
+		z-index: 2;
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-ms-backface-visibility: visible;
+		-o-backface-visibility: hidden;
+		backface-visibility: hidden;
+		position: absolute;
+        box-sizing: content-box;
+        padding-bottom:50px;
+		top: 0;
+		left: 0;
+		width: 100%;
+		background: @primary-color-inverted;
+		-webkit-box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+		box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+		.transform(0deg);
+        
+        .item-index{
+			position: relative;
+			display:inline-block;
+            margin-right:10px;
+			font-size: 22px;
+			line-height: 100%;
+			padding: 7px 12px;
+			background-color:@primary-color-inverted;
+			color: @black;
+		}
+
+		.flipper-item-title {
+			background: @primary-color;
+			color: @primary-color-inverted;
+			padding: 10px 20px;
+		}
+
+		.flipper-item-body {
+			background: @primary-color-inverted;
+			padding: 20px 20px 20px;
+			color: @font-color;
+		}
+
+		.flipper-item-img {
+			vertical-align: bottom;
+            box-sizing:border-box;
+            padding:0 20px;
+		}
+
+			  .flipper-buttons {
+            position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: center;
+    justify-content: space-evenly;
+        }
+
+			.flipper-item-next-button {
+			    margin: 20px;
+			//color: @primary-color;
+			
+		}
+		.flipper-item-complete-button{
+			    margin: 20px;
+		}
+		.flipper-item-previous-button{
+    margin: 20px;
+   
+	}
+
+		// &.state-0 {
+		// 	.transform(-180deg);
+		// }
+		// &.state-1 {
+		// 	.transform(0deg);
+		// }
+		// &.state-2 {
+		// 	.transform(180deg);
+		// }
+	}
+
+
+}
+.flipperFocus:focus-within {
+
+		outline: #000 auto 2px !important;
+		outline-offset: 4px !important;
+	
+	  
+  }
+  
+.prev-direction{
+	.flipper-item {
+		&.state-0 {
+			.transform(180deg);
+		}
+		&.state-1 {
+			.transform(0deg);
+		}
+		&.state-2 {
+			.transform(-180deg);
+		}
+	}
+}
+
+.next-direction{
+	.flipper-item {
+		&.state-0 {
+			.transform(-180deg);
+		}
+		&.state-1 {
+			.transform(0deg);
+		}
+		&.state-2 {
+			.transform(180deg);
+		}
+	}
+}
+
+.transform(@angle) {
+	-webkit-transform: rotateY(@angle);
+	-moz-transform: rotateY(@angle);
+	-ms-transform: rotateY(@angle);
+	-o-transform: rotateY(@angle);
+	transform: rotateY(@angle);
+}

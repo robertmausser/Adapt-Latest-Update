@@ -1,0 +1,42 @@
+.notify-popup {
+	&.offline {
+		&.modal {
+			.notify-popup-done {
+				display: none;
+			}
+		}
+        	.notify-popup-done {
+				display: none;
+			}
+	}
+}
+
+.navigation-logo {
+	&.offline {
+		.icon;
+		position: relative;
+		
+		&:not(.modal) {
+			&:before {
+				content: '\e639';
+				color: red;
+				font-size: 32px;
+				height: 32px;
+				position: absolute;
+				bottom: 16px;
+				right: -32px;
+				width: 32px;
+
+				@media (max-width: @device-width-small) {
+					right: -16px;
+				}
+			}
+		}
+
+		.navigation-logo-inner{
+			filter: gray;
+			filter: grayscale(1);
+			-webkit-filter: grayscale(1);
+		}
+	}
+}

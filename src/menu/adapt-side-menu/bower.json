@@ -1,0 +1,16 @@
+{
+  "name": "adapt-side-menu",
+  "version": "1.0.0",
+  "framework": "^2.0.0",
+  "homepage": "https://github.com/aniketdharia/adapt-side-menu",
+  "issues": "https://github.com/aniketdharia/adapt-side-menu/issues",
+  "displayName": "Side Menu",
+  "menu": "sidemenu",
+  "description": "A half window side menu",
+  "main": "js/adapt-side-menu.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-menu"
+  ],
+  "targetAttribute": "_boxMenu"
+}

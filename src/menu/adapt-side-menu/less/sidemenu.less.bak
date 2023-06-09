@@ -1,0 +1,299 @@
+body{
+	background-color: @white;
+}
+.menu-title, .menu-body{
+	color: @foreground-color !important;
+	margin-bottom:0px;
+}
+
+.menu {
+	background: @primary-color;
+	.menu-container {
+		.responsive-large;
+		.responsive-medium;
+		.responsive-small;
+	}
+
+	.menu-container-inner {
+		padding:@menu-body-padding;
+	}
+
+	.menu-item {
+		.responsive-medium;
+		.responsive-small;
+		width:25%;
+        display:inline-block;
+		//float:left;
+        .dir-rtl & {
+            //float:right;
+        }
+		margin-top:@menu-body-padding-bottom;
+		margin-bottom:20px;
+
+		&.nth-child-even{
+			.menu-item-inner{
+				margin-left:0% !important;
+		        .dir-rtl & {
+		            margin-left:inherit;
+		            margin-right:0% !important;
+		        }
+			}
+		}
+
+		&.nth-child-odd {
+			clear: both;
+			.menu-item-inner {
+				margin-right:0% !important;
+                .dir-rtl & {
+                    margin-right:inherit;
+                    margin-left:0% !important;
+                }
+			}
+		}
+	}
+
+	.menu-item-inner {
+		background: @background-color !important;
+		padding-bottom:20px;
+		position:relative;
+		color: @background-color-inverted !important;
+	}
+
+	.menu-graphic a {
+		display: block;
+	}
+
+	.menu-item-title {
+		padding:@menu-body-padding;
+	}
+
+	.menu-item-body {
+		padding:@menu-body-padding;
+		.menu-item-body-inner{
+				@lines-to-show:5;
+				@body-text-line-height:1.4;
+				display: block;
+				display: -webkit-box;
+				height: @body-text-font-size*@body-text-line-height*@lines-to-show; /* Fallback for non-webkit */
+				line-height: @body-text-line-height;
+				-ms-line-clamp: @lines-to-show;
+				-moz-line-clamp: @lines-to-show;
+				-webkit-line-clamp: @lines-to-show;
+				display: -moz-box;
+				display: -ms-box;
+				display: -webkit-box;
+				display: box;
+				-ms-box-orient: vertical;
+				-moz-box-orient: vertical;
+				-webkit-box-orient: vertical;
+				box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				p{
+					margin-top: 0px;
+					margin-bottom: 0px;
+				}
+		}
+	}
+
+	.menu-item-button {
+			padding:@menu-body-padding;
+
+
+		a {
+			text-decoration: none;
+			background-color:@button-color;
+			color:@button-text-color;
+			padding:@button-padding;
+
+			&:hover {
+				background-color:@button-hover-color;
+				color:@button-text-hover-color;
+			}
+
+			&.visited {
+				background-color:@button-disabled-color;
+				color:@button-text-disabled-color;
+			}
+		}
+	}
+
+	.menu-item-duration {
+		float:right;
+        .dir-rtl & {
+            float:left;
+        }
+	}
+}
+
+//custonize less code for new menu creation
+.location-menu{
+    .navigation {
+       background-color: transparent !important;
+        position:fixed;
+        box-shadow: none !important;
+				button{
+					&.icon{
+						display: none;
+					}
+				}
+    }
+}
+
+.menu{
+    .menu-container{
+        width: 100%;
+        /margin-top: -64px !important;
+        .menu-header {
+            margin-bottom: 0px;
+            background-size: 100% auto;
+           // float: left;
+            width: 100%;
+            //position:fixed;
+            //top:0;
+            //bottom:0;
+            //left:0;
+						background-color: @foreground-color-inverted !important;
+						-webkit-box-shadow: 10px 0px 16px -5px rgba(0, 0, 0, 0.16);
+						-moz-box-shadow: 10px 0px 16px -5px rgba(0, 0, 0, 0.16);
+						box-shadow: 10px 0px 16px -5px rgba(0, 0, 0, 0.16);
+
+            .menu-header-inner{
+                padding: 80px 20px 0px;
+                max-width: 100%;
+
+                .menu-title{
+                    margin: 0px;
+           text-align: center;
+
+                    .menu-title-inner{
+                        padding: 10px;
+                        text-align: center;
+                    }
+                }
+
+                .menu-body{
+                    .menu-body-inner{
+                        padding: 10px;
+                        font-size: 16px;
+                        text-align: left;
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+        .menu-container-inner{
+            width:100%;
+            padding-bottom:0px!important;
+            //margin-top:85px;
+            //float: right;
+            overflow: auto;
+						background-color: @white;
+						padding: 16px;
+						box-sizing: border-box;
+            .menu-item{
+                width: 25%;
+                @media (max-width: @device-width-medium) {
+                    width: 50%;
+                }
+                margin: 0px;
+                padding: 16px !important;
+                box-sizing: border-box;
+                .menu-item-inner{
+                    border-radius: 4px;
+                    &:hover{
+                        box-shadow: 0 0 46px rgba(0,0,0,0.33);
+                        cursor: pointer;
+                    }
+
+                }
+
+                &.nth-child-odd{
+                    clear: both;
+                    padding-right: inherit !important;
+
+										.dir-rtl & {
+											padding-right:inherit;
+											padding-left:inherit !important;
+										}
+
+                    .menu-item-inner{
+                        max-width: 100%;
+                    }
+
+                }
+
+                &.nth-child-even{
+                    padding-left: inherit !important;
+
+										.dir-rtl & {
+												padding-left:inherit;
+												padding-right:inherit !important;
+										}
+
+                    .menu-item-inner{
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width:760px) {
+	.menu-title-inner{
+		padding:15px 0 0;
+	}
+	.menu-body-inner{
+		padding:0px 0 10px;
+	}
+   	.menu{
+   		.menu-inner {
+			padding:0;
+		}
+		.menu-item{
+			width:100%;
+			margin-bottom:20px;
+			&.nth-child-even, &.nth-child-odd{
+				.menu-item-inner{
+					margin:0;
+				}
+			}
+		}
+   	}
+}
+
+//customize less code
+@media (max-width: 1024px){
+	.menu{
+        .menu-container{
+            .menu-header{
+                float: none;
+                width: 100%;
+                height: auto;
+                position: relative;
+                .menu-header-inner{
+                    padding: 60px 20px;
+                }
+            }
+            .menu-container-inner{
+                width: 100%;
+                float: none;
+                height: auto;
+                overflow: hidden;
+            }
+        }
+    }
+}
+@media (max-width: 519px){
+	.menu{
+			.menu-container{
+					.menu-container-inner{
+							.menu-item{
+									width: 100%;
+									margin: 0 auto;
+							}
+					}
+			}
+	}
+}

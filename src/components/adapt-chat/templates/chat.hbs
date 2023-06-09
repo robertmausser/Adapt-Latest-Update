@@ -1,0 +1,29 @@
+<div class="chat-inner component__inner" role="region" aria__label="{{_globals._components._text.ariaRegion}}">
+  {{> component this}}
+
+  <div class="chat__widget component__widget">
+    <div class="chat-lines" role="list">
+      {{#each _items}}
+      <div class="chat-line item-{{@index}}-audio  {{#if ../_singleParticipant}}sole-participant{{else}}participant-{{_participant}}{{/if}}" role="listitem">
+        <div class="chat-icon">
+          <img class="chat-icon-inner" src="" />
+          <div class="chat-icon-name" tabindex="0"> </div>
+        </div>
+        <div class="chat-text" tabindex="0">
+          <div class="item-audio-container {{../_id}}-{{@index}}"></div>
+          {{#if this.length}}
+          {{{a11y_text this}}}
+          {{else}}
+          {{{a11y_text body}}}
+          {{/if}}
+        </div>
+      </div>
+      {{/each}}
+      <div class="chat-button">
+        <button class="btn-text chat-next" aria-label="{{_globals._accessibility._ariaLabels.next}}" role="button">
+          {{{_items.[0]._button.buttonText}}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

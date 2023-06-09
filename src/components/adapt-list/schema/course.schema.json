@@ -1,0 +1,39 @@
+{
+  "$anchor": "list-course",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "$patch": {
+    "source": {
+      "$ref": "course"
+    },
+    "with": {
+      "properties": {
+        "_globals": {
+          "type": "object",
+          "default": {},
+          "properties": {
+            "_components": {
+              "type": "object",
+              "default": {},
+              "properties": {
+                "_list": {
+                  "type": "object",
+                  "default": {},
+                  "title": "List",
+                  "properties": {
+                    "ariaRegion": {
+                      "type": "string",
+                      "title": "ARIA region",
+                      "default": "",
+                      "translatable": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

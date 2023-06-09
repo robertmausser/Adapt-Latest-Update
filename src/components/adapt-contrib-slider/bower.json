@@ -1,0 +1,17 @@
+{
+  "name": "adapt-contrib-slider",
+  "version": "3.4.0",
+  "framework": ">=5.17.2",
+  "homepage": "https://github.com/adaptlearning/adapt-contrib-slider",
+  "bugs": "https://github.com/adaptlearning/adapt-contrib-slider/issues",
+  "component" : "slider",
+  "targetAttribute": "_slider",
+  "displayName" : "Slider",
+  "description": "A question component that allows the learner to position a slider on scale",
+  "main": "/js/adapt-contrib-slider.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPL-3.0"
+}

@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "properties": {
+    "pluginLocations": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "config": {
+          "type": "object"
+        },
+        "course": {
+          "type": "object"
+        },
+        "contentobject": {
+          "type": "object",
+          "properties": {
+            "_pageHeaderBackground": {
+              "type": "object",
+              "required": false,
+              "legend": "Page Header Background",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": true,
+                  "default": false,
+                  "title": "Is enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Page Header Background extension is enabled or disabled for this page."
+                },
+                "pageHeaderBackgroundLink": {
+                  "type": "string",
+                  "required": false,
+                  "default": "",
+                  "inputType": "Asset:image",
+                  "title": "Page header background image"
+                },
+                "pageHeaderTitleImage":{
+                  "type": "object",
+                  "required": false,
+                  "legend": "Page Header Title Image",
+                  "properties": {
+                    "src":{
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "inputType": "Asset:image",
+                      "title": "Page header title image"
+                    },
+                    "fallbackPageHeaderTitleImage":{
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "inputType": "Asset:image",
+                      "title": "Page header fallback image for IE/Edge browser"
+                    },
+                    "alignment":{
+                      "type": "string",
+                      "required": true,
+                      "enum": ["left", "right"],
+                      "default": "right",
+                      "title": "Title image alignment",
+                      "inputType": {"type": "Select", "options":["left", "right"]},
+                      "validators": ["required"],
+                      "help": "Allows you to align title image."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "article": {
+          "type": "object"
+        },
+        "block": {
+          "type": "object"
+        },
+        "component": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "required": false,
+  "globals": {},
+  "properties": {
+      "pluginLocations": {
+          "type": "object",
+          "required": true,
+          "properties": {
+              "config": {
+                "type": "object"
+              },
+              "course": {
+                  "type": "object",
+                  "properties": {
+                      "_favicons": {
+                          "legend": "Favicons",
+                          "type": "array",
+                          "required": false,
+                          "items": {
+                              "type": "object",
+                              "required": false,
+                              "title": "Favicon",
+                              "properties": {
+                                  "_sizes": {
+                                      "type": "string",
+                                      "required": false,
+                                      "title": "Size",
+                                      "inputType": "Text",
+                                      "default": "",
+                                      "validators": [],
+                                      "help": "Image dimension, e.g. '60x60'.  Used by Apple to select for devices."
+                                  },
+                                  "_type": {
+                                      "type": "string",
+                                      "required": false,
+                                      "title": "Mime Type",
+                                      "inputType": { "type": "Select", "options": ["", "image/png", "image/x-icon", "image/svg+xml", "image/gif", "image/vnd.microsoft.icon"]},
+                                      "default": "",
+                                      "validators": []
+                                  },
+                                  "_rel": {
+                                      "type": "string",
+                                      "required": true,
+                                      "title": "Rel Attribute",
+                                      "inputType": { "type": "Select", "options": ["", "icon", "apple-touch-icon", "apple-touch-icon-precomposed", "shortcut icon", "mask-icon"]},
+                                      "default": "",
+                                      "validators": ["required"]
+                                  },
+                                  "_src": {
+                                      "type": "string",
+                                      "required": true,
+                                      "title": "Image",
+                                      "inputType": "Asset:image",
+                                      "default": "",
+                                      "validators": ["required"]
+                                  }
+                              }
+                          }
+                      }
+                  }
+              },
+              "contentobject": {
+                  "type": "object"
+              },
+              "article": {
+                  "type": "object"
+              },
+              "block": {
+                  "type": "object"
+              },
+              "component": {
+                  "type": "object"
+              }
+          }
+      }
+  }
+}

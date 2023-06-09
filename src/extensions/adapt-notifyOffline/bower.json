@@ -1,0 +1,15 @@
+{
+  "name": "adapt-notifyOffline",
+  "version": "2.0.0",
+  "framework": "^2.0.0",
+  "homepage": "https://github.com/cgkineo/adapt-notifyOffline",
+  "displayName" : "Notify offline",
+  "extension" : "notifyOffline",
+  "description": "An extension which notifies the user when offline.",
+  "main": "/js/adapt-offline.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-extension"
+  ],
+  "license": "GPLv3"
+}

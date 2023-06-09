@@ -1,0 +1,40 @@
+<div class="flipper-inner component-inner">
+	{{> component this}}
+	<div class="flipper-widget component-widget">
+		<div class="flipper-container">
+			<div class="flipper stage-0 next-direction">
+				{{#each _items}}
+				<div class="flipper-item item-{{@index}}-audio nth-child-{{@index}} state-0" aria-hidden="true">
+					<div class="item-audio-container"></div>
+					<div class="flipper-item-title">
+						<div class="item-index">{{math @index "+" 1}}</div>{{{a11y_text title}}}
+					</div>
+					{{#if body}}
+					<div class="flipper-item-body">{{{a11y_text body}}}</div>{{/if}}
+					{{#if _graphic}}
+					{{#if _graphic.src}}
+					<img class="flipper-item-img" src="{{_graphic.src}}" alt="{{_graphic.alt}}">{{/if}}
+					{{/if}}
+                    <div class="flipper-buttons">
+					{{#if previousButton}}
+					<button class="flipper-item-previous-button  btn-text btn__action js-btn-action"
+						tabindex="0">{{{a11y_text
+						previousButton}}}</button>{{/if}}
+					{{#if nextButton}}
+					<button class="flipper-item-next-button  btn-text btn__action js-btn-action"
+						tabindex="0">{{{a11y_text
+						nextButton}}}</button>{{/if}}
+
+					{{#if completeButton}}
+					<button class="flipper-item-complete-button  btn-text btn__action js-btn-action"
+						tabindex="0">{{{a11y_text
+						completeButton}}}</button>{{/if}}
+                        </div>
+
+				</div>
+
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</div>

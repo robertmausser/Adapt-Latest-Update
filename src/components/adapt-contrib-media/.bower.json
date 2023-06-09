@@ -1,0 +1,26 @@
+{
+  "name": "adapt-contrib-media",
+  "version": "5.6.0",
+  "framework": ">=5.17.2",
+  "homepage": "https://github.com/adaptlearning/adapt-contrib-media",
+  "bugs": "https://github.com/adaptlearning/adapt-contrib-media/issues",
+  "component": "media",
+  "targetAttribute": "_media",
+  "displayName": "Media",
+  "description": "Playback of video and audio with a Flash Player fallback",
+  "main": "/js/adapt-contrib-media.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPL-3.0",
+  "_release": "5.6.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v5.6.0",
+    "commit": "9507c219a12fde63220381bb7d8cdc1954ddf656"
+  },
+  "_source": "https://github.com/adaptlearning/adapt-contrib-media.git",
+  "_target": "5.6.0",
+  "_originalSource": "adapt-contrib-media"
+}

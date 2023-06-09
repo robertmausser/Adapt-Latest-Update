@@ -1,0 +1,27 @@
+{
+  "$anchor": "keepScrollPosition-contentobject",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "$patch": {
+    "source": {
+      "$ref": "contentobject"
+    },
+    "with": {
+      "properties": {
+        "_keepScrollPosition": {
+          "type": "object",
+          "title": "Keep scroll position",
+          "default": {},
+          "properties": {
+            "_isEnabled": {
+              "type": "boolean",
+              "title": "Enabled?",
+              "description": "Whether the scroll position for this page will be remembered and restored when it is revisited.",
+              "default": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

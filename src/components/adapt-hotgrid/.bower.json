@@ -1,0 +1,26 @@
+{
+  "name": "adapt-hotgrid",
+  "version": "4.1.1",
+  "framework": ">=5",
+  "homepage": "https://github.com/cgkineo/adapt-hotgrid",
+  "issues": "https://github.com/cgkineo/adapt-hotgrid/issues/",
+  "component": "hotgrid",
+  "displayName": "Hotgrid",
+  "description": "A component that displays selectable images in a grid format.",
+  "main": "/js/adapt-hotgrid.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPL-3.0",
+  "_release": "4.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.1.1",
+    "commit": "f75195db0614dc6b9d892cf287551b77741bb526"
+  },
+  "_source": "git://github.com/cgkineo/adapt-hotgrid.git",
+  "_target": "4.1.1",
+  "_originalSource": "adapt-hotgrid",
+  "_direct": true
+}

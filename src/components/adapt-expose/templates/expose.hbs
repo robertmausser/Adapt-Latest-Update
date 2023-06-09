@@ -1,0 +1,36 @@
+<div class="expose-inner component__inner">
+    {{> component this}}
+    <div class="expose-widget component-widget">
+        <div class="expose-items clearfix">
+            {{#each _items}}
+            <div class="expose-item item-{{@index}}-audio nth-child-{{@index}}">
+                <div class="expose-item-inner" tabindex="0">
+                    <button class="expose-item-button" role="button" {{#if front}} aria-label="{{a11y_text front}}" {{else}}aria-label="{{@index}}{{/if}}">
+                        <span class="aria-label">{{#if front}} {{{a11y_text front}}}
+                            {{else}}{{a11y_text frontAriaLabel}}{{/if}}</span>
+                    </button>
+                    <div class="expose-item-cover">
+                        <div class="back"></div>
+                        <div class="front" {{#if frontGraphic.src}}style="background-image: url('{{frontGraphic.src}}');" {{/if}}></div>
+                        <span class="text">{{#if front}} {{{a11y_text front}}} {{else}} {{/if}}</span>
+                    </div>
+
+                    <div class="expose-item-content" aria-hidden="true">
+                        <div class="item-audio-container {{../_id}}-{{@index}}" data-audio-id="{{../_id}}-{{@index}}"></div>
+                        {{#with back}}
+                        {{#if title}}<div class="expose-item-title">{{{a11y_text title}}}</div>{{/if}}
+                        {{#if body}}<div class="expose-item-body">{{{a11y_text body}}}</div>{{/if}}
+                        {{#if _graphic}}<img class="expose-item-img" src="{{_graphic.src}}" alt="{{_graphic.alt}}">{{/if}}
+                        {{/with}}
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            {{#if extra-note}}
+            <div style="float: left;" class="extra-note">
+                <p>{{{extra-note}}}</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

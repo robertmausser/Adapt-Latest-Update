@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "properties": {
+    "pluginLocations": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "properties": {
+            "_iosscrollfix": {
+              "type": "object",
+              "required": false,
+              "legend": "iOS Scroll Fix",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "default": true,
+                  "required": false,
+                  "title": "Enable iOSScrollFix",
+                  "inputType": "Checkbox",
+                  "validators": []
+                },
+                "_onHTMLClasses": {
+                  "type": "string",
+                  "required": true,
+                  "default": ".ios, .os-ios",
+                  "title": "HTML Classes",
+                  "inputType": "Text",
+                  "validators": [],
+                  "help": "A comma-separated list of classes to look for on the HTML element when determining whether this should be active or not."
+                },
+                "_isReflowFixEnabled": {
+                  "type": "boolean",
+                  "default": false,
+                  "required": false,
+                  "title": "Enable reflow fix",
+                  "inputType": "Checkbox",
+                  "validators": []
+                },
+                "_isIFrameFixEnabled": {
+                  "type": "boolean",
+                  "default": false,
+                  "required": false,
+                  "title": "Enable iframe resizing fix",
+                  "inputType": "Checkbox",
+                  "validators": []
+                },
+                "_iFrameFixHeightTrim": {
+                  "type": "number",
+                  "default": 0,
+                  "required": false,
+                  "title": "iFrame resizing height trim",
+                  "inputType": "Number",
+                  "validators": ["number"],
+                  "validators": []
+                }
+              }
+            }
+          }
+        },
+        "course": {
+          "type": "object"
+        },
+        "contentobject": {
+          "type": "object"
+        },
+        "article": {
+          "type": "object"
+        },
+        "block": {
+          "type": "object"
+        },
+        "component": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

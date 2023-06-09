@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Final Certificate</title>
+	<style>
+		@media print {
+			#target {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -421px;
+				margin-left: -298px;
+			}
+
+			@page {
+				size: landscape;
+			}
+		}
+	</style>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.71/pdfmake.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.71/pdfmake.min.js" integrity="sha512-q+jWnBtVH327w/3nlp2Th9Dtjmlfj3Mb4tXCGbYjYWUqtFyIhl1Ul8GXoMkzbWvdIRVlS0P1pyteYUzxArKYOg=="
+		crossorigin="anonymous"></script>
+</head>
+
+<body style="display: flex; align-items: center; justify-content: center;">
+
+
+	<canvas id="target" width="1200" height="927"></canvas>
+
+	<!-- <script src="../../../libraries/jquery.min.js"></script> -->
+	<script type="text/javascript">
+
+
+		window.opener.postMessage("message", document.location.origin);
+
+		window.addEventListener('message', function (event) {
+
+			var canvas = document.getElementById('target');
+			var ctx = canvas.getContext('2d');
+			var imageObj = new Image();
+			var message = event.data;
+
+			canvas.width = message._certificateWidth;
+			canvas.height = message._certificateHeight;
+
+			imageObj.onload = function () {
+				ctx.drawImage(imageObj, 0, 0);
+				ctx.font = "30pt Calibri";
+				ctx.textAlign = "center";
+				ctx.fillText(message.name, message._xPosition, message._namePositionHeight);
+				// ctx.textAlign="center";
+				// ctx.fillText(message.course, message._xPosition, message._coursePositionHeight);
+				ctx.font = "18pt Calibri";
+				ctx.textAlign = "center";
+				ctx.fillText(message.date, message._xPosition, message._datePositionHeight);
+				//window.print();
+
+				downloadPDF(canvas);
+			};
+
+			imageObj.src = "../" + message._certificateFilePath;
+
+
+
+		});
+
+		function downloadPDF(canvas) {
+			var data = canvas.toDataURL();
+			var docDefinition = {
+				pageOrientation: 'landscape',
+				pageSize: 'A4',
+				content: [{
+					image: data,
+					width: 900
+				}]
+			};
+			pdfMake.createPdf(docDefinition).download("certificate.pdf");
+		}
+
+
+	</script>
+</body>
+
+</html>

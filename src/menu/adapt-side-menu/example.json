@@ -1,0 +1,15 @@
+{
+    "_id":"co-05",
+    "_parentId":"course",
+    "_type":"page",
+    "_classes":"",
+    "title":"Welcome Snuggery Authoring Tool",
+    "displayTitle":"Welcome to Snuggery Authoring Tool",
+    "body":"This page contains a working Snuggery page with all core bundled components and plugins working.",
+    "_graphic": {
+        "alt": "Welcome to Authoring Tool",
+        "src": "course/en/images/menu-item-1.jpg"
+    },
+    "linkText":"View",
+    "duration":"2 mins"
+}

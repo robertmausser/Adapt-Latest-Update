@@ -1,0 +1,7 @@
+//course.json
+
+    "_offline": {
+        "_isEnabled": true,
+        "_offlineMessageTitle": "LMS not available",
+        "_offlineMessageBody": "We were unable to connect to your Learning Management System (LMS). This means that your progress cannot be tracked."
+    }

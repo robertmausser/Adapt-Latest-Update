@@ -1,0 +1,54 @@
+    {
+        "_id": "c-05",
+        "_parentId": "b-05",
+        "_type": "component",
+        "_component": "list",
+        "_classes": "",
+        "_layout": "full",
+        "title": "List component",
+        "displayTitle": "List component",
+        "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.<br/><br/>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+        "bodyAfter": "",
+        "instruction": "",
+        "_columns": 0,
+        "_orderedList": false,
+        "_animateList": false,
+        "_percentInviewVertical": 70,
+        "_itemHorizontalAlignment": "start",
+        "_bulletAlignment": "start",
+        "_items": [
+            {
+                "title": "Lorem ipsum dolor sit amet",
+                "body": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+                "_classes": "",
+                "_graphic": {
+                    "src": "",
+                    "alt": "",
+                    "attribution": ""
+                }
+            },
+            {
+                "title": "Lorem ipsum dolor sit amet",
+                "body": "Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.",
+                "_classes": "",
+                "_graphic": {
+                    "src": "",
+                    "alt": "",
+                    "attribution": ""
+                }
+            },
+            {
+                "title": "Lorem ipsum dolor sit amet",
+                "body": "Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.",
+                "_classes": "",
+                "_graphic": {
+                    "src": "",
+                    "alt": "",
+                    "attribution": ""
+                }
+            }
+        ],
+        "_pageLevelProgress": {
+            "_isEnabled": true
+        }
+    }

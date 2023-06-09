@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "properties": {
+    "pluginLocations": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "config": {
+          "type": "object"
+        },
+        "course": {
+          "type": "object",
+          "properties": {
+            "_menuBackground": {
+              "type": "object",
+              "required": false,
+              "legend": "Menu Background",
+              "properties": {
+                "_menuHeader": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Menu Header background",
+                  "properties": {
+                    "_link": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "inputType": "Asset:image",
+                      "title": "Menu header image"
+                    },
+                    "_applyToPage": {
+                      "default": false,
+                      "inputType": "Checkbox",
+                      "type": "boolean",
+                      "required": false,
+                      "title": "Apply to page too?"
+                    }
+                  }
+                },
+                "_backgroundLink": {
+                  "type": "string",
+                  "required": false,
+                  "default": "",
+                  "inputType": "Asset:image",
+                  "title": "Menu page background image"
+                }
+              }
+            }
+          }
+        },
+        "contentobject": {
+          "type": "object"
+        },
+        "article": {
+          "type": "object"
+        },
+        "block": {
+          "type": "object"
+        },
+        "component": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

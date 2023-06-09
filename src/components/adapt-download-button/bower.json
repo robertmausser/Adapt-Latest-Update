@@ -1,0 +1,23 @@
+{
+    "name": "adapt-download-button",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/saralsharma/adapt-download-button.git"
+    },
+    "framework": ">=3.3.0",
+    "version": "1.0.0",
+    "homepage": "https://github.com/saralsharma/adapt-download-button",
+    "authors": [
+        "Saral Sharma <saral.sharma@gmail.com>"
+    ],
+    "displayName": "Download button",
+    "component": "downloadButton",
+    "description": "This button will download a file such as PDF without opening it in new window/tab. Also shows an Arrow to point the downloading file.",
+    "main": "/js/adapt-download-button.js",
+    "keywords": [
+        "adapt-plugin",
+        "adapt-component",
+        "adapt-download-button"
+    ],
+    "license": "GPL-3.0"
+}

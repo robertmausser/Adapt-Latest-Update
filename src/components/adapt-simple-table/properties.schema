@@ -1,0 +1,66 @@
+{
+  "type":"object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "properties":{
+    "_supportedLayout": {
+      "type": "string",
+      "enum": ["full-width", "half-width", "both"],
+      "default": "both",
+      "editorOnly": true
+    },
+    "instruction": {
+      "type": "string",
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This is the instruction text",
+      "translatable": true
+    },
+    "_items": {
+      "type": "array",
+      "title": "Table cells",
+      "items": {
+        "type": "object",
+        "properties":{
+          "_header": {
+            "type": "array",
+            "default": "",
+            "title": "Table header",
+                  "items": {
+          "type": "object",
+            "properties":{
+              "text": {
+                "type": "string",
+                "default": "",
+                "title": "Cell text",
+                "inputType": "TextArea",
+                "validators": [],
+                "help": "",
+                "translatable": true
+              }}
+            }
+          },
+          "_cell": {
+            "type": "array",
+            "default": "",
+            "title": "Table cell",
+             "items": {
+            "type": "object",
+            "properties":{
+              "text": {
+                "type": "string",
+                "default": "",
+                "title": "Cell text",
+                "inputType": "TextArea",
+                "validators": [],
+                "help": "",
+                "translatable": true
+              }}
+            }
+          }
+        }
+      }
+    }
+  }
+}

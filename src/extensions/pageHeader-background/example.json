@@ -1,0 +1,9 @@
+// To go in contentObjects.json
+"_pageHeaderBackground": {
+  "_isEnabled": true,
+  "pageHeaderBackgroundLink": "course/en/assets/ad0543a6f3f30dda90b89a75bfa994647610f56d.png",
+  "pageHeaderTitleImage":{
+    "src":"course/en/assets/fcd3caea5a010ba378b3878fadfe02756574a304.svg",
+    "alignment":"right"
+  }
+}

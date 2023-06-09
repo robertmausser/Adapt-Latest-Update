@@ -1,0 +1,48 @@
+<div class="menu-item-inner"  aria-label="{{_globals._menu._sidemenu.menuItem}}" {{#if _globals._menu._sidemenu.menuItem}}{{/if}}>
+
+    <div class="menu-item-graphic" aria-hidden="true">
+        {{#if _graphic.src}}
+            <img src="{{_graphic.src}}" alt="{{_graphic.alt}}"   />
+        {{/if}}
+    </div>
+    <div class="menu-item-title"   >
+        <h2 class="menu-item-title-inner h2 accessible-text-block" data-a11y-heading-type="menuItem" id="{{_id}}-heading" role="heading" aria-level="2" >{{{displayTitle}}}</h2>
+    </div>
+    
+    {{#if _graphic.alt}}{{a11y_aria_image _graphic.alt}}{{/if}}
+    
+    <div class="menu-item-body"  >
+        <div class="menu-item-body-inner">{{{a11y_text body}}}</div>
+    </div>
+  
+    <div class="menu-item-button">
+        <button aria-label="{{linkText}} {{{displayTitle}}}{{#if _isVisited}}{{_globals._accessibility._ariaLabels.visited}}{{/if}}" class="{{#if _isVisited}}visited{{/if}} {{#if _isLocked}}disabled{{/if}} btn-text accessible-text-block" {{#if _isLocked}}disabled="disabled"{{/if}}>
+            {{#if _isLocked}}
+
+            {{{lockText}}}
+
+            {{else if _isOptional}}
+            
+            {{{optionalText}}}
+
+            {{else if _isComplete}}
+
+            {{{completeText}}}
+
+            {{else if _isVisited}}
+
+            {{{inprogressText}}}
+
+            {{else}}
+
+            {{{linkText}}}
+
+            {{/if}}
+        </button>
+           {{#if duration}}
+            <div class="menu-item-duration accessible-text-block" role="region" >{{{_globals._menu._sidemenu.durationLabel}}} {{{duration}}}</div>
+        {{/if}}
+       
+    </div>
+</div>
+

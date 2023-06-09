@@ -1,0 +1,64 @@
+.page-header-title-image{
+    position: relative;
+    .page-header-image-inner {
+        width: 50%;
+        padding: 0px;
+        box-sizing: border-box;
+        border-radius: 3px;
+        float: right;
+    }
+    .page-header-content-inner {
+        text-align: left;
+        width: 50%;
+        padding: 20px 20px 60px 20px;
+        box-sizing: border-box;
+    }
+
+    &.image-align-left{
+        .page-header-content-inner{
+            float: right;
+        }
+    }
+    &.image-align-right{
+        .page-header-content-inner{
+            float: left;
+        }
+    }
+}
+
+// media css
+@media (min-width: 768px){
+    .page-header-title-image{
+        .page-header-image-inner {
+            position: absolute;
+            bottom: 0;
+            max-width: 500px;
+            margin-bottom: 0px;
+        }
+        &.image-align-left{
+            .page-header-image-inner{
+                left: 0;
+            }
+        }
+        &.image-align-right{
+            .page-header-image-inner{
+                right: 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px){
+    .page-header-title-image{
+        .page-header-image-inner {
+            width: 100%;
+            padding: 20px;
+        }
+        &.image-align-left, &.image-align-right{
+          .page-header-content-inner{
+              float: none;
+              width: 100%;
+          }
+        }
+    }
+}

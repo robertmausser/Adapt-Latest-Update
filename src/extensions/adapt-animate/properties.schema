@@ -1,0 +1,1420 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "required": false,
+  "properties": {
+    "pluginLocations": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "config": {
+          "type": "object"
+        },
+        "course": {
+          "type": "object",
+          "properties": {
+            "_animate": {
+              "type": "object",
+              "required": false,
+              "legend": "Animate",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Animate extension is enabled or disabled."
+                },
+                "_article": {
+                  "type": "object",
+                  "required": true,
+                  "legend": "Article",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": [],
+                      "help": "If enabled, the settings specified for each element will be applied to all Articles in the course."
+                    },
+                    "_title": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Title",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_body": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Body",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_instruction": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Instruction",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_custom": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Custom Element",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_element": {
+                          "type": "string",
+                          "required": false,
+                          "default": "",
+                          "title": "Element",
+                          "inputType": "Text",
+                          "validators": [],
+                          "help": "Specify an element by naming the div class."
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        },
+                        "_items": {
+                          "type": "array",
+                          "required": false,
+                          "title": "Custom Items",
+                          "items": {
+                            "type": "object",
+                            "required": false,
+                            "properties": {
+                              "_element": {
+                                "type": "string",
+                                "required": false,
+                                "default": "",
+                                "title": "Element",
+                                "inputType": "Text",
+                                "validators": [],
+                                "help": "Specify an element by naming the div class."
+                              },
+                              "_effect": {
+                                "type": "string",
+                                "required": false,
+                                "default": "fadeIn",
+                                "title": "Effect",
+                                "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                                "validators": []
+                              },
+                              "_delay": {
+                                "type": "number",
+                                "required": false,
+                                "default": 0,
+                                "title": "Delay",
+                                "inputType": "Number",
+                                "validators": ["number"],
+                                "help": "Enter a number in seconds to delay the animation."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "_block": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Block",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": [],
+                      "help": "If enabled, the settings specified for each element will be applied to all Blocks in the course."
+                    },
+                    "_title": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Title",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_body": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Body",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_instruction": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Instruction",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_custom": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Custom",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_element": {
+                          "type": "string",
+                          "required": false,
+                          "default": "",
+                          "title": "Element",
+                          "inputType": "Text",
+                          "validators": [],
+                          "help": "Specify an element by naming the div class."
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        },
+                        "_items": {
+                          "type": "array",
+                          "required": false,
+                          "title": "Custom Items",
+                          "items": {
+                            "type": "object",
+                            "required": false,
+                            "properties": {
+                              "_element": {
+                                "type": "string",
+                                "required": false,
+                                "default": "",
+                                "title": "Element",
+                                "inputType": "Text",
+                                "validators": [],
+                                "help": "Specify an element by naming the div class."
+                              },
+                              "_effect": {
+                                "type": "string",
+                                "required": false,
+                                "default": "fadeIn",
+                                "title": "Effect",
+                                "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                                "validators": []
+                              },
+                              "_delay": {
+                                "type": "number",
+                                "required": false,
+                                "default": 0,
+                                "title": "Delay",
+                                "inputType": "Number",
+                                "validators": ["number"],
+                                "help": "Enter a number in seconds to delay the animation."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "_component": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Component",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": [],
+                      "help": "If enabled, the settings specified for each element will be applied to all Components in the course."
+                    },
+                    "_completeElement": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Entire Component",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_title": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Title",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_body": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Body",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_instruction": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Instruction",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        }
+                      }
+                    },
+                    "_custom": {
+                      "type": "object",
+                      "required": false,
+                      "legend": "Custom Element",
+                      "properties": {
+                        "_isEnabled": {
+                          "type": "boolean",
+                          "required": false,
+                          "default": false,
+                          "title": "Is Enabled",
+                          "inputType": "Checkbox",
+                          "validators": []
+                        },
+                        "_element": {
+                          "type": "string",
+                          "required": false,
+                          "default": "",
+                          "title": "Element",
+                          "inputType": "Text",
+                          "validators": [],
+                          "help": "Specify an element by naming the div class."
+                        },
+                        "_effect": {
+                          "type": "string",
+                          "required": true,
+                          "default": "fadeIn",
+                          "title": "Effect",
+                          "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                          "validators": []
+                        },
+                        "_delay": {
+                          "type": "number",
+                          "required": false,
+                          "default": 0,
+                          "title": "Delay",
+                          "inputType": "Number",
+                          "validators": ["number"],
+                          "help": "Enter a number in seconds to delay the animation."
+                        },
+                        "_items": {
+                          "type": "array",
+                          "required": false,
+                          "title": "Custom Items",
+                          "items": {
+                            "type": "object",
+                            "required": false,
+                            "properties": {
+                              "_element": {
+                                "type": "string",
+                                "required": false,
+                                "default": "",
+                                "title": "Element",
+                                "inputType": "Text",
+                                "validators": [],
+                                "help": "Specify an element by naming the div class."
+                              },
+                              "_effect": {
+                                "type": "string",
+                                "required": false,
+                                "default": "fadeIn",
+                                "title": "Effect",
+                                "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                                "validators": []
+                              },
+                              "_delay": {
+                                "type": "number",
+                                "required": false,
+                                "default": 0,
+                                "title": "Delay",
+                                "inputType": "Number",
+                                "validators": ["number"],
+                                "help": "Enter a number in seconds to delay the animation."
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "contentobject": {
+          "type": "object",
+          "properties": {
+            "_animate": {
+              "type": "object",
+              "required": false,
+              "legend": "Animate",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Animate extension is enabled or disabled."
+                },
+                "_title": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Title",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_body": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Body",
+                  "properties": {
+                    "_isEnabled": {
+                      "type":"boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_custom": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Custom Element",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_element": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Element",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Specify an element by naming the div class."
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    },
+                    "_items": {
+                      "type": "array",
+                      "required": false,
+                      "title": "Custom Items",
+                      "items": {
+                        "type": "object",
+                        "required": false,
+                        "properties": {
+                          "_element": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "title": "Element",
+                            "inputType": "Text",
+                            "validators": [],
+                            "help": "Specify an element by naming the div class."
+                          },
+                          "_effect": {
+                            "type": "string",
+                            "required": false,
+                            "default": "fadeIn",
+                            "title": "Effect",
+                            "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                            "validators": []
+                          },
+                          "_delay": {
+                            "type": "number",
+                            "required": false,
+                            "default": 0,
+                            "title": "Delay",
+                            "inputType": "Number",
+                            "validators": ["number"],
+                            "help": "Enter a number in seconds to delay the animation."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "article": {
+          "type": "object",
+          "properties": {
+            "_animate": {
+              "type": "object",
+              "required": false,
+              "legend": "Animate",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Animate extension is enabled or disabled."
+                },
+                "_title": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Title",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_body": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Body",
+                  "properties": {
+                    "_isEnabled": {
+                      "type":"boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_instruction": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Instruction",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_custom": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Custom Element",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_element": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Element",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Specify an element by naming the div class."
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    },
+                    "_items": {
+                      "type": "array",
+                      "required": false,
+                      "title": "Custom Items",
+                      "items": {
+                        "type": "object",
+                        "required": false,
+                        "properties": {
+                          "_element": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "title": "Element",
+                            "inputType": "Text",
+                            "validators": [],
+                            "help": "Specify an element by naming the div class."
+                          },
+                          "_effect": {
+                            "type": "string",
+                            "required": false,
+                            "default": "fadeIn",
+                            "title": "Effect",
+                            "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                            "validators": []
+                          },
+                          "_delay": {
+                            "type": "number",
+                            "required": false,
+                            "default": 0,
+                            "title": "Delay",
+                            "inputType": "Number",
+                            "validators": ["number"],
+                            "help": "Enter a number in seconds to delay the animation."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "block": {
+          "type": "object",
+          "properties": {
+            "_animate": {
+              "type": "object",
+              "required": false,
+              "legend": "Animate",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Animate extension is enabled or disabled."
+                },
+                "_title": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Title",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_body": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Body",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_instruction": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Instruction",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_custom": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Custom Element",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_element": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Element",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Specify an element by naming the div class."
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    },
+                    "_items": {
+                      "type": "array",
+                      "required": false,
+                      "title": "Custom Items",
+                      "items": {
+                        "type": "object",
+                        "required": false,
+                        "properties": {
+                          "_element": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "title": "Element",
+                            "inputType": "Text",
+                            "validators": [],
+                            "help": "Specify an element by naming the div class."
+                          },
+                          "_effect": {
+                            "type": "string",
+                            "required": false,
+                            "default": "fadeIn",
+                            "title": "Effect",
+                            "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                            "validators": []
+                          },
+                          "_delay": {
+                            "type": "number",
+                            "required": false,
+                            "default": 0,
+                            "title": "Delay",
+                            "inputType": "Number",
+                            "validators": ["number"],
+                            "help": "Enter a number in seconds to delay the animation."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "component": {
+          "type": "object",
+          "properties": {
+            "_animate": {
+              "type": "object",
+              "required": false,
+              "legend": "Animate",
+              "properties": {
+                "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Is Enabled",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Controls whether the Animate extension is enabled or disabled."
+                },
+                "_completeElement": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Entire Component",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_title": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Title",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_body": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Body",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_instruction": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Instruction",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    }
+                  }
+                },
+                "_custom": {
+                  "type": "object",
+                  "required": false,
+                  "legend": "Custom Element",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Is Enabled",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "_element": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Element",
+                      "inputType": "Text",
+                      "validators": [],
+                      "help": "Specify an element by naming the div class."
+                    },
+                    "_effect": {
+                      "type": "string",
+                      "required": true,
+                      "default": "fadeIn",
+                      "title": "Effect",
+                      "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                      "validators": []
+                    },
+                    "_delay": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0,
+                      "title": "Delay",
+                      "inputType": "Number",
+                      "validators": ["number"],
+                      "help": "Enter a number in seconds to delay the animation."
+                    },
+                    "_items": {
+                      "type": "array",
+                      "required": false,
+                      "title": "Custom Items",
+                      "items": {
+                        "type": "object",
+                        "required": false,
+                        "properties": {
+                          "_element": {
+                            "type": "string",
+                            "required": false,
+                            "default": "",
+                            "title": "Element",
+                            "inputType": "Text",
+                            "validators": [],
+                            "help": "Specify an element by naming the div class."
+                          },
+                          "_effect": {
+                            "type": "string",
+                            "required": false,
+                            "default": "fadeIn",
+                            "title": "Effect",
+                            "inputType": {"type": "Select", "options": ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight", "bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight", "flipInX", "flipInY", "rollIn", "zoomIn", "flash", "pulse", "rubberBand", "shake", "swing", "jello"]},
+                            "validators": []
+                          },
+                          "_delay": {
+                            "type": "number",
+                            "required": false,
+                            "default": 0,
+                            "title": "Delay",
+                            "inputType": "Number",
+                            "validators": ["number"],
+                            "help": "Enter a number in seconds to delay the animation."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

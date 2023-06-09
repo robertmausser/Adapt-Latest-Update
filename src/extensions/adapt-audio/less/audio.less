@@ -1,0 +1,228 @@
+.nav__btn{
+    &:hover{
+        background-color: #000 ;
+    color: #fff;
+    transition: background-color 0.25s ease-in, color 0.25s ease-in;
+    }
+}
+
+.audio-navigation {
+    .audio-button {
+        float: right;
+        background-color: transparent !important;
+        .dir-rtl & {
+            float: left;
+        }
+        color: @white;
+        padding: @navigation-padding;
+        .transition-color;
+        &:hover{
+            // color: @nav-icon-hover;
+        }
+    }
+    &.hidden {
+        display: none;
+    }
+}
+
+.audio-inner {
+    .top-left,
+    .bottom-left {
+        float: left;
+        .dir-rtl & {
+            float: right;
+        }
+    }
+
+    .bottom-left {
+        float: left;
+        .dir-rtl & {
+            float: right;
+        }
+    }
+
+    .top-right,
+    .bottom-right {
+        float: right;
+        .dir-rtl & {
+            float: left;
+        }
+    }
+}
+
+.audio-controls {
+    position:relative;
+    right:5px;
+    top:3px;
+    .audio-toggle {
+        color: @item-text-color;
+        background-color: transparent;
+        padding: 8px;
+        .transition-all-colors;
+        &:hover{
+            color: @item-color-hover;
+            background-color: @item-color-inverted-hover;
+        }
+        &.hidden {
+            display: none;
+        }
+    }
+}
+
+.audio-drawer {
+    .drawer-audio-toggle {
+        color: @drawer-inverted;
+        background-color: transparent !important;
+        .transition-color;
+        .no-touch &:hover {
+            color: @drawer-icon-inverted;
+        }
+        margin-top: @drawer-item-padding-top;
+        margin-bottom: @drawer-item-padding-bottom;
+    }
+    .drawer-audio-autoplay-toggle{
+         background-color: transparent !important;
+    }
+    .drawer-item-open {
+        width: auto !important;
+
+        &:hover {
+          background-color: transparent;
+        }
+    }
+    .drawer-audio-button {
+        margin-top: @drawer-item-padding-top;
+        margin-bottom: @drawer-item-padding-bottom;
+        width: 100%;
+        color: @drawer-icon;
+        background-color: @drawer-icon-inverted;
+        .no-touch &:hover {
+            color: @drawer-icon-hover;
+            background-color: @drawer-icon-inverted-hover;
+        }
+    }
+}
+
+// Ico moon font used for default audio icon
+@font-face {
+    font-family: 'audio';
+    src: url(fonts/audio.woff);
+}
+
+.icon-audio-on,
+.icon-audio-off,
+.icon-audio-play,
+.icon-audio-pause {
+    font-family: 'audio' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: @background-inverted;
+    display: block;
+    font-size: @icon-size;
+    text-decoration: none;
+    text-align: center;
+
+    
+}
+
+    .drawer-controls img { 
+        width: 26px;
+    }
+
+.audio-play:before {
+    content: "\e900";
+}
+.audio-pause:before {
+    content: "\e901";
+}
+.audio-stop:before {
+    content: "\e902";
+}
+.audio-volume-high:before {
+    content: "\e903";
+}
+.audio-volume-medium:before {
+    content: "\e904";
+}
+.audio-volume-low:before {
+    content: "\e905";
+}
+.audio-volume-mute:before {
+    content: "\e907";
+}
+.audio-volume-increase:before {
+    content: "\e908";
+}
+.audio-volume-decrease:before {
+    content: "\e909";
+}
+
+.audio-prompt {
+  .audio-prompt-image {
+    padding-bottom: @notify-padding;
+
+    @media all and (max-width: (@device-width-large + 20px)) {
+        padding-bottom: @notify-padding-top / 2;
+    }
+
+    @media all and (max-width: (@device-width-small + 20px)) {
+        padding-bottom: @notify-padding-top / 3;
+    }
+
+		img {
+		    display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+  }
+
+  .audio-notify-icon {
+    .icon;
+    .icon-audio-on;
+
+    color: @notify-icon;
+
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .notify-popup-title {
+    text-align: center;
+    padding-right: 0 !important;
+  }
+}
+
+// mcq options less
+.mcq-component{
+   .mcq-item{
+        .item-audio-container{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            padding-top: 10px;
+            z-index: 10;
+        }
+   } 
+}
+
+.item-audio-container{
+    display: inline-table;
+  }
+
+
+  .drawer__holder{
+      padding: 15px;
+      color: @white;
+  }
+

@@ -1,0 +1,873 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://jsonschema.net",
+  "globals": {
+    "_navOrder": {
+      "type": "number",
+      "required": true,
+      "default": 0,
+      "inputType": "Text",
+      "validators": []
+    }
+  },
+  "properties": {
+    "pluginLocations": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "properties": {
+            "_visua11y": {
+              "type": "object",
+              "required": false,
+              "legend": "Visua11y",
+              "properties": {
+                 "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "title": "Enable Visua11y for Language Picker",
+                  "inputType": "Checkbox",
+                  "validators": []
+                }
+              }
+            }
+          }
+        },
+        "course": {
+          "type": "object",
+          "properties": {
+            "_visua11y": {
+              "type": "object",
+              "required": false,
+              "legend": "Visua11y",
+              "properties": {
+                 "_isEnabled": {
+                  "type": "boolean",
+                  "required": false,
+                  "title": "Enable Visua11y",
+                  "inputType": "Checkbox",
+                  "validators": []
+                },
+                "_shouldSavePreferences": {
+                  "type": "boolean",
+                  "required": false,
+                  "title": "Save user preferences?",
+                  "inputType": "Checkbox",
+                  "validators": []
+                },
+                "title": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Accessibility Controls",
+                  "title": "Popup title text",
+                  "inputType": "Text",
+                  "validators": []
+                },
+                "body": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Use the controls below to customise your learning experience to your individual needs.",
+                  "title": "Popup body text",
+                  "inputType": "Text",
+                  "validators": []
+                },
+                "_groups": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Grouping title text",
+                  "properties": {
+                    "visualDisplay": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Enhance visual display",
+                      "title": "Visual display",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "distractions": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Reduce distractions",
+                      "title": "Distractions",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "readability": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Readability",
+                      "title": "Readability",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_preview": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Preview text",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Title",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "character": {
+                      "type": "string",
+                      "required": false,
+                      "default": "A",
+                      "title": "Character",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_colorProfiles": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Color profiles",
+                  "properties": {
+                    "default": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Default",
+                      "title": "Default profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "achromatopsia": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Greyscale (Achromatopsia)",
+                      "title": "Achromatopsia profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "protanopia": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Red/green (Protanopia)",
+                      "title": "Protanopia profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "deuteranopia": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Green/red (Deuteranopia)",
+                      "title": "Deuteranopia profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "tritanopia": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Blue/yellow (Tritanopia)",
+                      "title": "Tritanopia profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "dyslexia": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Yellow tint (Dyslexia)",
+                      "title": "Dyslexia profile name",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_colorProfile": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Color profile",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Colour profile",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "string",
+                      "required": false,
+                      "default": "default",
+                      "title": "Default color profile",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_highContrast": {
+                  "type": "object",
+                  "required": false,
+                  "title": "High contrast",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "High contrast",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_highContrastLuminanceThreshold": {
+                  "type": "object",
+                  "required": false,
+                  "title": "High contrast luminance threshold",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "High contrast",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "number",
+                      "required": false,
+                      "default": 70,
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_noTransparency": {
+                  "type": "object",
+                  "required": false,
+                  "title": "No transparency",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "No transparency",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_lowBrightness": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Low brightness",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Low brightness",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_invert": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Invert",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Invert",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_noAnimations": {
+                  "type": "object",
+                  "required": false,
+                  "title": "No animations",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "No animations",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_noBackgroundImages": {
+                  "type": "object",
+                  "required": false,
+                  "title": "No background images",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "No background images",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": false,
+                      "title": "Enabled on course load",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    }
+                  }
+                },
+                "_fontSize": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Font size",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Font size",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "smallLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Small",
+                      "title": "Small label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_small": {
+                      "type": "string",
+                      "required": false,
+                      "default": "9pt",
+                      "title": "Small default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "mediumLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Medium",
+                      "title": "Medium label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_medium": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Medium default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "largeLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Large",
+                      "title": "Large label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_large": {
+                      "type": "string",
+                      "required": false,
+                      "default": "18pt",
+                      "title": "Large default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "string",
+                      "required": false,
+                      "default": "",
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_lineHeight": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Line height",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Line height",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "smallLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Small",
+                      "title": "Small label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_small": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0.9,
+                      "title": "Small default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "mediumLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Medium",
+                      "title": "Medium label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_medium": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Medium default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "largeLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Large",
+                      "title": "Large label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_large": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1.2,
+                      "title": "Large default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_paragraphSpacing": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Paragraph spacing",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Paragraph spacing",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "smallLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Small",
+                      "title": "Small label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_small": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0.5,
+                      "title": "Small default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "mediumLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Medium",
+                      "title": "Medium label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_medium": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Medium default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "largeLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Large",
+                      "title": "Large label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_large": {
+                      "type": "number",
+                      "required": false,
+                      "default": 2,
+                      "title": "Large default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_letterSpacing": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Letter spacing",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Letter spacing",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "smallLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Small",
+                      "title": "Small label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_small": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0.97,
+                      "title": "Small default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "mediumLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Medium",
+                      "title": "Medium label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_medium": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Medium default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "largeLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Large",
+                      "title": "Large label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_large": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1.2,
+                      "title": "Large default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_wordSpacing": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Word spacing",
+                  "properties": {
+                    "_isEnabled": {
+                      "type": "boolean",
+                      "required": false,
+                      "default": true,
+                      "title": "Enable",
+                      "inputType": "Checkbox",
+                      "validators": []
+                    },
+                    "title": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Word spacing",
+                      "title": "Title",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "smallLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Small",
+                      "title": "Small label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_small": {
+                      "type": "number",
+                      "required": false,
+                      "default": 0.97,
+                      "title": "Small default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "mediumLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Medium",
+                      "title": "Medium label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_medium": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Medium default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "largeLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Large",
+                      "title": "Large label",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_large": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1.2,
+                      "title": "Large default",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "_default": {
+                      "type": "number",
+                      "required": false,
+                      "default": 1,
+                      "title": "Default value",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "_button": {
+                  "type": "object",
+                  "required": false,
+                  "title": "Buttons",
+                  "properties": {
+                    "navigationAriaLabel": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Visual accessibility settings",
+                      "title": "Navigation button alt text",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "resetText": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Reset",
+                      "title": "Reset text",
+                      "inputType": "Text",
+                      "validators": []
+                    },
+                    "closeText": {
+                      "type": "string",
+                      "required": false,
+                      "default": "Close",
+                      "title": "Close text",
+                      "inputType": "Text",
+                      "validators": []
+                    }
+                  }
+                },
+                "resetAriaMessage": {
+                  "type": "string",
+                  "required": false,
+                  "default": "Small",
+                  "title": "Accessibility controls reset",
+                  "inputType": "Text",
+                  "validators": []
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

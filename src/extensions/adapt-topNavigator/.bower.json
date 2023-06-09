@@ -1,0 +1,29 @@
+{
+  "name": "adapt-topNavigator",
+  "repository": "https://github.com/NayanKhedkar/adapt-topNavigator.git",
+  "framework": ">=2.2",
+  "homepage": "https://github.com/NayanKhedkar/adapt-topNavigator.git",
+  "displayName": "Top Navigator",
+  "extension": "topNavigator",
+  "description": "An extension to animate page scroll to top",
+  "main": "/js/adapt-topNavigator.js",
+  "authors": [
+    "Nayan Khedkar <nayan.khedkar@exultcorp.com>"
+  ],
+  "keywords": [
+    "adapt-plugin",
+    "adapt-extension"
+  ],
+  "license": "GPLv3",
+  "targetAttribute": "_topNavigator",
+  "_release": "3983d6adaf",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "3983d6adaf2e5a05f8099c582460cc76854bc030"
+  },
+  "_source": "git://github.com/NayanKhedkar/adapt-topNavigator.git",
+  "_target": "*",
+  "_originalSource": "adapt-topNavigator",
+  "_direct": true
+}

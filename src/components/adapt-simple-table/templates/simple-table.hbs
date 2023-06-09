@@ -1,0 +1,23 @@
+{{! Maintainer - Kunj kunjsharma@hotmail.com}}
+<div class="simple-table__inner component__inner" role="region" aria-label="{{_globals._components._simple-table.ariaRegion}}">
+    {{> component this}}
+    {{#if _items}}
+	    <table class="simple-table__table">
+	    {{#each _items}}
+			{{#if _header}}
+				<tr>
+				{{#each _header}}
+					<th class="simple-table__table-header">{{{text}}}</th>
+				{{/each}}
+				</tr>
+			{{else}}
+				<tr>
+				{{#each _cell}}
+					<td class="simple-table__table-cell">{{{text}}}</td>
+				{{/each}}
+				</tr>
+			{{/if}}
+	    {{/each}}
+	    </table>
+	{{/if}}
+</div>

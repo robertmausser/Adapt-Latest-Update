@@ -1,0 +1,38 @@
+<div class="hint__inner js-hint-inner">
+
+  <button class="btn-icon hint__btn{{#if _hint._isNotifyPopup}} js-hint-btn-popup{{else}} js-hint-btn-toggle{{/if}} is-closed" title="{{_globals._extensions._hint.ButtonText}}" aria-label="{{_globals._extensions._hint.openButtonText}}"
+    aria-expanded="false">
+    <div class="icon"></div>
+  </button>
+
+  {{#unless _hint._isNotifyPopup}}
+  <div aria-hidden="true" aria-live="assertive" class="hint__widget js-hint-widget is-closed" role="complementary" aria-modal="true">
+
+    {{#each _hint._items}}
+    <div class="hint__item item-{{@index}}">
+      <div class="hint__item-inner">
+
+        {{#if title}}
+        <div class="hint__item-title{{#if body}} has-margin{{/if}}">
+          <div class="hint__item-title-inner">
+            {{{title}}}
+          </div>
+        </div>
+        {{/if}}
+
+        {{#if body}}
+        <div class="hint__item-body">
+          <div class="hint__item-body-inner">
+            {{{compile_a11y_text body}}}
+          </div>
+        </div>
+        {{/if}}
+
+      </div>
+    </div>
+    {{/each}}
+    <span class="close-popup" style="width:0px;height:0px;clip:auto;" role="button" aria-label="{{_globals._extensions._hint.closeButtonText}}"></span>
+  </div>
+  {{/unless}}
+
+</div>

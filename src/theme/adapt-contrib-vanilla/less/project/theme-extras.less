@@ -1,0 +1,1000 @@
+
+
+// --------------------------------------------------
+// --------------------------------------------------
+// contentObject
+// --------------------------------------------------
+// --------------------------------------------------
+
+// "_htmlClasses"
+// Hide nav back button
+// --------------------------------------------------
+.hide-nav-back-btn .nav__back-btn {
+  .u-display-none;
+}
+
+// "_classes"
+// Hide the page header
+// --------------------------------------------------
+.hide-page-header .page__header {
+  .u-display-none;
+}
+
+// Header color mixin
+// Add to menu/page to enable
+// e.g. 'header-color transparent-dark'
+// Note: both arguments must be predefined variables
+// --------------------------------------------------
+.header-color-mixin(background, background-inverted);
+.header-color-mixin(transparent-light, font-color);
+.header-color-mixin(transparent-dark, font-color-inverted);
+
+.header-color-mixin(@color, @color-inverted) {
+
+.header-color.@{color} {
+  .menu,
+  .page {
+    &__header {
+      background-color: @@color;
+    }
+  }
+  .menu,
+  .page {
+    &__title,
+    &__subtitle,
+    &__body,
+    &__body a,
+    &__instruction,
+    &__instruction a {
+     color: @@color-inverted;
+    }
+  }
+}
+}
+
+// --------------------------------------------------
+// --------------------------------------------------
+// Block
+// --------------------------------------------------
+// --------------------------------------------------
+
+// Custom class added to block
+// Aligns child components centrally on the vertical axis
+// --------------------------------------------------
+.block.align-vert-center .component__container {
+  align-items: center;
+}
+
+// Aligns child components to the bottom of the parent block on the vertical axis
+// --------------------------------------------------
+.block.align-vert-bottom .component__container {
+  align-items: flex-end;
+}
+
+// Reverses the visual layout of the components above the medium breakpoint
+// e.g. Left layout components would still render first in the DOM order
+// but visually appear on the right hand side above the medium breakpoint. The
+// components woud vertically stack as per the DOM order below the breakpoint
+// --------------------------------------------------
+.block.reverse-desktop-order .component {
+  @media (min-width: @device-width-medium) {
+    &__container {
+      flex-direction: row-reverse;
+    }
+
+    &.is-left {
+      padding-right: inherit;
+      padding-left: @component-padding-hoz;
+
+      .dir-rtl & {
+        padding-left: inherit;
+        padding-right: @component-padding-hoz;
+      }
+    }
+
+    &.is-right {
+      padding-left: inherit;
+      padding-right: @component-padding-hoz;
+
+      .dir-rtl & {
+        padding-right: inherit;
+        padding-left: @component-padding-hoz;
+      }
+    }
+  }
+}
+
+// Extend width of block to max page width
+// --------------------------------------------------
+.block.extend-container .block__inner {
+  max-width: @max-width;
+}
+
+// Remove top padding from block
+// --------------------------------------------------
+.block.remove-padding-top .block__inner,
+.block.remove-top-padding .block__inner {
+  padding-top: 0;
+}
+
+// Remove bottom padding from block
+// --------------------------------------------------
+.block.remove-padding-bottom .block__inner,
+.block.remove-bottom-padding .block__inner {
+  padding-bottom: 0;
+}
+
+// Reduce the blocks top padding by half
+// --------------------------------------------------
+.block.reduce-padding-top .block__inner {
+  padding-top: @block-padding-ver / 2;
+}
+
+// Reduce the blocks bottom padding by half
+// --------------------------------------------------
+.block.reduce-padding-bottom .block__inner {
+  padding-bottom: @block-padding-ver / 2;
+}
+
+// Double the blocks top padding
+// --------------------------------------------------
+.block.increase-padding-top .block__inner {
+  padding-top: @block-padding-ver * 2;
+}
+
+// Double the blocks bottom padding
+// --------------------------------------------------
+.block.increase-padding-bottom .block__inner {
+  padding-bottom: @block-padding-ver * 2;
+}
+
+// --------------------------------------------------
+// Background color mixin
+// Add to block to enable
+// e.g. 'block-color black'
+// Note: both arguments must be predefined variables
+// --------------------------------------------------
+.block-color-mixin(transparent-light, black);
+.block-color-mixin(transparent-dark, white);
+.block-color-mixin(black, white);
+.block-color-mixin(background, background-inverted);
+
+.block-color-mixin(@color, @color-inverted) {
+
+.block-color.@{color} {
+  background-color: @@color;
+  color: @@color-inverted;
+
+  .block,
+  .component {
+    &__title,
+    &__body a,
+    &__instruction a {
+      color: @@color-inverted;
+    }
+  }
+
+  .pagelevelprogress {
+    &__indicator {
+      border-color: @@color-inverted;
+    }
+    &__indicator-inner {
+      background-color: @@color;
+    }
+    &__indicator-bar {
+      background-color: @@color-inverted;
+    }
+  }
+
+  .narrative {
+    &__progress {
+      background-color: fade(@@color-inverted, 50%);
+    }
+
+    &__progress.is-selected {
+      background-color: @@color-inverted;
+    }
+  }
+}
+
+}
+// --------------------------------------------------
+
+
+.nav{
+  //background-color: @mediumGrey;
+  position:sticky;
+    position: -webkit-sticky;
+  top:0;
+
+  //.nav__btn{
+   // background-color: transparent;
+  //}
+}
+
+/*#app .navigation-logo {
+    
+    display:none;
+} */
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .navigation-logo{
+        position: relative!important;
+    top: 55px!important;
+        z-index:79;
+    }
+    #wrapper{
+        margin-top:55px;
+    }
+}
+
+/*@supports (-webkit-touch-callout: none) {
+    
+    #app .navigation-logo {
+    
+    display:flex;
+        
+}
+    
+    body > div.navigation-logo {
+        
+        display:none;
+    }  
+    
+} */
+
+.accordion{
+  .accordion__item-btn{
+    background-color: transparent;
+    color: @item-color;
+    border: 1px solid @item-color;
+    border-radius: 0px;
+    // text-transform: uppercase;
+    font-weight: 700;
+
+    &.is-visited {
+      background-color: @item-color-visited;
+      color: @item-color-inverted;
+      border: 2px solid @item-color-visited;
+      &:hover{
+        border: 2px solid @item-color-hover;
+      }
+    }
+
+    &.is-selected {
+        background-color: @item-color-selected;
+        color: @item-text-color-selected;
+        border: 2px solid @item-color-selected;
+        &:hover{
+          border: 2px solid @item-color-hover;
+        }
+    }
+  }
+
+  .accordion__item-content{
+    border-radius: 0px;
+  }
+}
+
+.mcq__item{
+  .mcq__item-label{
+    background-color: transparent;
+    color: @black;
+    border: 1px solid @item-color;
+    border-radius: 0px;
+    // text-transform: uppercase;
+    font-weight: normal;
+    .mcq__item-state{
+      color: @primary-color;
+    }
+    &.is-disabled{
+      background-color: @disabled;
+      border: 2px solid @disabled;
+      color: @disabled-inverted;
+    }
+    &.is-selected:hover{
+      background-color: @item-color;
+      color: @white;
+      border: 2px solid @item-color;
+    }
+  }
+}
+
+.hotgrid__item-btn{
+  .hotgrid__item-image{
+    border-width: 2px !important;
+  }
+}
+
+.tabs__content{
+  //box-shadow: inset 0 0 0 2px @item-color !important;
+}
+
+.narrative{
+  .narrative__progress{
+      background-color: @primary-color;
+      &.is-selected{
+          background-color: @secondary-color;
+      }
+  }
+}
+
+
+.expose-columns{
+  .expose-item-inner {
+      margin: 10px;
+  }
+}
+
+.quicknav-background{
+  background-color: @primary-color;
+    .block__inner {padding:20px;}
+
+  .pagenav__btn{
+    background-color: transparent;
+    color: @secondary-color;
+    border: 2px solid @secondary-color;
+    .no-touch &:not(.is-disabled):not(.is-locked):hover{
+      background-color: @secondary-color;
+      color: @white;
+      border: 2px solid @secondary-color;
+    }
+    &.is-disabled{
+      background-color: @disabled;
+      color: @disabled-inverted;
+      border: 2px solid @disabled;
+      opacity: 0.5;
+    }
+  }
+}
+
+/*
+@supports (-webkit-touch-callout: none) {
+    
+    
+   @media only screen 
+    and (device-width : 375px) 
+    and (device-height : 667px) 
+    and (-webkit-device-pixel-ratio : 2) { 
+    .quicknav-background {
+        padding-bottom:130px!important;
+    
+    }
+        @media only screen 
+    and (device-width : 414px) 
+    and (device-height : 736px) 
+    and (-webkit-device-pixel-ratio : 3) {  
+        .quicknav-background {
+        padding-bottom:130px!important;
+        }
+     
+            }
+        }
+}
+    
+*/ 
+
+.menu-item{
+  .menu-item__progress{
+    .pagelevelprogress__indicator{
+      border-color: @mediumGrey;
+    }
+    .pagelevelprogress__indicator-bar{
+      background-color: @primary-color;
+    }
+  }
+}
+
+.menu{
+  .menu__header{
+    position: relative;
+    // height: 60vh;
+    // max-height: 400px;
+    // height: 50vh;
+    min-height: 400px;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    background-position-x: center!important;
+    background-position-y: center!important;
+
+    .background-imege-overlay{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background-color: rgba(28,48,74,0.84);
+    }
+    .menu__header-inner{
+      padding: 2rem !important;
+      position: relative;
+      margin:20px;
+      z-index: 2;
+        //background: rgba(255,255,255,0.7);
+
+
+
+      .boxmenu__title{
+        color: @white!important;
+      }
+        .boxmenu__body{
+        color: @white!important;
+            //font-weight:bold;
+      }
+    }
+
+    .svg-curved-shape-wrapper{
+          overflow: hidden;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    }
+
+    .curved-image{
+      width: 54%;
+      .cls-1 {
+        fill: @white;
+      }
+      .cls-2 {
+        fill: @secondary-color;
+        isolation: isolate;
+      }
+    }
+  }
+
+  .menu__item-container{
+    padding-top: 20px;
+  }
+
+}
+
+
+
+.page__header{
+    position: relative;
+    // height: 50vh;
+    min-height: 350px;
+    max-height: 350px;
+    display: flex;
+    align-items: center;
+    background-size: cover !important;
+
+    .background-imege-overlay{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background-color: rgba(28,48,74,0.84);
+    }
+
+    .page__header-inner{
+       padding: 2rem !important;
+      position: relative;
+      margin:auto;
+      z-index: 2;
+       background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+     -webkit-backdrop-filter: blur(8px);
+      .page__title{
+         color: @white;
+      }
+        .page__body{
+         color:  @white;
+      }
+         .page__instruction{
+         color:  @white;
+      }
+    }
+
+    .curved-image{
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      width: 54%;
+    }
+
+}
+
+.block{
+  &.block-bg-white{
+    background-color: @white;
+  }
+  &.block-bg-grey{
+    background-color: @greyDark!important;
+
+      .narrative__content-item {
+          background: @white!important;
+      }
+      
+      .component__title, .component__header-inner {
+          color:@white!important;
+      }
+
+  }
+    
+    
+  &.block-bg-green{
+    background-color: @primary-color;
+
+      .narrative{
+  .narrative__progress{
+      background-color: @white;
+      &.is-selected{
+          background-color: @primary-color;
+      }
+  }
+}
+
+  }
+      &.block-bg-orange{
+    background-color: @orange;
+
+      .narrative{
+  .narrative__progress{
+      background-color: @white;
+      &.is-selected{
+          background-color: @primary-color;
+      }
+  }
+}
+
+  }
+
+  &.block-component-shadow{
+    .component{
+      background-color: @white;
+      padding: 1rem;
+        margin-bottom:10px;
+      -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.22);
+      -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.22);
+      box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.22);
+    }
+  }
+
+  .block__inner{
+    position: relative;
+    // z-index: 2;
+  }
+
+  .block-curved-shape{
+    position: absolute;
+    right: 0px;
+    bottom: -10px;
+    width: 54%;
+  }
+}
+
+.pagelevelprogress__indicator{
+  border-color: @secondary-color;
+  .pagelevelprogress__indicator-bar{
+    background-color: @secondary-color;
+  }
+}
+
+.nav__pagelevelprogress-btn{
+    .pagelevelprogress__indicator{
+  border-color: @secondary-color;
+  .pagelevelprogress__indicator-bar{
+    background-color: @primary-color!important;
+  }
+}
+}
+
+.drawer{
+  .pagelevelprogress__indicator{
+    border-color: @greyDark;
+    .pagelevelprogress__indicator-bar{
+      background-color: @greyDark;
+    }
+  }
+}
+
+// .component{
+//   .pagelevelprogress__indicator{
+//     position: absolute;
+//     top: 8px;
+//     right: 8px;
+//   }
+// }
+
+.hint-extension{
+  .hint-extension-button{
+    color: @white;
+  }
+  .hint-extension-widget{
+    color: @white;
+  }
+}
+
+.component{
+	&.list{
+    .list__item{
+      display: flex;
+      .list__item-step-number{
+        width: 34px !important;
+        margin-right: 1rem !important;
+        padding-right: 0px !important;
+        &:before {
+            display: inline-block !important;
+            height: 34px !important;
+            width: 34px !important;
+            padding: 0.45rem !important;
+            font-size: 1rem !important;
+            box-sizing: border-box;
+        }
+      }
+      .list__item-content{
+        width:auto !important;
+        flex: 1;
+      }
+    }
+
+  }
+
+  &.expose{
+    .expose-item-cover{
+        padding: 20px;
+    }
+    .expose-item-content{
+      .expose-item-title{
+        color: @white;
+      }
+    }
+  }
+
+  &.narrative{
+    .narrative__content-item{
+      padding: 20px;
+      background-color: @grey;
+    }
+  }
+
+}
+
+.hint-extension{
+  .hint-extension-widget{
+    width: auto;
+    max-width: 400px;
+    .hint-extension-item-body{
+      font-size: 16px;
+    }
+  }
+}
+
+.notify__btn {
+    background:@grey;
+    color:@black;
+
+    .no-touch &:not(.is-disabled):not(.is-locked):hover {
+      background-color: @mediumGrey;
+      border: 2px solid @btn-border-hover-color;
+      color: @btn-color-inverted-hover;
+      .transition(background-color @duration ease-in, color @duration ease-in;);
+    }
+}
+
+
+.no-padding-bottom {
+  .block__inner {
+      padding-bottom:0px!important;
+
+  }
+}
+
+.no-padding-top {
+  .block__inner {
+      padding-top:0px!important;
+
+  }
+}
+
+.extra-note {
+    background: #1C304A;
+    color:#fff;
+    padding: 1px 20px;
+    margin-top: 20px;
+}
+
+.nav__back-btn {
+    margin-right:auto;
+}
+
+.location-menu {
+  .nav__drawer-btn {
+
+      margin-left:auto;
+  }
+}
+
+.main-image{
+  display: none;
+}
+
+.expose-no-height-fix {
+
+    .expose-item-content{
+        height:auto!important;
+    }
+}
+
+.accordion-table{
+
+    text-align:left;
+
+    table,
+      th,
+      td {
+        padding: 5px;
+        border: 1px solid white;
+        border-collapse: collapse;
+      }
+
+}
+.table-wrapper{
+  overflow: auto;
+}
+.grey-controls {
+    .narrative__controls {
+        background:#616161;
+    }
+}
+
+body {
+    overflow-wrap: break-word;
+}
+
+.no-popup{
+.hotgrid__item-btn {
+       cursor: auto!important;
+}
+}
+
+.stacklist__widget{
+  .stacklist__items{
+    padding-bottom: 53px;
+     }
+   }
+
+.component__attribution-inner {
+    
+font-size:16px!important;
+}
+
+.hotgrid-no-icon {.hotgrid__item-icon{display:none!important;}}
+
+.expose-bigger-front-text {
+    
+    .expose-item-inner .expose-item-cover .text {
+        font-size:60px!important;
+    }
+}
+
+.hotgraphic-popup__item-image-container {
+    display:none;
+}
+
+
+@media(max-width: 760px){
+    .menu{
+      .menu__header{
+        max-height: none;
+          .boxmenu__title{
+            font-size: 2.5rem;
+          }
+      }
+    }
+
+    .page{
+      .page__title-inner{
+          font-size: 2.5rem;
+      }
+    }
+
+    .component{
+      .component__title{
+        font-size: 2rem;
+      }
+    }
+
+    .page__header{
+      max-height: none;
+    }
+
+}
+
+.smaller-titles {
+    .component__title {
+        font-size: 2rem;
+    }
+}
+
+.desc-text {
+    .component__attribution {
+        position:relative!important;
+        background: #fff!important;
+        color:#000!important;
+        
+    }
+}
+
+.orange-block{
+      background-color:@primary-color;
+      .component__body {
+          color:@white;
+      }
+
+
+    }
+
+   //author-name css
+   .author-name{
+     float: right;
+   }
+
+
+.max-image-height {
+@media (min-width: @device-width-small) {
+    .graphic__image-container img{
+    
+    max-height: 500px;
+    min-width: auto;
+    margin: auto;
+    }
+}
+}
+
+
+.max-hotgraphic-height {
+@media (min-width: @device-width-small) {
+  
+.hotgraphic__widget {
+    position: relative;
+    max-width: 500px;
+    margin: auto;
+    }
+}
+}
+
+.menu__instruction-inner {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.block:nth-child(even) {background: @light-grey}
+
+
+.location-menu {
+    .nav__homebutton-btn{
+        display:none!important;
+    }
+}
+
+.nav__homebutton-btn{
+        margin-right: auto;
+    }
+
+p{
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+
+
+.list-table {
+    .list__container {
+    border:1px solid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    flex-direction: row;
+    @media (max-width: @device-width-small) { flex-direction: column;}
+
+        .list__item {
+            width:25%; 
+            @media (max-width: @device-width-small) { width:100%}
+            border: 1px solid;
+            padding: 2px 5px;
+            margin:0!important;
+            .list__item-step-number{
+                display:none;
+            }
+        }
+    }
+}
+
+.btn__feedback {
+    display:none;
+}
+
+.accordion-item, .media__widget, .hotgraphic__widget, .narrative__slide-container, .graphic__widget, .narrative__content, .flipcard__item-face, .expose-item-inner, .hotgrid__item-btn-inner, .tabs__content, .tabs__nav-inner, .stacklist__item, .menu-item, .mcq-item, .gmcq-item__option, .matching-item__select-container, .clickAndLearn-tabItem, .clickAndLearn-indicator     {
+    
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.50); 
+box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.50);
+}
+
+.nav__skip-btn {
+    background-color:@secondary-color;
+}
+
+.trickle__btn {
+    font-weight: normal;
+     text-transform: uppercase;
+    
+}
+
+.hint__btn {
+    background-color: @primary-color;
+    color:@white;
+}
+
+#wrapper {
+    padding-top:0!important;
+}
+
+.b7525 {
+    .component.is-right {
+    width:25%!important;
+}
+       .component.is-left {
+    width:75%!important;
+}
+}
+
+.image-slider {
+
+    .narrative__content, .narrative__strapline {
+        display:none!important;
+    }
+    
+    @media (min-width: 47.5rem){
+.narrative__slide-container, .narrative__indicators  {
+    width: 100%!important;
+}
+    }
+}
+
+
+*:focus {
+  outline       : #000 auto 2px !important;
+  //outline-offset: 4px !important
+}
+
+
+.icon-inline {
+    display: inline;
+    vertical-align:middle;
+    font-family: "vanilla";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.location-menu  .audio-controls {
+    display:none!important;
+}
+
+
+

@@ -1,0 +1,183 @@
+.list {
+  // Column layout
+  // --------------------------------------------------
+  &__container.has-columns &-item.has-image &-item__inner {
+    flex-wrap: wrap;
+  }
+
+  &__container.has-columns &-item__image-container {
+    width: 100%;
+  }
+
+  &__container.has-columns &-item__image-container + &-item__content {
+    width: 100%;
+  }
+
+  @media (min-width: @device-width-medium) {
+    &__container.has-columns {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    &__container.has-columns &-item__inner {
+      flex-direction: column;
+    }
+  }
+  
+  &__container.has-columns &-item,
+  &__container:not(.has-columns) &-item:not(:last-child) {
+    margin-bottom: @item-margin * 2;
+  }
+
+  // Ordered list set up
+  // --------------------------------------------------
+  &__container.is-ordered-list &-item {
+    counter-increment: step-counter;
+  }
+
+  &__container.is-ordered-list &-item__bullet:before {
+    content: counter(step-counter);
+  }
+
+  // Horizontally align items
+  // --------------------------------------------------
+  &.item-justify-start &__container.has-columns { justify-content: flex-start; }
+  &.item-justify-center &__container.has-columns { justify-content: center; }
+  &.item-justify-end &__container.has-columns { justify-content: flex-end; }
+
+  // Vertically align image / bullet
+  // --------------------------------------------------
+  &.bullet-align-start &-item__inner { align-items: flex-start; }
+  &.bullet-align-center &-item__inner { align-items: center; }
+  &.bullet-align-end &-item__inner { align-items: flex-end; }
+
+  // Content after the widget
+  // --------------------------------------------------
+  &__body-after {
+    margin-top: @component-body-margin;
+  }
+}
+
+.list-item {
+  &__inner {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  // List with image / bullet (ordered / unordered)
+  // --------------------------------------------------
+  &__image-container,
+  &__bullet {
+    display: flex;
+  }
+
+  &__image-container {
+    align-items: flex-start;
+    justify-content: center;
+    width: 5rem;
+  }
+
+  &__image-container + &__content {
+    width: calc(~'100% - 5rem');
+  }
+
+  // Ordered / unordered list bullet
+  // --------------------------------------------------
+  &__bullet:before {
+    content: "";
+    height: @icon-size;
+    width: @icon-size;
+  }
+}
+
+// --------------------------------------------------
+// THEME
+// --------------------------------------------------
+.list {
+  // Column layout
+  // --------------------------------------------------
+  &__container.has-columns &-item__image-container {
+    padding-right: inherit;
+    margin-bottom: @item-margin * 2;
+  }
+
+  @media (min-width: @device-width-medium) {
+    &__container.has-columns &-item__inner {
+      margin: @item-margin;
+    }
+
+    &__container.has-columns &-item__bullet {
+      margin-bottom: @item-margin * 2;
+      padding-left: inherit;
+      padding-right: inherit;
+    }
+  }
+
+  // Animated list set up
+  // --------------------------------------------------
+  &.is-animated-list &__widget {
+    overflow: hidden;
+  }
+
+  &.is-animated-list &-item {
+    position: relative;
+    right: -100%;
+    opacity: 0;
+    .transition(all .8s ease-in-out);
+
+    .dir-rtl & {
+      right: inherit;
+      left: -100%;
+    }
+  }
+
+  &.is-animated-list &-item.is-animating {
+    right: 0;
+    opacity: 1;
+
+    .dir-rtl & {
+      right: inherit;
+      left: 0;
+    }
+  }
+}
+
+.list-item {
+  &__title {
+    .item-title;
+  }
+
+  &__title.has-margin {
+    margin-bottom: @item-title-margin;
+  }
+
+  &__content {
+    width: 100%;
+  }
+
+  // List with image
+  // --------------------------------------------------
+  &__image-container {
+    padding-right: @item-padding;
+
+    .dir-rtl & {
+      padding-right: inherit;
+      padding-left: @item-padding;
+    }
+  }
+
+  // Ordered / unordered list bullet
+  // --------------------------------------------------
+  &__bullet {
+    padding-left: @item-padding;
+    padding-right: @item-padding;
+  }
+
+  &__bullet:before {
+    text-align: center;
+    background-color: @item-color;
+    color: @item-color-inverted;
+    border-radius: 50%;
+  }
+}

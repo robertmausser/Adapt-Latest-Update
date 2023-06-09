@@ -1,0 +1,26 @@
+{
+  "name": "adapt-contrib-mcq",
+  "version": "6.0.2",
+  "framework": ">=5.18.0",
+  "homepage": "https://github.com/adaptlearning/adapt-contrib-mcq",
+  "bugs": "https://github.com/adaptlearning/adapt-contrib-mcq/issues",
+  "component": "mcq",
+  "targetAttribute": "_mcq",
+  "displayName": "Multiple Choice Question",
+  "description": "A multiple choice question component",
+  "main": "/js/adapt-contrib-mcq.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPL-3.0",
+  "_release": "6.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v6.0.2",
+    "commit": "e7e445d4060b10d973910f24ae6452434267b854"
+  },
+  "_source": "https://github.com/adaptlearning/adapt-contrib-mcq.git",
+  "_target": "6.0.2",
+  "_originalSource": "adapt-contrib-mcq"
+}

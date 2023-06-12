@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/cgkineo/adapt-pageNav.git"
   },
-  "version": "2.2.0",
+  "version": "2.0.5",
   "framework": ">=5.2",
   "homepage": "https://github.com/cgkineo/adapt-pageNav",
   "issues": "https://github.com/cgkineo/adapt-pageNav/issues/",
@@ -17,54 +17,14 @@
     "adapt-component"
   ],
   "license": "GPL-3.0",
-  "private": true,
-  "devDependencies": {
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.5",
-    "@semantic-release/npm": "^9.0.1",
-    "@semantic-release/release-notes-generator": "^10.0.3",
-    "conventional-changelog-eslint": "^3.0.9",
-    "semantic-release": "^19.0.3"
-  },
-  "scripts": {
-    "postversion": "cp package.json bower.json"
-  },
-  "release": {
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "eslint"
-        }
-      ],
-      [
-        "@semantic-release/release-notes-generator",
-        {
-          "preset": "eslint"
-        }
-      ],
-      "@semantic-release/npm",
-      "@semantic-release/github",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "package.json",
-            "bower.json"
-          ],
-          "message": "Chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ]
-    ]
-  },
-  "_release": "2.2.0",
+  "_release": "2.0.5",
   "_resolution": {
     "type": "version",
-    "tag": "v2.2.0",
-    "commit": "d6b335ed0b8970a3c6583b1fa3fc31dbeedb636f"
+    "tag": "v2.0.5",
+    "commit": "12a92f570dd4f58d39c7fbfa7ab8e28174a053a3"
   },
   "_source": "https://github.com/cgkineo/adapt-pageNav.git",
-  "_target": "2.2.0",
-  "_originalSource": "adapt-pageNav"
+  "_target": "2.0.5",
+  "_originalSource": "adapt-pageNav",
+  "_direct": true
 }

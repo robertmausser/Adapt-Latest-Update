@@ -5,6 +5,19 @@ define([
 
   var Model = ComponentModel.extend({
 
+    defaults: function() {
+
+      return $.extend({}, _.result(ComponentModel.prototype, 'defaults'), {
+        _isOptional: true,
+        _isComplete: true,
+        _isInteractionComplete: true,
+        _pageLevelProgress: {
+          _isEnabled: false
+        }
+      });
+
+    },
+
     getNavigationData: function() {
 
       /*
@@ -135,9 +148,8 @@ define([
       var siblingModels = currentMenu.getAllDescendantModels(true);
 
       siblingModels = _.filter(siblingModels, function(model) {
-        return model.get('_type') === 'page' && model.get('_isAvailable') &&
-          (!this.get('_shouldSkipOptionalPages') || !model.get('_isOptional'));
-      }, this);
+        return (model.get('_type') === 'page' && model.get('_isAvailable'));
+      });
 
       return siblingModels;
 
@@ -157,12 +169,12 @@ define([
         var isNotAvailable = !page.get('_isAvailable');
         if (isNotAvailable) continue;
 
-        if (!hasFoundCurrentPage) {
-          hasFoundCurrentPage = page.get('_id') === currentPageId;
+        if (!hasFoundCurrentPage && page.get('_id') === currentPageId) {
+          hasFoundCurrentPage = true;
           continue;
         }
 
-        if (!this.get('_shouldSkipOptionalPages') || !page.get('_isOptional')) {
+        if (hasFoundCurrentPage) {
           return page;
         }
 
@@ -186,12 +198,12 @@ define([
         var isNotAvailable = !page.get('_isAvailable');
         if (isNotAvailable) continue;
 
-        if (!hasFoundCurrentPage) {
-          hasFoundCurrentPage = page.get('_id') === currentPageId;
+        if (!hasFoundCurrentPage && page.get('_id') === currentPageId) {
+          hasFoundCurrentPage = true;
           continue;
         }
 
-        if (!this.get('_shouldSkipOptionalPages') || !page.get('_isOptional')) {
+        if (hasFoundCurrentPage) {
           return page;
         }
 

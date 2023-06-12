@@ -3,16 +3,6 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
-  "globals": {
-    "ariaRegion": {
-      "type": "string",
-      "required": true,
-      "default": "Course navigation.",
-      "inputType": "Text",
-      "validators": [],
-      "translatable": true
-    }
-  },
   "properties": {
     "_supportedLayout": {
       "type": "string",
@@ -45,12 +35,6 @@
       "default": "none",
       "help": "allPages = loop sequentially through all pages in course, siblings = loop sequentially through all pages in current parent object, none = disable previous and next buttons at start and end of the pages in the current parent object",
       "validators": []
-    },
-    "_shouldSkipOptionalPages": {
-      "type": "boolean",
-      "default": false,
-      "title": "Skip optional pages",
-      "inputType": "Checkbox"
     },
     "_buttons": {
       "type": "object",
